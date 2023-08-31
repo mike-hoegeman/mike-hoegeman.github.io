@@ -57,12 +57,12 @@ class Fretboard {
             selected: null,
             visibility: 'transparent',
             startFret: 0,
-            endFret: 12,
+            endFret: 14,
             enharmonic: 0
         };
 
         // Set end fret according to viewport width
-        this.state.endFret = Math.min(Math.floor((window.innerWidth - 2 * this.consts.offsetX ) / this.consts.fretWidth), 12);
+        this.state.endFret = Math.min(Math.floor((window.innerWidth - 2 * this.consts.offsetX ) / this.consts.fretWidth), 14);
         opts.endFret.value = this.state.endFret;
 
         this.computeDependents();
