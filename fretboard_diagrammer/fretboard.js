@@ -140,9 +140,12 @@ class Fretboard {
 
         this.svg.addEventListener('click', () => {
             if (this.state.selected) {
+                this.moveToNote(this.state.selected, this.state.selected);
+                /*
                 this.updateNote(this.state.selected, {
                     visibility: 'visible',
                 });
+                */
                 this.state.selected = null;
             }
         });
@@ -152,10 +155,12 @@ class Fretboard {
                 return;
             }
             const selected = this.state.selected;
+            var fs = [1,0];
+            var target_note = null;
             switch (event.code) {
                 case 'Backspace':
                 case 'Delete':
-                    this.deleteNote()
+                    this.deleteNote(selected);
                     break;
                 case 'KeyB':
                     this.updateNote(selected, { color: "blue" });
@@ -172,9 +177,11 @@ class Fretboard {
                 case "KeyR":
                     this.updateNote(selected, { color: "red" });
                     break;
-                //
+
                 case "KeyX":
+                    // delete note and reselect it
                     this.deleteNote();
+                    this.selectNote(selected);
                     break;
 
                 // finger 1-4 shapes
@@ -190,13 +197,35 @@ class Fretboard {
                 case "Digit4":
                     this.updateNote(selected, { shape: "square" });
                     break;
+
+                // arrow navigation
+                case "ArrowUp":
+                    fs = this.note2FretAndString(selected, 'u');
+                    target_note = this.fretAndString2Note(fs);
+                    this.moveToNote(selected, target_note);
+                    break;
+                case "ArrowDown":
+                    fs = this.note2FretAndString(selected, 'd');
+                    target_note = this.fretAndString2Note(fs);
+                    this.moveToNote(selected, target_note);
+                    break;
+                case "ArrowLeft":
+                    fs = this.note2FretAndString(selected, 'l');
+                    target_note = this.fretAndString2Note(fs);
+                    this.moveToNote(selected, target_note);
+                    break;
+                case "ArrowRight":
+                    fs = this.note2FretAndString(selected, 'r');
+                    target_note = this.fretAndString2Note(fs);
+                    this.moveToNote(selected, target_note);
+                    break;
             }
         })
     }
 
-    deleteNote() {
+    deleteNote(note=null) {
         // reset text
-        const selected = this.state.selected;
+        const selected = (note === null) ? this.state.selected : note;
         if (selected) {
             const text = selected.lastChild;
             if (text) {
@@ -205,6 +234,7 @@ class Fretboard {
             this.updateNote(selected, { 
                 color: "white", shape: "circle", visibility: this.state.visibility, 
             });
+            selected['noteEditCount'] = 0;
         }
         this.state.selected = null;
     }
@@ -406,19 +436,95 @@ class Fretboard {
         }
     }
 
+    fretAndString2Note(fret_and_string) {
+        const key = "g#"+"f"+fret_and_string[0]+"-"+"s"+fret_and_string[1];
+        const elems = document.querySelectorAll(key);
+        if (elems.length < 1) {
+            return null;
+        }
+        return elems[0];
+    }
+
+
+    note2FretAndString(note, movement) {
+        var fs = note.id.replace('f', '').replace('s', '').split('-');
+        fs = fs.map(function(str) {
+            // using map() to convert array of strings to numbers
+            return parseInt(str); 
+        });
+        if (movement === null) {
+            return fs;
+        }
+        switch (movement) {
+            case 'u':
+                fs[1] -= 1;
+                break;
+            case 'd':
+                fs[1] += 1;
+                break;
+            case 'l':
+                fs[0] -= 1;
+                break;
+            case 'r':
+                fs[0] += 1;
+                break;
+        }
+        return fs;
+    }
+
+    moveToNote(from_note, to_note) {
+        if (to_note === null) {
+            return;
+        }
+        if (from_note.noteEditCount <= 0) {
+            // note did not have any edits done to it, clear it out and 
+            // revert it back to transparent
+            // FIXME delete note should take argument ?
+            this.deleteNote(from_note);
+            this.updateNote(from_note, {
+                visibility: 'transparent',
+            });
+        } else {
+            //this.updateNote(from_note, { visibility: 'transparent', });
+            this.updateNote(from_note, {
+                visibility: 'visible',
+            });
+        }
+
+        // if from and to are the same, just deselect it, don't re-select it 
+        if (from_note === to_note) {
+            return;
+        }
+        this.selectNote(to_note)
+    }
+
+    selectNote(to_note) {
+        to_note.focus();
+        this.updateNote(to_note, {
+            visibility: 'selected',
+        });
+        this.state.selected = to_note;
+    }
+
     noteClickHandler(event) {
         event.stopPropagation();
         const note = event.currentTarget;
-        note.focus();
         if (this.state.selected) {
+            /*
             this.updateNote(this.state.selected, {
                 visibility: 'visible',
             });
+            */
         }
         this.updateNote(note, {
             visibility: 'selected',
         });
+        if (this.state.selected) {
+            this.moveToNote(this.state.selected, note);
+        }
+
         this.state.selected = note;
+        note.focus();
 
         if (event.ctrlKey) {
             this.editSelectedLabel();
@@ -514,9 +620,32 @@ class Fretboard {
         this.svg.appendChild(this.editableText);
     }
 
-    updateNote(elem, update) {
+    updateNote(elem, update, countAsEdit=true) {
         if (!(elem.id in this.data)) {
             this.data[elem.id] = {};
+        }
+        var edited = false;
+
+        if (!elem.hasOwnProperty('noteEditCount')) {
+            elem['noteEditCount'] = 0;
+        }
+
+        if (countAsEdit) {
+            for (let [key, value] of Object.entries(update)) {
+                if (key === 'visibility' && (value === 'transparent' || value === 'selected')) {
+                    //console.log("-- %s K %s V %s", elem.id, key, value);
+                    edited = false;
+                    break;
+                }
+                switch (key) {
+                    case 'type':
+                        //console.log("-- %s K %s V %s", elem.id, key, value);
+                        break;
+                    default:
+                        edited = true;
+                        console.log("++ %s K %s V %s", elem.id, key, value);
+                }
+            }
         }
 
         if ('shape' in update) {
@@ -537,6 +666,11 @@ class Fretboard {
         for (let [key, value] of Object.entries(update)) {
             noteData[key] = value;
         }
+
+        if (edited) {
+            elem['noteEditCount']++
+        }
+        console.log("|%s|%s %s", edited, elem['noteEditCount'], elem.id);
     }
 
     toggleVisibility() {
@@ -582,6 +716,7 @@ class Fretboard {
             }
             this.updateNote(note,
                 { type: "note", color: "white", shape: "circle", visibility: this.state.visibility });
+            note['noteEditCount'] = 0;
             this.state.selected = null;
         }
     }
