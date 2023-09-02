@@ -110,6 +110,7 @@ g.note>text {
 }
 
 div.menu {
+    width:100%;
     text-align: center;
     /* text-align: center; */
 }
@@ -130,7 +131,7 @@ text.marker {
     /* background-color: lightgray; */
     margin: auto;
     padding-bottom: 10px;
-    width: 350px;
+    width: 400px;
     display: flex;
     justify-content: space-between;
 }
@@ -139,7 +140,7 @@ text.marker {
     /* background-color: lightgray; */
     margin: auto;
     padding-bottom: 10px;
-    width: 350px;
+    width: 400px;
     display: flex;
     justify-content: space-between;
 }
@@ -180,7 +181,7 @@ button.color:hover {
 
 #global-actions {
     margin: auto;
-    width: 350px;
+    width: 400px;
     display: flex;
     justify-content: space-between;
 }

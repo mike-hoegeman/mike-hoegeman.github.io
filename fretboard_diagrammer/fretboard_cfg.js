@@ -1,13 +1,15 @@
 /*
- *
+ * a config file that descibes the various available 
+ * fretboard configurations
  *
  */
 const FRETBOARD_CONSTS = {
-    /*
-     * 6 string guitar that uses standard tuning
-     * that use a "mateched recriprocal" style tuning
-     */
-    guitar_standard: {
+
+    /* 6 string guitar that uses standard tuning that use a "mateched
+    recriprocal" style tuning */
+
+    guitar: {
+        title: "Guitar",
         showOpenStrings: true,
         offsetX: 40,
         offsetY: 30,
@@ -22,16 +24,16 @@ const FRETBOARD_CONSTS = {
         sign: ['♯', '♭'],
     },
 
-    /*
-     * 12 string tapping instruments like the chapman stick or the dragonfly DFA-12
-     * that use a "mateched recriprocal" style tuning. (just the melody half of the neck)
-     */
+    /* 12 string tapping instruments like the chapman stick or the
+    dragonfly DFA-12 that use a "mateched recriprocal" style tuning.
+    (just the melody half of the neck) */
+
     tapping_12_str_matched_reciprocal_melody: {
+        title: "Tapper: 12str matched reciprocal melody",
         showOpenStrings: false, // tapping instruments can't play open strings 
         offsetX: 40,
         offsetY: 30,
         // all_stringIntervals: [25, 20, 15, 10, 5, 0, 25, 20, 15, 10, 5, 0],
-        // melody_stringIntervals: [25, 20, 15, 10, 5, 0],
         stringIntervals: [25, 20, 15, 10, 5, 0],
         markerOffset: -1, // tapping instruments have the concept of a possible 0 or 'X' fret in diagrams
         markers: [3, 8, 13, 18], // tapping instruments typically have inlays every 5 frets
@@ -43,4 +45,6 @@ const FRETBOARD_CONSTS = {
         sign: ['♯', '♭'],
     }
 }
-FRETBOARD_CONSTS.default = FRETBOARD_CONSTS.tapping_12_str_matched_reciprocal_melody;
+
+FRETBOARD_CONSTS.default = 
+    FRETBOARD_CONSTS.tapping_12_str_matched_reciprocal_melody;

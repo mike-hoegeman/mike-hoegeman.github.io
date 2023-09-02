@@ -43,15 +43,19 @@ function createSvgElement(tag, attributes = null) {
 }
 
 class Fretboard {
-    constructor(opts) {
-        this.svg = opts.svg;
-
-        this.consts = FRETBOARD_CONSTS.default; 
+    mergeStaticConsts() {
         this.consts.numStrings = this.consts.stringIntervals.length;
         this.consts.fretHeight = (this.consts.numStrings - 1) * this.consts.stringSpacing;
         this.consts.sharpGlyph = '♯';
         this.consts.flatGlyph = '♭';
         this.consts.circleRadius = 18;
+    }
+
+    constructor(opts) {
+        this.svg = opts.svg;
+
+        this.consts = FRETBOARD_CONSTS.default; 
+        this.mergeStaticConsts();
 
         this.state = {
             selected: null,
@@ -68,7 +72,6 @@ class Fretboard {
         this.computeDependents();
 
         this.data = {};
-
         this.draw();
     }
 
@@ -86,8 +89,10 @@ class Fretboard {
     }
 
     setFretWindow(fretWindow) {
-        const start = 'start' in fretWindow ? fretWindow.start : this.state.startFret;
-        const end = 'end' in fretWindow ? fretWindow.end : this.state.endFret;
+        const start = 
+           fretWindow!=null && 'start' in fretWindow ? fretWindow.start : this.state.startFret;
+        const end = 
+            fretWindow!=null && 'end' in fretWindow ? fretWindow.end : this.state.endFret;
         this.erase();
         if (start < 0 || start > 22 || end < 1 || end > 22) {
             this.drawError("Invalid fret value(s)!");
@@ -585,6 +590,15 @@ class Fretboard {
             this.state.selected = null;
         }
     }
+
+    changeConfiguration(event) {
+        const k = event.target.value;
+        this.consts = FRETBOARD_CONSTS[k];
+        this.mergeStaticConsts();
+        this.reset();
+        this.erase();
+        this.draw();
+    }
 }
 
 /* Main */
@@ -700,4 +714,23 @@ const enharmonicToggle = document.getElementById("enharmonic");
 enharmonicToggle.addEventListener('click', () => {
     const sign = fretboard.toggleEnharmonic();
     enharmonicToggle.innerHTML = sign;
+});
+
+/* fretboard type selection */
+const fretboardTypes = document.getElementById('fretboard-types');
+for (const key in FRETBOARD_CONSTS) {
+    if (FRETBOARD_CONSTS.hasOwnProperty(key)) {
+        var opt = document.createElement('option');
+        if (key != "default" && FRETBOARD_CONSTS[key].hasOwnProperty('title')) {
+            opt.innerHTML = FRETBOARD_CONSTS[key].title;
+        } else {
+            opt.innerHTML = key.replaceAll('_', ' ');
+        }
+        opt.value = key;
+        fretboardTypes.appendChild(opt);
+    }
+}
+
+fretboardTypes.addEventListener('change', (event) => {
+    fretboard.changeConfiguration(event);
 });
