@@ -28,6 +28,22 @@ const FRETBOARD_CONSTS = {
     dragonfly DFA-12 that use a "mateched recriprocal" style tuning.
     (just the melody half of the neck) */
 
+    tapping_12_str_matched_reciprocal: {
+        title: "Tapper: 12str matched reciprocal",
+        showOpenStrings: false, // tapping instruments can't play open strings 
+        offsetX: 40,
+        offsetY: 30,
+        stringIntervals: [25, 20, 15, 10, 5, 0, 25, 20, 15, 10, 5, 0],
+        markerOffset: -1, // tapping instruments have the concept of a possible 0 or 'X' fret in diagrams
+        markers: [3, 8, 13, 18], // tapping instruments typically have inlays every 5 frets
+        fretWidth: 70,
+        stringSpacing: 40,
+        minStringSize: 0.2,
+        notes: [['A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A'],
+                ['Bb', 'B', 'C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A']],
+        sign: ['♯', '♭'],
+    },
+
     tapping_12_str_matched_reciprocal_melody: {
         title: "Tapper: 12str matched reciprocal melody",
         showOpenStrings: false, // tapping instruments can't play open strings 
@@ -43,8 +59,23 @@ const FRETBOARD_CONSTS = {
         notes: [['A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A'],
                 ['Bb', 'B', 'C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A']],
         sign: ['♯', '♭'],
-    }
-}
+    },
 
-FRETBOARD_CONSTS.default = 
-    FRETBOARD_CONSTS.tapping_12_str_matched_reciprocal_melody;
+    tapping_12_str_matched_reciprocal_bass: {
+        title: "Tapper: 12str matched reciprocal bass",
+        showOpenStrings: false, // tapping instruments can't play open strings 
+        offsetX: 40,
+        offsetY: 30,
+        // all_stringIntervals: [25, 20, 15, 10, 5, 0, 25, 20, 15, 10, 5, 0],
+        stringIntervals: [25, 20, 15, 10, 5, 0],
+        markerOffset: -1, // tapping instruments have the concept of a possible 0 or 'X' fret in diagrams
+        markers: [3, 8, 13, 18], // tapping instruments typically have inlays every 5 frets
+        fretWidth: 70,
+        stringSpacing: 40,
+        minStringSize: 0.2,
+        notes: [['A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A'],
+                ['Bb', 'B', 'C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A']],
+        sign: ['♯', '♭'],
+    }
+
+}

@@ -54,7 +54,7 @@ class Fretboard {
     constructor(opts) {
         this.svg = opts.svg;
 
-        this.consts = FRETBOARD_CONSTS.default; 
+        this.consts = FRETBOARD_CONSTS.guitar; 
         this.mergeStaticConsts();
 
         this.state = {
@@ -141,6 +141,13 @@ class Fretboard {
         // adjust diagram width to number of selected frets
         setAttributes(this.svg, {
             width: this.state.fretboardWidth + 2 * this.consts.offsetX,
+        })
+        // adjust diagram height to number of string
+        setAttributes(this.svg, {
+            height:  
+                this.consts.fretHeight +
+                this.consts.stringSpacing + // space for marker area at bottom
+                (2 * this.consts.offsetY),
         })
 
         this.svg.addEventListener('click', () => {
@@ -605,12 +612,6 @@ class Fretboard {
 
 /* Initialize diagram */
 
-/*
- *
- *
- */
-FRETBOARD_CONSTS.default = FRETBOARD_CONSTS.tapping_12_str_matched_reciprocal_melody;
-
 const svg = document.getElementById('fretboard');
 const endFret = document.getElementById('end-fret');
 
@@ -721,7 +722,7 @@ const fretboardTypes = document.getElementById('fretboard-types');
 for (const key in FRETBOARD_CONSTS) {
     if (FRETBOARD_CONSTS.hasOwnProperty(key)) {
         var opt = document.createElement('option');
-        if (key != "default" && FRETBOARD_CONSTS[key].hasOwnProperty('title')) {
+        if (FRETBOARD_CONSTS[key].hasOwnProperty('title')) {
             opt.innerHTML = FRETBOARD_CONSTS[key].title;
         } else {
             opt.innerHTML = key.replaceAll('_', ' ');
