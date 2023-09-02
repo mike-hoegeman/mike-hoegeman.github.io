@@ -130,7 +130,7 @@ text.marker {
     /* background-color: lightgray; */
     margin: auto;
     padding-bottom: 10px;
-    width: 280px;
+    width: 350px;
     display: flex;
     justify-content: space-between;
 }
@@ -139,7 +139,7 @@ text.marker {
     /* background-color: lightgray; */
     margin: auto;
     padding-bottom: 10px;
-    width: 280px;
+    width: 350px;
     display: flex;
     justify-content: space-between;
 }
@@ -180,7 +180,7 @@ button.color:hover {
 
 #global-actions {
     margin: auto;
-    width: 280px;
+    width: 350px;
     display: flex;
     justify-content: space-between;
 }
