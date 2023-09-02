@@ -142,11 +142,11 @@ class Fretboard {
         setAttributes(this.svg, {
             width: this.state.fretboardWidth + 2 * this.consts.offsetX,
         })
-        // adjust diagram height to number of string
+        // adjust diagram height to number of strings , etc..
         setAttributes(this.svg, {
             height:  
                 this.consts.fretHeight +
-                this.consts.stringSpacing + // space for marker area at bottom
+                this.consts.stringSpacing + // space for marker area 
                 (2 * this.consts.offsetY),
         })
 
