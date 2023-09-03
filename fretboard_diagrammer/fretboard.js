@@ -54,6 +54,9 @@ class Fretboard {
     constructor(opts) {
         this.svg = opts.svg;
 
+        this.bellAudio = new Audio(
+            'sounds/bell.wav'
+        );
         this.consts = FRETBOARD_CONSTS.guitar; 
         this.mergeStaticConsts();
 
@@ -97,6 +100,7 @@ class Fretboard {
             //---------------
         );
 
+
         // Set end fret according to viewport width
         this.state.endFret = Math.min(Math.floor((window.innerWidth - 2 * this.consts.offsetX ) / this.consts.fretWidth), 12);
         opts.endFret.value = this.state.endFret;
@@ -107,6 +111,10 @@ class Fretboard {
         this.draw();
     }
 
+    bell() {
+        this.bellAudio.play();
+    }
+
     computeDependents() {
         this.state.numFrets = this.state.endFret - this.state.startFret;
         this.state.fretboardWidth = this.consts.fretWidth * this.state.numFrets;
@@ -114,6 +122,7 @@ class Fretboard {
 
     intervalizeNote (event) {
         if (!this.state.selected) {
+            this.bell();
             return;
         }
         this.state.intervalRoot = this.state.selected;
@@ -129,7 +138,7 @@ class Fretboard {
         this.state.enharmonic = (untoggledEnharmonic + 1) % 2;
         this.erase();
         this.draw();
-        return; 
+        return this.consts.sign[untoggledEnharmonic];
     }
 
     setFretWindow(fretWindow) {
