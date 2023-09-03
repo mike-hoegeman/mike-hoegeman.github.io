@@ -62,8 +62,40 @@ class Fretboard {
             visibility: 'transparent',
             startFret: 0,
             endFret: 12,
-            enharmonic: 0
+            enharmonic: 0,
+            intervalRoot: null
+
         };
+        this.intervalNames = new Array(
+            //---------------
+            "P1", //unison
+            "m2", 
+            "M2",
+            "m3",
+            "M3",
+            "P4",
+            "TT",
+            "P5",
+            "m6",
+            "M6",
+            "m7",
+            "M7",
+            //---------------
+            "O",  // P1^
+            "m9",  // m2^
+            "M9",  // M2^
+            "m10", // m3^
+            "M10", // M3^
+            "P11", // P4^
+            "TT^", // TT^
+            "P12", // P5^
+            "m13", // m6^
+            "M13", // M6^
+            "m14", // m7^
+            "M14", // M7^
+            "O^" // P1^^
+            //---------------
+        );
 
         // Set end fret according to viewport width
         this.state.endFret = Math.min(Math.floor((window.innerWidth - 2 * this.consts.offsetX ) / this.consts.fretWidth), 12);
@@ -80,12 +112,24 @@ class Fretboard {
         this.state.fretboardWidth = this.consts.fretWidth * this.state.numFrets;
     }
 
+    intervalizeNote (event) {
+        if (!this.state.selected) {
+            return;
+        }
+        this.state.intervalRoot = this.state.selected;
+        const rootid = this.state.intervalRoot.id;
+        this.erase();
+        this.draw();
+        return; 
+    }
+
     toggleEnharmonic() {
+        this.state.intervalRoot = null;
         const untoggledEnharmonic = this.state.enharmonic;
         this.state.enharmonic = (untoggledEnharmonic + 1) % 2;
         this.erase();
         this.draw();
-        return this.consts.sign[untoggledEnharmonic];
+        return; 
     }
 
     setFretWindow(fretWindow) {
@@ -204,9 +248,6 @@ class Fretboard {
                     break;
             }
         })
-    }
-
-    intervalizeNote() {
     }
 
     deleteNote() {
@@ -384,7 +425,7 @@ class Fretboard {
         this.updateNote(note, update);
     }
 
-    computeNoteName(fret, string) {
+    computeEnharmonicNoteName(noteId, fret, string) {
         const interval = this.consts.stringIntervals[string] + fret + 1;
         var s = this.consts.notes[this.state.enharmonic][interval % 12];
         if (s.includes('#')) {
@@ -393,6 +434,64 @@ class Fretboard {
             s = s.replace('b', this.consts.flatGlyph);
         }
         return s;
+    }
+
+    coordFromId(noteId) {
+      var s = noteId.replace('-',' ')
+      s = s.replace('o','-1').replace('f','').replace('s','');
+      return s.split(' ').map(x => +x); // unary + converts x to int;
+    }
+
+    computeNoteName(noteId, fret, string) {
+        if (this.state.intervalRoot != null) {
+            if (noteId === this.state.intervalRoot.id) {
+             return "("+ 
+                this.computeEnharmonicNoteName(noteId, fret, string) + ")";
+            }
+
+            const rc = this.coordFromId(this.state.intervalRoot.id);
+            const nc = this.coordFromId(noteId); 
+            // dc holds the relative x,y, from root
+            const dc = new Array(nc[0]-rc[0], nc[1]-rc[1]);
+
+            //const ni = this.consts.stringIntervals[string] + fret + 1;
+            const ni = this.consts.stringIntervals[string];
+            const ri = this.consts.stringIntervals[string-dc[1]];
+
+            var ic = new Array( 
+                nc[0]-rc[0],
+                ni-ri,
+                /* */
+            );
+
+            const i = (
+                // relative interval along string
+                dc[0] + 
+                // relative interval between strings
+                (ni-ri)
+            );
+
+            /*
+            if (i%12 == 0 && i > 12) {
+                return ("<"+ this.computeEnharmonicNoteName(
+                this.state.intervalRoot.id, fret, string) + ">");
+            }
+            */
+
+
+            if (i < 0 || i >= this.intervalNames.length) {
+                return this.computeEnharmonicNoteName(noteId, fret, string);
+            } else {
+                if (this.intervalNames[i] === undefined)  {
+                    return this.computeEnharmonicNoteName(noteId, fret, string);
+                }
+                return this.intervalNames[i];
+            }
+
+
+        } else {
+            return this.computeEnharmonicNoteName(noteId, fret, string);
+        }
     }
 
     drawNotes() {
@@ -406,7 +505,7 @@ class Fretboard {
             const noteId = `o-s${j}`;
             const x = this.consts.offsetX / 2;
             const y = this.consts.offsetY + this.consts.stringSpacing * j;
-            const noteName = this.computeNoteName(-1, j);
+            const noteName = this.computeNoteName(noteId, -1, j);
             this.drawNote(noteId, x, y, noteName, true);
         }
         // notes on fretboard
@@ -415,7 +514,7 @@ class Fretboard {
                 const noteId = `f${i}-s${j}`;
                 const x = this.consts.offsetX + (this.consts.fretWidth / 2) + this.consts.fretWidth * (i - this.state.startFret);
                 const y = this.consts.offsetY + this.consts.stringSpacing * j;
-                const noteName = this.computeNoteName(i, j);
+                const noteName = this.computeNoteName(noteId, i, j);
                 this.drawNote(noteId, x, y, noteName, false);
             }
         }
@@ -588,6 +687,7 @@ class Fretboard {
     }
 
     reset() {
+        this.state.intervalRoot = null;
         this.data = {};
         for (let note of this.notes.children) {
             // reset text
@@ -712,7 +812,10 @@ for (let button of colorButtons) {
 }
 
 const intervalizeNoteButton = document.getElementById("intervalize-note");
-intervalizeNoteButton.addEventListener('click', () => fretboard.intervalizeNote());
+intervalizeNoteButton.addEventListener('click', (event) => {
+    fretboard.intervalizeNote(event);
+});
+
 const deleteNoteButton = document.getElementById("delete-note");
 deleteNoteButton.addEventListener('click', () => fretboard.deleteNote());
 
