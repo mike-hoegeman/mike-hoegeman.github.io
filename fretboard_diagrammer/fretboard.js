@@ -206,6 +206,9 @@ class Fretboard {
         })
     }
 
+    intervalizeNote() {
+    }
+
     deleteNote() {
         // reset text
         const selected = this.state.selected;
@@ -708,8 +711,11 @@ for (let button of colorButtons) {
     });
 }
 
+const intervalizeNoteButton = document.getElementById("intervalize-note");
+intervalizeNoteButton.addEventListener('click', () => fretboard.intervalizeNote());
 const deleteNoteButton = document.getElementById("delete-note");
 deleteNoteButton.addEventListener('click', () => fretboard.deleteNote());
+
 
 const enharmonicToggle = document.getElementById("enharmonic");
 enharmonicToggle.addEventListener('click', () => {
