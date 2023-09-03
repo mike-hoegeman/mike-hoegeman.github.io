@@ -55,6 +55,7 @@ g.note.black {
     fill: black;
 }
 
+
 g.note.black>text {
     stroke: white;
     fill: white;
@@ -131,7 +132,7 @@ text.marker {
     /* background-color: lightgray; */
     margin: auto;
     padding-bottom: 10px;
-    width: 400px;
+    width: 200px;
     display: flex;
     justify-content: space-between;
 }
@@ -145,12 +146,12 @@ text.marker {
     justify-content: space-between;
 }
 
-button.color {
-    width: 44px;
-}
-
 button {
     height: 25px;
+}
+
+button.color {
+    width: 44px;
 }
 
 button.color:hover {
@@ -220,9 +221,15 @@ button.color:hover {
     }
 }
 
+.sym-button {
+    font-size: 16px;
+    height: 28px;
+}
+
 .num-input {
     font-variant-numeric: tabular-nums;
     font-feature-settings: "tnum";
+    text-anchor: middle;
 }
 
 .error {

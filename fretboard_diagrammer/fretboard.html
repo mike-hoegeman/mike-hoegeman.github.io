@@ -22,22 +22,22 @@
     </figure>
 
 
-    <div class="menu" height=25%>
+    <div class="menu">
         <div id="shape-selector">
-            <button title="circle" class="shape circle">Circle</button>
-            <button title="diamond" class="shape diamond">Diamond</button>
-            <button title="triangle" class="shape triangle">Triangle</button>
-            <button title="square" class="shape square">Square</button>
+            <button title="circle" class="shape circle sym-button">&#9675;</button>
+            <button title="diamond" class="shape diamond sym-button">&#9674;</button>
+            <button title="triangle" class="shape triangle sym-button">&#9653;</button>
+            <button title="square" class="shape square sym-button">&#11200;</button>
         </div>
         <div id="color-selector">
-            <button title="intervalize" id="intervalize-note">&#8596;&#8597;</button>
+            <button title="intervalize" class="sym-button" id="intervalize-note">&#8596;&#8597;</button>
 
             <button title="blue" class="color blue"></button>
             <button title="green" class="color green"></button>
             <button title="red" class="color red"></button>
             <button title="white" class="color white"></button>
             <button title="black" class="color black"></button>
-            <button title="delete" id="delete-note">X</button>
+            <button title="delete" class="sym-button" id="delete-note">&#10683;</button>
         </div>
         <div id="global-actions">
             <input id="start-fret" type="number" class="num-input" value="1" name="startFret" min=1 max=22 maxlength="2" size="5"
@@ -46,7 +46,6 @@
             <button id="enharmonic" style="width: 25px; text-align: center;">♭</button>
             <button id="visibility" class="button">Toggle</button>
             <button id="save-svg" class="button">Save</button>
-            <button id="style" class="button">Style</button>
             <button id="reset" class="button">Reset</button>
             <input id="end-fret" type="number" class="num-input" value="12" name="startFret" min=1 max=22 maxlength="2" size="5
                 autocomplete=off>
