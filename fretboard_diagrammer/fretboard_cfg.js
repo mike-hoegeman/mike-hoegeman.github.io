@@ -27,6 +27,33 @@ const FRETBOARD_CONSTS = {
     /* 12 string tapping instruments like the chapman stick or the
     dragonfly DFA-12 */
 
+    tapping_10_str_matched_reciprocal: {
+        title: "Tapper: 10str matched reciprocal",
+        showOpenStrings: false, // tapping instruments can't play open strings 
+        offsetX: 40,
+        offsetY: 30,
+        stringDisplayWidths: [
+            0.4, 0.6, 0.8, 1.0, 1.2, //melody
+            3.4, 3.0, 2.4, 2.0, 1.0 //bass
+        ],
+        // like 12 str MR but without low melody and high bass string
+        stringIntervals: [
+            // melody
+            _x, _x-5, _x-10, _x-15, _x-20,
+            // bass - shift down 11 semi tones and start doing 5ths 
+            _x-36, _x-36+7, _x-36+14, _x-36+21, _x-36+28
+        ],
+        // stringIntervals: [25, 20, 15, 10, 5, 0, 25, 20, 15, 10, 5, 0],
+        markerOffset: -1, //  0 or 'X' fret in diagrams
+        markers: [3, 8, 13, 18], // inlays every 5 frets
+        fretWidth: 70,
+        stringSpacing: 40,
+        minStringSize: 0.2,
+        notes: 
+          [['A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A'],
+          ['Bb', 'B', 'C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A']]
+    },
+
     tapping_12_str_matched_reciprocal: {
         title: "Tapper: 12str matched reciprocal",
         showOpenStrings: false, // tapping instruments can't play open strings 
@@ -52,6 +79,7 @@ const FRETBOARD_CONSTS = {
           [['A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A'],
           ['Bb', 'B', 'C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A']]
     },
+
 
     tapping_12_str_matched_reciprocal_melody: {
         title: "Tapper: 12str matched reciprocal melody",
