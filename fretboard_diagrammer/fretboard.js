@@ -44,20 +44,23 @@ function createSvgElement(tag, attributes = null) {
 
 class Fretboard {
     mergeStaticConsts() {
-        this.consts.numStrings = this.consts.stringIntervals.length;
-        this.consts.fretHeight = (this.consts.numStrings - 1) * this.consts.stringSpacing;
-        this.consts.sharpGlyph = '♯';
-        this.consts.flatGlyph = '♭';
-        this.consts.circleRadius = 18;
+        const c = this.consts;
+        c.numStrings = this.consts.stringIntervals.length;
+        c.fretHeight = (this.consts.numStrings - 1) * this.consts.stringSpacing;
+        c.sharpGlyph = '♯';
+        c.flatGlyph = '♭';
+        c.circleRadius = 18;
+        c.sign = ['♯', '♭'];
     }
 
     constructor(opts) {
         this.svg = opts.svg;
+        this.opts = opts;
 
         this.bellAudio = new Audio(
             'sounds/bell.wav'
         );
-        this.consts = FRETBOARD_CONSTS.guitar; 
+        this.consts = FRETBOARD_CONSTS[opts.fretboardCfg];
         this.mergeStaticConsts();
 
         this.state = {
@@ -439,7 +442,8 @@ class Fretboard {
 
     computeEnharmonicNoteName(noteId, fret, string) {
         const interval = this.consts.stringIntervals[string] + fret + 1;
-        var s = this.consts.notes[this.state.enharmonic][interval % 12];
+        var i = Math.abs(interval % 12);
+        var s = this.consts.notes[this.state.enharmonic][i];
         if (s.includes('#')) {
             s = s.replace('#', this.consts.sharpGlyph);
         } else if (s.includes("b")) {
@@ -724,7 +728,8 @@ const endFret = document.getElementById('end-fret');
 
 const fretboard = new Fretboard({
     svg: svg,
-    endFret: endFret
+    endFret: endFret,
+    fretboardCfg: 'tapping_12_str_matched_reciprocal_bass'
 })
 
 /* Button for toggeling unselected notes */
@@ -844,6 +849,7 @@ for (const key in FRETBOARD_CONSTS) {
         fretboardTypes.appendChild(opt);
     }
 }
+fretboardTypes.value = fretboard.opts.fretboardCfg;
 
 fretboardTypes.addEventListener('change', (event) => {
     fretboard.changeConfiguration(event);

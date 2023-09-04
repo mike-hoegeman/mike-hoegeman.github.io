@@ -9,7 +9,7 @@ const FRETBOARD_CONSTS = {
     recriprocal" style tuning */
 
     guitar: {
-        title: "Guitar",
+        itle: "Guitar",
         showOpenStrings: true,
         offsetX: 40,
         offsetY: 30,
@@ -20,8 +20,7 @@ const FRETBOARD_CONSTS = {
         stringSpacing: 40,
         minStringSize: 0.2,
         notes: [['E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B', 'C', 'C#', 'D', 'D#'],
-                ['E', 'F', 'Gb', 'G', 'Ab', 'A', 'Bb', 'B', 'C', 'Db', 'D', 'Eb']],
-        sign: ['♯', '♭'],
+                ['E', 'F', 'Gb', 'G', 'Ab', 'A', 'Bb', 'B', 'C', 'Db', 'D', 'Eb']]
     },
 
     /* 12 string tapping instruments like the chapman stick or the
@@ -40,8 +39,7 @@ const FRETBOARD_CONSTS = {
         stringSpacing: 40,
         minStringSize: 0.2,
         notes: [['A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A'],
-                ['Bb', 'B', 'C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A']],
-        sign: ['♯', '♭'],
+                ['Bb', 'B', 'C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A']]
     },
 
     tapping_12_str_matched_reciprocal_melody: {
@@ -49,7 +47,6 @@ const FRETBOARD_CONSTS = {
         showOpenStrings: false, // tapping instruments can't play open strings 
         offsetX: 40,
         offsetY: 30,
-        // all_stringIntervals: [25, 20, 15, 10, 5, 0, 25, 20, 15, 10, 5, 0],
         stringIntervals: [25, 20, 15, 10, 5, 0],
         markerOffset: -1, // tapping instruments have the concept of a possible 0 or 'X' fret in diagrams
         markers: [3, 8, 13, 18], // tapping instruments typically have inlays every 5 frets
@@ -57,8 +54,7 @@ const FRETBOARD_CONSTS = {
         stringSpacing: 40,
         minStringSize: 0.2,
         notes: [['A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A'],
-                ['Bb', 'B', 'C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A']],
-        sign: ['♯', '♭'],
+                ['Bb', 'B', 'C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A']]
     },
 
     tapping_12_str_matched_reciprocal_bass: {
@@ -67,15 +63,16 @@ const FRETBOARD_CONSTS = {
         offsetX: 40,
         offsetY: 30,
         // all_stringIntervals: [25, 20, 15, 10, 5, 0, 25, 20, 15, 10, 5, 0],
-        stringIntervals: [25, 20, 15, 10, 5, 0],
+        //stringIntervals: [-25, -20, -15, -10, -5, 0],
+        //stringIntervals: [-30, -24, -18, -12, -6, 0],
+        stringIntervals: [0, 7, 14, 21, 28, 35],
         markerOffset: -1, // tapping instruments have the concept of a possible 0 or 'X' fret in diagrams
         markers: [3, 8, 13, 18], // tapping instruments typically have inlays every 5 frets
         fretWidth: 70,
         stringSpacing: 40,
         minStringSize: 0.2,
-        notes: [['A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A'],
-                ['Bb', 'B', 'C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A']],
-        sign: ['♯', '♭'],
+        notes: [['B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#'],
+                ['B', 'C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A', 'Bb']]
     }
 
 }
