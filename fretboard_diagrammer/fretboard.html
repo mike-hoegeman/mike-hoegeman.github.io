@@ -12,7 +12,8 @@
 </head>
 
 <body>
-        <!-- viewBox="0 0 900 300" -->
+
+    <!-- viewBox="0 0 900 300" -->
     <figure id="fretboard-diagram-creator" class="half-full">
         <svg xmlns="http://www.w3.org/2000/svg" id="fretboard" 
         style="background-color: white;"
@@ -60,9 +61,11 @@
             <a id="svg-link" download="fretboard-diagram.svg"></a>
         </div>
 
-        <div>
-            <select name="fretboard-types" id="fretboard-types">
+        <div id='cfg-and-save'>
             <!-- leave empty filled in by app -->
+            <select name="fretboard-types" id="fretboard-types">
+            &nbsp;
+            <input id="savefile-name" size="25" placeholder="Save file name" type="text"></input>
             </select>
         </div>
 

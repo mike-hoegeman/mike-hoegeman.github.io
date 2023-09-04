@@ -110,6 +110,7 @@ g.note>text {
     /* border: 1px solid; */
 }
 
+
 div.menu {
     width:100%;
     text-align: center;
@@ -189,6 +190,15 @@ button.sym-button:hover {
     display: flex;
     justify-content: space-between;
 }
+
+#cfg-and-save {
+    margin: auto;
+    width: 400px;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
 
 @supports (width: 100vw) {
     figure.half-full {
