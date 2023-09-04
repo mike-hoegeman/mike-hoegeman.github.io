@@ -1,12 +1,16 @@
 /*
- *
+ * fretboard.js -- A fretboard digramming gadget
  */
-
 function setAttributes(elem, attrs) {
     for (var idx in attrs) {
-        if ((idx === 'styles' || idx === 'style') && typeof attrs[idx] === 'object') {
+        if (
+            (idx === 'styles' || idx === 'style') && 
+            typeof attrs[idx] === 'object'
+        ) {
             const styles = [];
-            for (var prop in attrs[idx]) { styles.push(`${prop}: ${attrs[idx][prop]};`); }
+            for (var prop in attrs[idx]) { 
+                styles.push(`${prop}: ${attrs[idx][prop]};`); 
+            }
             elem.setAttribute('style', styles.join(' '));
         } else if (idx === 'html') {
             elem.innerHTML = attrs[idx];
@@ -27,7 +31,8 @@ function generateClassValue(elem, classes) {
     if ('shape' in classes) {
         classValues[2] = classes.shape;
     }
-    // NOTE! this has to stay last in classValues for toggleVisibility() to work correctly
+    // NOTE! this has to stay last in classValues for 
+    // toggleVisibility() to work correctly
     if ('visibility' in classes) {
         classValues[3] = classes.visibility;
     }
@@ -326,7 +331,8 @@ class Fretboard {
                 y: this.consts.offsetY + this.consts.fretHeight + this.consts.stringSpacing,
             });
 
-            marker.innerHTML = i + this.consts.markerOffset; // tapping instruments 0 or X fret feature support
+            // tapping instruments 0 or X fret feature support
+            marker.innerHTML = i + this.consts.markerOffset; 
             markers.appendChild(marker);
         }
         this.svg.appendChild(markers);
@@ -729,7 +735,7 @@ const endFret = document.getElementById('end-fret');
 const fretboard = new Fretboard({
     svg: svg,
     endFret: endFret,
-    fretboardCfg: 'tapping_12_str_matched_reciprocal_bass'
+    fretboardCfg: 'tapping_12_str_matched_reciprocal'
 })
 
 /* Button for toggeling unselected notes */
