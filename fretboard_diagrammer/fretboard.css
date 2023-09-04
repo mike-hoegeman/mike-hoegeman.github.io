@@ -157,6 +157,9 @@ button.color {
 button.color:hover {
     transform: scale(1.1);
 }
+button.sym-button:hover {
+    transform: scale(1.1);
+}
 
 .color.blue {
     background-color: steelblue;

@@ -222,6 +222,9 @@ class Fretboard {
                 case 'Delete':
                     this.deleteNote()
                     break;
+                case 'KeyI':
+                    this.intervalizeNote();
+                    break;
                 case 'KeyB':
                     this.updateNote(selected, { color: "blue" });
                     break;
@@ -454,8 +457,8 @@ class Fretboard {
     computeNoteName(noteId, fret, string) {
         if (this.state.intervalRoot != null) {
             if (noteId === this.state.intervalRoot.id) {
-             return "("+ 
-                this.computeEnharmonicNoteName(noteId, fret, string) + ")";
+             return "*"+ 
+                this.computeEnharmonicNoteName(noteId, fret, string) ;
             }
 
             const rc = this.coordFromId(this.state.intervalRoot.id);
@@ -479,14 +482,6 @@ class Fretboard {
                 // relative interval between strings
                 (ni-ri)
             );
-
-            /*
-            if (i%12 == 0 && i > 12) {
-                return ("<"+ this.computeEnharmonicNoteName(
-                this.state.intervalRoot.id, fret, string) + ">");
-            }
-            */
-
 
             if (i < 0 || i >= this.intervalNames.length) {
                 return this.computeEnharmonicNoteName(noteId, fret, string);
