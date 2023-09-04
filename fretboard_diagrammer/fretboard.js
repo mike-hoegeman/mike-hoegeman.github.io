@@ -56,28 +56,8 @@ class Fretboard {
         c.flatGlyph = '♭';
         c.circleRadius = 18;
         c.sign = ['♯', '♭'];
-    }
 
-    constructor(opts) {
-        this.svg = opts.svg;
-        this.opts = opts;
-
-        this.bellAudio = new Audio(
-            'sounds/bell.wav'
-        );
-        this.consts = FRETBOARD_CONSTS[opts.fretboardCfg];
-        this.mergeStaticConsts();
-
-        this.state = {
-            selected: null,
-            visibility: 'transparent',
-            startFret: 0,
-            endFret: 12,
-            enharmonic: 0,
-            intervalRoot: null
-
-        };
-        this.intervalNames = new Array(
+        c.intervalNames = new Array(
             //---------------
             "P1", //unison
             "m2", 
@@ -107,6 +87,26 @@ class Fretboard {
             "O^" // P1^^
             //---------------
         );
+    }
+
+    constructor(opts) {
+        this.svg = opts.svg;
+        this.opts = opts;
+
+        this.bellAudio = new Audio(
+            'sounds/bell.wav'
+        );
+        this.consts = FRETBOARD_CONSTS[opts.fretboardCfg];
+        this.mergeStaticConsts();
+
+        this.state = {
+            selected: null,
+            visibility: 'transparent',
+            startFret: 0,
+            endFret: 12,
+            enharmonic: 0,
+            intervalRoot: null
+        };
 
 
         // Set end fret according to viewport width
@@ -339,19 +339,30 @@ class Fretboard {
     }
 
     drawStrings() {
+        var sw = this.consts.minStringSize * 2;
         this.strings = createSvgElement('g', {
             'class': 'strings',
         })
         this.svg.appendChild(this.strings);
         for (let i = 0; i < this.consts.numStrings; i++) {
-            let path = "M " + this.consts.offsetX + " " + (this.consts.offsetY + i * this.consts.stringSpacing) + " h " + this.state.fretboardWidth;
+            let path = "M " + 
+                this.consts.offsetX + " " + 
+                (this.consts.offsetY + 
+                i * this.consts.stringSpacing) + 
+                " h " + this.state.fretboardWidth;
+
+            if (this.consts.stringDisplayWidths != null) {
+                sw = this.consts.stringDisplayWidths[i];
+                if (sw === undefined) {
+                    sw = this.consts.minStringSize * 2;
+                }
+            }
+
             const string = createSvgElement('path', {
                 'class': 'string',
                 'd': path,
                 'styles': {
-                    // 'stroke-width': this.consts.minStringSize * (i + 1),
-                    // just make constant for now - not all inst. have continuous fat to skinny strings
-                    'stroke-width': this.consts.minStringSize * 2, 
+                    'stroke-width': sw,
                 }
             });
             this.strings.appendChild(string);
@@ -493,13 +504,13 @@ class Fretboard {
                 (ni-ri)
             );
 
-            if (i < 0 || i >= this.intervalNames.length) {
+            if (i < 0 || i >= this.consts.intervalNames.length) {
                 return this.computeEnharmonicNoteName(noteId, fret, string);
             } else {
-                if (this.intervalNames[i] === undefined)  {
+                if (this.consts.intervalNames[i] === undefined)  {
                     return this.computeEnharmonicNoteName(noteId, fret, string);
                 }
-                return this.intervalNames[i];
+                return this.consts.intervalNames[i];
             }
 
 

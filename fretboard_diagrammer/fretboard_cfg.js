@@ -32,31 +32,15 @@ const FRETBOARD_CONSTS = {
         showOpenStrings: false, // tapping instruments can't play open strings 
         offsetX: 40,
         offsetY: 30,
+        stringDisplayWidths: [
+            0.4, 0.6, 0.8, 1.0, 1.2, 1.4, //melody
+            3.4, 3.0, 2.4, 2.0, 1.0, 0.6  //bass
+        ],
         stringIntervals: [
             // melody
             _x, _x-5, _x-10, _x-15, _x-20, _x-25,
             // bass - shift down 11 semi tones and start doing 5ths 
-            _x-36,
-            _x-36+7,
-            _x-36+14,
-            _x-36+21,
-            _x-36+28,
-            _x-36+35,
-
-
-            /*
-            // then the bass half is a 
-            // jump down of XXX semitones to the first low bass
-            // string and then increaeses by 7 semi tones (a 5th)
-            // for each successive string
-            //
-            _x+1, 
-            -4, 
-            3,
-            10,
-            17,
-            24
-            */
+            _x-36, _x-36+7, _x-36+14, _x-36+21, _x-36+28, _x-36+35,
         ],
         // stringIntervals: [25, 20, 15, 10, 5, 0, 25, 20, 15, 10, 5, 0],
         markerOffset: -1, //  0 or 'X' fret in diagrams
@@ -74,6 +58,10 @@ const FRETBOARD_CONSTS = {
         showOpenStrings: false, // can't play open strings 
         offsetX: 40,
         offsetY: 30,
+        stringDisplayWidths: [
+            0.4, 0.6, 0.8, 1.0, 1.2, 1.4 //melody
+            // 3.4, 3.0, 2.4, 2.0, 1.0, 0.6  //bass
+        ],
         stringIntervals: [25, 20, 15, 10, 5, 0],
         markerOffset: -1, // 0 or 'X' fret in diagrams
         markers: [3, 8, 13, 18], // inlays every 5 frets
@@ -90,6 +78,10 @@ const FRETBOARD_CONSTS = {
         showOpenStrings: false, // can't play open strings 
         offsetX: 40,
         offsetY: 30,
+        stringDisplayWidths: [
+            // 0.4, 0.6, 0.8, 1.0, 1.2, 1.4, //melody
+            3.4, 3.0, 2.4, 2.0, 1.0, 0.6  //bass
+        ],
         stringIntervals: [0, 7, 14, 21, 28, 35],
         markerOffset: -1, // 0 or 'X' fret in diagrams
         markers: [3, 8, 13, 18], // have inlays every 5 frets
