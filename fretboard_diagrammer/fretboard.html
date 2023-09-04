@@ -12,8 +12,7 @@
 </head>
 
 <body>
-
-    <!-- viewBox="0 0 900 300" -->
+        <!-- viewBox="0 0 900 300" -->
     <figure id="fretboard-diagram-creator" class="half-full">
         <svg xmlns="http://www.w3.org/2000/svg" id="fretboard" 
         style="background-color: white;"
@@ -58,17 +57,15 @@
             <button id="reset" class="button">Reset</button>
             <input id="end-fret" type="number" class="num-input" value="12" name="startFret" min=1 max=22 maxlength="2" size="5
                 autocomplete=off>
+            <a id="svg-link" download="fretboard-diagram.svg"></a>
         </div>
 
-        <div id='cfg-and-save'>
-            <!-- leave empty filled in by app -->
+        <div>
             <select name="fretboard-types" id="fretboard-types">
-            &nbsp;
-            <input id="savefile-name" size="25" placeholder="Save file name" type="text"></input>
+            <!-- leave empty filled in by app -->
             </select>
         </div>
 
-        <a id="svg-link" download="fretboard-diagram.svg"></a>
 
     </div>
 

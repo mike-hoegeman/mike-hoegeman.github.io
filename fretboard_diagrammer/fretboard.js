@@ -756,15 +756,10 @@ togglebutton.addEventListener('click', (event) => {
     fretboard.toggleVisibility();
 });
 
-/* Save SVG button and save file name */
+/* Save SVG button */
 
 var svgButton = document.getElementById('save-svg');
 const svgLink = document.getElementById('svg-link');
-
-var saveFileNameInput = document.getElementById('savefile-name');
-saveFileNameInput.addEventListener('change', () => {
-        svgLink.value = "xxx";
-});
 
 svgButton.addEventListener('click', () => {
     fretboard.clearSelection();
