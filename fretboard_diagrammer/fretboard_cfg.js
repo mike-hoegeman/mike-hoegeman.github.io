@@ -3,6 +3,7 @@
  * fretboard configurations
  *
  */
+const _x = 0;
 const FRETBOARD_CONSTS = {
 
     /* 6 string guitar that uses standard tuning that use a "mateched
@@ -32,7 +33,19 @@ const FRETBOARD_CONSTS = {
         showOpenStrings: false, // tapping instruments can't play open strings 
         offsetX: 40,
         offsetY: 30,
-        stringIntervals: [25, 20, 15, 10, 5, 0, 25, 20, 15, 10, 5, 0],
+        stringIntervals: [
+            // first half is like melody defn.
+            25, 20, 15, 10, 5, 0,
+
+            // then the bass half is a 
+            // jump down of XXX semitones to the first low bass
+            // string and then increaeses by 7 semi tones (a 5th)
+            // for each successive string
+            //
+            _x+1, _x+8, _x+15, _x+22, _x+29, _x+36
+
+        ],
+        // stringIntervals: [25, 20, 15, 10, 5, 0, 25, 20, 15, 10, 5, 0],
         markerOffset: -1, // tapping instruments have the concept of a possible 0 or 'X' fret in diagrams
         markers: [3, 8, 13, 18], // tapping instruments typically have inlays every 5 frets
         fretWidth: 70,
