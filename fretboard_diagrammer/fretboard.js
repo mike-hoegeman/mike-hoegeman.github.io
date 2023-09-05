@@ -123,18 +123,6 @@ class Fretboard {
         this.bellAudio.play();
     }
 
-    downLoad() {
-        this.clearSelection();
-        const svgCopy = inlineCSS(svg);
-        var svgData = svgCopy.outerHTML;
-        var svgBlob = new Blob([svgData], 
-            { type: "image/svg+xml;charset=utf-8" });
-        var svgUrl = URL.createObjectURL(svgBlob);
-        var svgLink = document.getElementById('svg-link');
-        svgLink.href = svgUrl;
-        svgLink.click();
-    }
-
     computeDependents() {
         this.state.numFrets = this.state.endFret - this.state.startFret;
         this.state.fretboardWidth = this.consts.fretWidth * this.state.numFrets;
@@ -774,20 +762,22 @@ var svgButton = document.getElementById('save-svg');
 
 var saveFileNameInput = document.getElementById('savefile-name');
 saveFileNameInput.addEventListener('change', () => {
-    var svgLink = document.getElementById('svg-link');
-    if (svgLink == null) {
-        const globalActions = document.getElementById('global-actions');
-        const a = document.createElement('a');
-        // <a id="svg-link" download="fretboard-diagram.svg"></a>
-        a.setAttribute('id', 'svg-link');
-        a.setAttribute('download', 'fretboard-diagram.svg');
-        globalActions.appendChild(a);
-    }
+
 });
 
 svgButton.addEventListener('click', () => {
-    fretboard.downLoad();
-
+    fretboard.clearSelection();
+    //
+    const svgCopy = inlineCSS(svg);
+    var svgData = svgCopy.outerHTML;
+    var svgBlob = new Blob([svgData], { type: "image/svg+xml;charset=utf-8" });
+    var svgUrl = URL.createObjectURL(svgBlob);
+    //
+    const a = document.createElement('a');
+    a.href = svgUrl;
+    a.download = 'fretboard-diagram.svg';
+    a.id='svg-link';
+    a.click();
 });
 
 const PROPERTIES = ["fill", "stroke", "stroke-width", "text-anchor", "dominant-baseline"]
