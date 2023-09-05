@@ -777,6 +777,21 @@ svgButton.addEventListener('click', () => {
     a.href = svgUrl;
     a.download = 'fretboard-diagram.svg';
     a.id='svg-link';
+
+    // Click handler releases the object URL after the element has been clicked
+    // This is required for one-off downloads of the blob content
+    const clickHandler = () => {
+        setTimeout(() => {
+          URL.revokeObjectURL(svgUrl);
+          removeEventListener('click', clickHandler);
+        }, 150);
+    };
+
+    // Add the click event listener on the anchor element
+    a.addEventListener('click', clickHandler, false);
+
+
+
     a.click();
 });
 
