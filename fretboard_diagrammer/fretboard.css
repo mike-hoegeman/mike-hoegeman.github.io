@@ -186,14 +186,14 @@ button.sym-button:hover {
 
 #global-actions {
     margin: auto;
-    width: 400px;
+    width: 450px;
     display: flex;
     justify-content: space-between;
 }
 
 #cfg-and-save {
     margin: auto;
-    width: 400px;
+    width: 500px;
     padding: 10px;
     display: flex;
     justify-content: space-between;
