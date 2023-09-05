@@ -92,6 +92,7 @@ class Fretboard {
     constructor(opts) {
         this.svg = opts.svg;
         this.opts = opts;
+        this.savefile = "fretboard_diagram.svg";
 
         this.bellAudio = new Audio(
             'sounds/bell.wav'
@@ -117,6 +118,16 @@ class Fretboard {
 
         this.data = {};
         this.draw();
+    }
+
+    savefileName(newname) {
+        if (newname === null) {
+            return this.savefile;
+        }
+        newname = newname.replace('*', '');
+        newname = newname.replace('.svg', '');
+        this.savefile = newname;
+        return this.savefile;
     }
 
     bell() {
@@ -760,13 +771,14 @@ togglebutton.addEventListener('click', (event) => {
 
 var svgButton = document.getElementById('save-svg');
 
-var saveFileNameInput = document.getElementById('savefile-name');
-saveFileNameInput.addEventListener('change', () => {
-
+var savefileNameInput = document.getElementById('savefile-name');
+savefileNameInput.addEventListener('change', () => {
+    fretboard.savefileName(savefileNameInput.value);
 });
 
 svgButton.addEventListener('click', () => {
     fretboard.clearSelection();
+    const filename = fretboard.savefileName(null);
     //
     const svgCopy = inlineCSS(svg);
     var svgData = svgCopy.outerHTML;
@@ -775,9 +787,8 @@ svgButton.addEventListener('click', () => {
     //
     const a = document.createElement('a');
     a.href = svgUrl;
-    a.download = 'fretboard-diagram.svg';
+    a.download = filename != null ? filename : 'fretboard_diagram.svg';
     a.id='svg-link';
-
     // Click handler releases the object URL after the element has been clicked
     // This is required for one-off downloads of the blob content
     const clickHandler = () => {
@@ -786,12 +797,9 @@ svgButton.addEventListener('click', () => {
           removeEventListener('click', clickHandler);
         }, 150);
     };
-
     // Add the click event listener on the anchor element
+    // and do the click to kickoff download
     a.addEventListener('click', clickHandler, false);
-
-
-
     a.click();
 });
 
