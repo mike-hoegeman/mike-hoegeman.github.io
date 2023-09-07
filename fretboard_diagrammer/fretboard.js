@@ -56,6 +56,7 @@ class Fretboard {
         c.flatGlyph = '♭';
         c.circleRadius = 18;
         c.sign = ['♯', '♭'];
+        c.maxFretRange = 17;
 
         c.intervalNames = new Array(
             //---------------
@@ -176,8 +177,15 @@ class Fretboard {
             this.state.endFret = end;
             return;
         }
-        if (end - start > 16) {
-            this.drawError("Maximal number of displayable frets is 16, <br/> e.g., 1st to 16th or 4th to 19th!");
+        if (end - start > this.consts.maxFretRange) {
+            this.drawError(
+                "Maximal number of displayable frets is " +
+                this.consts.maxFretRange +
+                ", <br/> e.g., 1st to " + this.consts.maxFretRange +
+                "th or 4th to " +
+                (this.consts.maxFretRange + 3) +
+                "th!"
+            );
             this.state.startFret = start;
             this.state.endFret = end;
             return;
