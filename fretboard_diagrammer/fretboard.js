@@ -329,6 +329,15 @@ class Fretboard {
     }
 
 
+    getContrastColor50(hexcolor){
+        hexcolor = hexcolor.replace('#', '');
+        const i =  parseInt(hexcolor, 16);
+        return (i > 0xffffff/2) ? 
+            '#000000':
+            '#ffffff';
+    }
+
+
     getCustomColorByIndex(indexNumber) {
         const ccBox = document.getElementsByClassName('customColorBox')[0];
         if (!ccBox) {
@@ -499,8 +508,10 @@ class Fretboard {
             'data-y': y,
         });
         this.notes.appendChild(note);
-        note.addEventListener("click", (event) => this.noteClickHandler(event));
-        note.addEventListener("dblclick", (event) => this.noteDoubleClickHandler(event));
+        note.addEventListener("click", 
+            (event) => this.noteClickHandler(event));
+        note.addEventListener("dblclick", 
+            (event) => this.noteDoubleClickHandler(event));
 
         const shape = this.createShape('circle');
         if (isOpen) {
@@ -519,7 +530,15 @@ class Fretboard {
 
         note.appendChild(text);
 
-        const update = (noteId in this.data) ? this.data[noteId] : { type: 'note', color: 'white', shape: 'circle', visibility: this.state.visibility };
+                //color: 'white',
+        const update = (noteId in this.data) 
+            ?  this.data[noteId] 
+            : { 
+                type: 'note', 
+                color: '#FFFFFF', 
+                shape: 'circle', 
+                visibility: this.state.visibility
+              };
         this.updateNote(note, update);
     }
 
@@ -741,14 +760,25 @@ class Fretboard {
         if ('color' in update) {
             const c = update.color
             const shape = this.noteShape(elem);
+            const text = this.noteText(elem);
             if ((c.length > 0) && (c.charAt(0) === '#')) {
+                //delete update.color;
                 // literal hex color instead of classified color 
                 shape.setAttribute('fill', c);
+                // change the text color to contrast with the shape color
+                // use style attr here because css will override fill 
+                // and stroke attr
+                const tc = this.getContrastColor50(c);
+                text.setAttribute('style', 'fill: '+tc);
+                //text.setAttribute('stroke', tc);
+
             } else {
-                // clear any literal value
+                // clear any literal value s
                 if (shape.hasAttribute('fill')) {
                     shape.removeAttribute('fill');
                 }
+                text.style.fill = null;
+                text.style.stroke = null;
             }
         }
 
