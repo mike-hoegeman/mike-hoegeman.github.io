@@ -16,25 +16,11 @@
     <a href="fretboard.html" target="popup">Launch the creator</a>
     for reference you as you read this.
 
-    <p> <blockquote>
-    <i>
-    Right now this app is in early evaluation / test phase.
-    </i>
-
-    <p> There's currently only one fretboard configuration available which
-    is the Melody Side of a 12 string matched recripocal tapping
-    instrument. I've tested multiple other types of fretboards like
-    a standard guitar and a full 12 string tapping instrument set
-    up, but there's no easy way to select one from the user interface
-    yet.
-
-    </blockquote>
-
-
-
     <!--
-    <blockquote cite='https://developer.mozilla.org/en-US/docs/Web/HTML/Element/blockquote'>
-    </blockquote>
+
+    source of color picker
+    https://github.com/mehboobfazal/CustomHexColorPicker
+
     -->
 
 <h2>Basics</h2>
@@ -120,7 +106,10 @@ pick a type of fretboard you want to diagram.
 <h4>Editing the location dots</h4>
     <ul>
     <li> The middle row of colored buttons change the color of the
-    selected position dot
+    selected position dot. 
+    <li> The [Color...] button brings up a color
+    selection menu that allows you to select a color beyond the four
+    "standard" ones for the selected position dot.
     </li>
 
     <li>
@@ -156,8 +145,29 @@ pick a type of fretboard you want to diagram.
     with keyboard commands
 
     <p>
-    <table>
     <caption>Color Commands</caption>
+
+    <h5>Shifted Keys</h5>
+    <table>
+    <thead>
+      <tr >
+        <th align="left">Key</th>
+        <th align="left">Action</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr >
+        <td align="left">1-9</td>
+        <td align="left">Set the color to be the 1st..9th color in the Custom color pallete of the [Color..] menu</td>
+      </tr>
+
+    </tbody>
+    </table>
+
+    <h5>Plain Keys</h5>
+
+    <table>
     <thead>
       <tr >
         <th align="left">Key</th>
@@ -182,7 +192,7 @@ pick a type of fretboard you want to diagram.
         <td align="left">Set Color White</td>
       </tr>
       <tr>
-        <td align="left">d</td>
+        <td align="left">k</td>
         <td align="left">Set Color Black</td>
       </tr>
     </tbody>

@@ -244,6 +244,29 @@ class Fretboard {
                 return;
             }
             const selected = this.state.selected;
+
+            if ((event.key != 'Shift') && (event.shiftKey)) {
+                var i=-1;
+                switch (event.code) {
+                    case "Digit1": i=0; break;
+                    case "Digit2": i=1; break;
+                    case "Digit3": i=2; break;
+                    case "Digit4": i=3; break;
+                    case "Digit5": i=4; break;
+                    case "Digit6": i=5; break;
+                    case "Digit7": i=6; break;
+                    case "Digit8": i=7; break;
+                    case "Digit9": i=8; break;
+                }
+                const cc = this.getCustomColorByIndex(i);
+                if (cc === null) {
+                    this.bell();
+                } else {
+                    this.updateNote(selected, { color: cc });
+                }
+                return;
+            }
+
             switch (event.code) {
                 case 'Backspace':
                 case 'Delete':
@@ -255,7 +278,7 @@ class Fretboard {
                 case 'KeyB':
                     this.updateNote(selected, { color: "blue" });
                     break;
-                case 'KeyD':
+                case 'KeyK':
                     this.updateNote(selected, { color: "black" });
                     break;
                 case 'KeyG':
@@ -286,6 +309,7 @@ class Fretboard {
                     this.updateNote(selected, { shape: "square" });
                     break;
             }
+
         })
     }
 
@@ -293,7 +317,7 @@ class Fretboard {
         // reset text
         const selected = this.state.selected;
         if (selected) {
-            const text = selected.lastChild;
+            const text = this.noteText(selected);
             if (text) {
                 text.innerHTML = text.getAttribute('data-note');
             }
@@ -304,8 +328,27 @@ class Fretboard {
         this.state.selected = null;
     }
 
+
+    getCustomColorByIndex(indexNumber) {
+        const ccBox = document.getElementsByClassName('customColorBox')[0];
+        if (!ccBox) {
+            return null;
+        }
+
+        const ccList = ccBox.getElementsByClassName('customColor');
+        if ((indexNumber < 0) || ccList.length <= indexNumber) {
+            return null;
+        }
+        const cc = ccList[indexNumber].getAttribute('custom-hexcolor');
+        if (!cc)
+            return null;
+        return cc;
+    }
+
     updateColor(event) {
-        if (this.state.selected) {
+        if (!this.state.selected) {
+            this.bell();
+        } else {
             var c = event.currentTarget.getAttribute("title");
             if (c === null) {
                 c = event.currentTarget.getAttribute("data-color");
@@ -617,7 +660,7 @@ class Fretboard {
             }
         });
 
-        const selectedText = this.state.selected.lastChild;
+        const selectedText = this.noteText(this.state.selected);
         setAttributes(selectedText, {
             styles: {
                 display: 'none',
@@ -650,7 +693,7 @@ class Fretboard {
             if (!this.state.selected) {
                 return;
             }
-            const selectedText = this.state.selected.lastChild;
+            const selectedText = this.noteText(this.state.selected);
 
             var newText = this.editableText.children[0].innerText;
             // don't allow empty labels
@@ -676,6 +719,13 @@ class Fretboard {
         this.svg.appendChild(this.editableText);
     }
 
+    noteShape(elem) {
+        return elem.childNodes[0];
+    }
+    noteText(elem) {
+        return elem.lastChild;
+    }
+
     updateNote(elem, update) {
         if (!(elem.id in this.data)) {
             this.data[elem.id] = {};
@@ -684,13 +734,13 @@ class Fretboard {
         if ('shape' in update) {
             // clear shape and reconstruct it
             var newshape = this.createShape(update.shape);
-            var oldshape = elem.childNodes[0];
+            var oldshape = this.noteShape(elem);
             elem.replaceChild(newshape, oldshape);
         }
 
         if ('color' in update) {
             const c = update.color
-            const shape = elem.childNodes[0];
+            const shape = this.noteShape(elem);
             if ((c.length > 0) && (c.charAt(0) === '#')) {
                 // literal hex color instead of classified color 
                 shape.setAttribute('fill', c);
@@ -707,7 +757,7 @@ class Fretboard {
         elem.setAttribute('class', classValue);
 
         if ('noteText' in update) {
-            elem.lastChild.innerHTML = update.noteText;
+            this.noteText(elem).innerHTML = update.noteText;
         }
 
         const noteData = this.data[elem.id];
@@ -754,7 +804,7 @@ class Fretboard {
         this.data = {};
         for (let note of this.notes.children) {
             // reset text
-            const text = note.lastChild;
+            const text = this.noteText(note);
             if (text) {
                 text.innerHTML = text.getAttribute('data-note');
             }
@@ -919,7 +969,6 @@ colorPicker.register(colorInput);
  */
 const deleteNoteButton = document.getElementById("delete-note");
 deleteNoteButton.addEventListener('click', () => fretboard.deleteNote());
-
 
 const enharmonicToggle = document.getElementById("enharmonic");
 enharmonicToggle.addEventListener('click', () => {
