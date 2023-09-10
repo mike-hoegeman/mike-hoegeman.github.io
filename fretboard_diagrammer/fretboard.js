@@ -306,8 +306,12 @@ class Fretboard {
 
     updateColor(event) {
         if (this.state.selected) {
+            var c = event.currentTarget.getAttribute("title");
+            if (c === null) {
+                c = event.currentTarget.getAttribute("data-color");
+            }
             this.updateNote(this.state.selected, { 
-                color: event.currentTarget.getAttribute("title") 
+                color: c
             });
         }
     }
@@ -684,6 +688,21 @@ class Fretboard {
             elem.replaceChild(newshape, oldshape);
         }
 
+        if ('color' in update) {
+            const c = update.color
+            const shape = elem.childNodes[0];
+            if ((c.length > 0) && (c.charAt(0) === '#')) {
+                // literal hex color instead of classified color 
+                shape.setAttribute('fill', c);
+            } else {
+                // clear any literal value
+                if (shape.hasAttribute('fill')) {
+                    shape.removeAttribute('fill');
+                }
+            }
+        }
+
+
         const classValue = generateClassValue(elem, update);
         elem.setAttribute('class', classValue);
 
@@ -882,6 +901,22 @@ intervalizeNoteButton.addEventListener('click', (event) => {
     fretboard.intervalizeNote(event);
 });
 
+/*
+ * color picker
+ */
+//function colorChange() {
+    //document.body.style.background = this.getAttribute('data-color');
+//}
+const colorPicker = new CustomHexColorPicker();
+const colorInput = document.querySelector('.colorInput');
+colorInput.addEventListener('change', (event) => {
+    fretboard.updateColor(event);
+});
+colorPicker.register(colorInput);
+
+
+/*
+ */
 const deleteNoteButton = document.getElementById("delete-note");
 deleteNoteButton.addEventListener('click', () => fretboard.deleteNote());
 
