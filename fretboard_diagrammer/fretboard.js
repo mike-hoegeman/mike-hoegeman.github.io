@@ -1031,7 +1031,9 @@ const colorPicker = Spectrum.create('#color-picker',{
     maxSelectionSize: 9,
     hideAfterPalletteSelect: true,
     showButtons: true,
-    showAlpha: false
+    showAlpha: false,
+    chooseText: "Done",
+    togglePaletteMoreText: "more <click>, <esc> done"
 });
 const colorPickerElement = document.getElementById('color-picker');
 colorPickerElement.addEventListener('move', (event) => {
