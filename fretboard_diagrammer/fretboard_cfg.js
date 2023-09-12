@@ -173,6 +173,33 @@ const FRETBOARD_CONSTS = {
         notes: 
           [['A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A'],
           ['Bb', 'B', 'C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A']]
+    },
+
+    tapping_10_str_full_baritone: {
+        title: "Tapper: 10str full baritone",
+        showOpenStrings: false, // tapping instruments can't play open strings 
+        offsetX: 40,
+        offsetY: 30,
+        stringDisplayWidths: [
+            0.4, 0.6, 0.8, 1.0, 1.2, //melody
+            3.4, 3.0, 2.4, 2.0, 1.0 //bass
+        ],
+        // like 12 str classic without low melody string
+        // and high bass string
+        stringIntervals: [
+            // melody
+            _x+2-5, _x+2-10, _x+2-15, _x+2-20, _x+2-25,
+            // bass - shift down 11 semi tones and start doing 5ths 
+            _x-36+2, _x-36+9, _x-36+16, _x-36+23, _x-36+30
+        ],
+        markerOffset: -1, //  0 or 'X' fret in diagrams
+        markers: [3, 8, 13, 18], // inlays every 5 frets
+        fretWidth: 70,
+        stringSpacing: 40,
+        minStringSize: 0.2,
+        notes: 
+          [['A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A'],
+          ['Bb', 'B', 'C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A']]
     }
 
 }
