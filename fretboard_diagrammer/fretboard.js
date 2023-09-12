@@ -355,14 +355,14 @@ class Fretboard {
         return cc;
     }
 
-    updateColor(event) {
+    updateColor(event, picker=null) {
+        if (event.detail.color === '') {
+            return;
+        }
+        const c = event.detail.color.toHexString();
         if (!this.state.selected) {
             this.bell();
         } else {
-            var c = event.currentTarget.getAttribute("title");
-            if (c === null) {
-                c = event.currentTarget.getAttribute("data-color");
-            }
             this.updateNote(this.state.selected, { 
                 color: c
             });
@@ -1024,19 +1024,19 @@ intervalizeNoteButton.addEventListener('click', (event) => {
     fretboard.intervalizeNote(event);
 });
 
-/*
- * color picker
- */
-//function colorChange() {
-    //document.body.style.background = this.getAttribute('data-color');
-//}
-const colorPicker = new CustomHexColorPicker();
-const colorInput = document.querySelector('.colorInput');
-colorInput.addEventListener('change', (event) => {
+const colorPicker = Spectrum.create('#color-picker',{
+    type: 'color',
+    showPaletteOnly: true,
+    togglePaletteOnly: true,
+    maxSelectionSize: 9,
+    hideAfterPalletteSelect: true,
+    showButtons: true,
+    showAlpha: false
+});
+const colorPickerElement = document.getElementById('color-picker');
+colorPickerElement.addEventListener('move', (event) => {
     fretboard.updateColor(event);
 });
-colorPicker.register(colorInput);
-
 
 /*
  */

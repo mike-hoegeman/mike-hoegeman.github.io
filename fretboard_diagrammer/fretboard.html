@@ -7,7 +7,10 @@
 
     <title>Fretboard Diagram Creator</title>
     <link rel="stylesheet" href="fretboard.css">
+    <!--
     <link href="colorpicker/style.css" rel="stylesheet" />
+    -->
+    <link rel='stylesheet' href='spectrum/dist/spectrum.css'>
 
     <!--
     <link href='../sakura.css' id="sakura-css" rel='stylesheet' type='text/css'>
@@ -45,7 +48,10 @@
                 class="sym-button" id="intervalize-note">&#8596;</button>
 
 
+            <!--
             <button id='color-input' class="colorInput" data-color='transparent'>Color..</button>
+            -->
+            <button id='color-picker'>Color..</label>
 
             <button title="blue" class="color blue"></button>
             <button title="green" class="color green"></button>
@@ -82,7 +88,11 @@
     </div>
 
     <!-- fretboard strings/tuning configurations -->
+    <!--
     <script src="colorpicker/CustomHexColorPicker.lib.js"></script>
+    -->
+
+    <script src='spectrum/dist/spectrum.js'></script>
     <script src="fretboard_cfg.js"></script>
     <script src="fretboard.js"></script>
 
