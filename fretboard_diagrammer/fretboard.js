@@ -88,6 +88,7 @@ class Fretboard {
             "O^" // P1^^
             //---------------
         );
+        c.markerStyles = ['fret-number', 'linear-inlay'];
     }
 
     constructor(opts) {
@@ -397,6 +398,48 @@ class Fretboard {
         const markers = createSvgElement('g', {
             class: 'markers'
         });
+        if (this.consts.markerStyles.includes('fret-number')) {
+            this.drawFretNumberMarkers(markers);
+        }
+        if (this.consts.markerStyles.includes('linear-inlay')) {
+            this.drawLinearInlayMarkers(markers);
+        }
+    }
+
+    drawLinearInlayMarkers(markers) {
+        const inlayOffsetX = -7; // offset from fret
+        const inlayOffsetY = 6; // offset from fret
+        var px = this.consts.offsetX + inlayOffsetX;
+        var py = this.consts.offsetY + inlayOffsetY;
+        const filteredMarkers = this.consts.markers
+            .filter(i => i > this.state.startFret && i <= this.state.endFret);
+
+        for (let i = this.state.startFret; i < (this.state.endFret + 1); i++) {
+
+            if (filteredMarkers.includes(i)) {
+                var pathSegments = ["M " + px + " " + py];
+                const v = this.consts.fretHeight-(inlayOffsetY*2);
+                pathSegments.push("v " + v);
+                const path = pathSegments.join(" ");
+                const marker = createSvgElement('path', {
+                    class: 'marker',
+                    d: path,
+                    style:  "stroke: mistyrose; "+
+                            "stroke-linecap: round; "+
+                            "stroke-linejoin: round; "+
+                            "stroke-width: 7;"
+                });
+                markers.appendChild(marker);
+            }
+
+            //
+            px += this.consts.fretWidth;
+        }
+
+        this.svg.appendChild(markers);
+    }
+
+    drawFretNumberMarkers(markers) {
         const filteredMarkers = this.consts.markers
             .filter(i => i > this.state.startFret && i <= this.state.endFret);
         for (let i of filteredMarkers) {

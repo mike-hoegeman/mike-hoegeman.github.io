@@ -124,6 +124,16 @@ text.marker {
     font-family: Arial, Helvetica, sans-serif;
 }
 
+/*
+path.marker {
+    stroke: teal;
+    stroke-width: 5px;
+    fill: none;
+    stroke-linejoin: round;
+    stroke-linecap: round;
+}
+*/
+
 
 /* Controls */
 
