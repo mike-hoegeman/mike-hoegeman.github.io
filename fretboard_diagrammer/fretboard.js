@@ -106,14 +106,14 @@ class Fretboard {
             selected: null,
             visibility: 'transparent',
             startFret: 0,
-            endFret: 12,
+            endFret: 16,
             enharmonic: 0,
             intervalRoot: null
         };
 
 
         // Set end fret according to viewport width
-        this.state.endFret = Math.min(Math.floor((window.innerWidth - 2 * this.consts.offsetX ) / this.consts.fretWidth), 12);
+        this.state.endFret = Math.min(Math.floor((window.innerWidth - 2 * this.consts.offsetX ) / this.consts.fretWidth), 16);
         opts.endFret.value = this.state.endFret;
 
         this.computeDependents();
@@ -1056,7 +1056,7 @@ const colorPicker = Spectrum.create('#color-picker',{
 
         ["#e06666","#f6b26b","#ffd966","#93c47d","#76a5af","#6fa8dc","#8e7cc3","#c27ba0" ,  "#c00","#e69138","#f1c232","#6aa84f","#45818e","#3d85c6","#674ea7","#a64d79"],
 
-        ["#900","#b45f06","#bf9000","#38761d","#134f5c","#0b5394","#351c75","#741b47" ,  "#600","#783f04","#7f6000","#274e13","#0c343d","#073763","#20124d","#4c1130"]
+            ["#900","#b45f06","#bf9000","#38761d","#134f5c","#0b5394","#351c75","#741b47" ,  "#600","#783f04","#7f6000","#274e13","#0c343d","#073763","#20124d","#4c1130"]
     ]
 
 });
