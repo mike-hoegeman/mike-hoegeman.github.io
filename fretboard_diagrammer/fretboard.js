@@ -392,15 +392,33 @@ class Fretboard {
     }
 
     drawFrets() {
-        var pathSegments = ["M " + this.consts.offsetX + " " + this.consts.offsetY];
+        var pathSegments = 
+            ["M " + this.consts.offsetX + " " + this.consts.offsetY];
+
         for (let i = this.state.startFret; i < (this.state.endFret + 1); i++) {
+
             let factor = (i - this.state.startFret) % 2 == 0 ? 1 : -1;
             pathSegments.push("v " + (factor) * this.consts.fretHeight);
             pathSegments.push("m " + this.consts.fretWidth + " " + 0);
+
+            if (i === 0) {
+                // nut
+                const nutpath = pathSegments.join(" ");
+                const nut = createSvgElement('path', {
+                    'class': 'fretboard-nut',
+                    'd': nutpath,
+                });
+                this.svg.appendChild(nut);
+
+                // reset path for the rest of the frets
+                pathSegments = 
+                    ["M " + 
+                    (this.consts.offsetX+this.consts.fretWidth) + " " + 
+                    (this.consts.offsetY+this.consts.fretHeight)];
+            }
         }
+
         const path = pathSegments.join(" ");
-
-
         const frets = createSvgElement('path', {
             'class': 'frets',
             'd': path,
@@ -422,7 +440,7 @@ class Fretboard {
 
     drawLinearInlayMarkers(markers) {
         const inlayOffsetX = -7; // offset from fret
-        const inlayOffsetY = 6; // offset from fret
+        const inlayOffsetY = 8; // offset from fret
         var px = this.consts.offsetX + inlayOffsetX;
         var py = this.consts.offsetY + inlayOffsetY;
         const filteredMarkers = this.consts.markers

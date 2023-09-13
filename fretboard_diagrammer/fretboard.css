@@ -90,6 +90,13 @@ path.frets {
     fill: none;
 }
 
+path.fretboard-nut {
+    stroke: black;
+    stroke-width: 7px;
+    stroke-linecap: square;
+    fill: none;
+}
+
 g.note>text {
     stroke: black;
     stroke-width: 0px;
