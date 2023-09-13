@@ -1054,7 +1054,6 @@ for (let button of shapeButtons) {
 }
 
 /* Color selector */
-
 const colorButtons = document.querySelectorAll("button.color");
 for (let button of colorButtons) {
     button.addEventListener('click', (event) => {
@@ -1066,6 +1065,10 @@ const intervalizeNoteButton = document.getElementById("intervalize-note");
 intervalizeNoteButton.addEventListener('click', (event) => {
     fretboard.intervalizeNote(event);
 });
+
+/*
+ * 
+ */
 
 const colorPicker = Spectrum.create('#color-picker',{
     type: 'color',
