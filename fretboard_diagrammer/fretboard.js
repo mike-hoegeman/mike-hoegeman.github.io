@@ -427,40 +427,51 @@ class Fretboard {
         var py = this.consts.offsetY + inlayOffsetY;
         const filteredMarkers = this.consts.markers
             .filter(i => i > this.state.startFret && i <= this.state.endFret);
-
         for (let i = this.state.startFret; i < (this.state.endFret + 1); i++) {
-
             if (filteredMarkers.includes(i)) {
                 var pathSegments = ["M " + px + " " + py];
                 const v = this.consts.fretHeight-(inlayOffsetY*2);
                 pathSegments.push("v " + v);
                 const path = pathSegments.join(" ");
                 const marker = createSvgElement('path', {
-                    class: 'marker',
+                    class: 'linear-inlay-marker',
                     d: path,
+                    /*
                     style:  "stroke: mistyrose; "+
                             "stroke-linecap: round; "+
                             "stroke-linejoin: round; "+
                             "stroke-width: 7;"
+                    */
                 });
                 markers.appendChild(marker);
             }
-
-            //
             px += this.consts.fretWidth;
         }
-
         this.svg.appendChild(markers);
     }
 
     drawFretNumberMarkers(markers) {
         const filteredMarkers = this.consts.markers
             .filter(i => i > this.state.startFret && i <= this.state.endFret);
-        for (let i of filteredMarkers) {
+
+        for (let i=this.state.startFret+1; i < (this.state.endFret + 1); i++) {
+            var class_i;
+            var y_adjust_i;
+            if (filteredMarkers.includes(i)) {
+                class_i = 'fret-marker';
+                y_adjust_i = this.consts.stringSpacing;
+            } else {
+                class_i = 'small-fret-marker';
+                y_adjust_i = this.consts.stringSpacing*.75;
+            }
+
             const marker = createSvgElement('text', {
-                class: 'marker',
-                x: this.consts.offsetX + (i - 1 - this.state.startFret) * this.consts.fretWidth + (this.consts.fretWidth / 2),
-                y: this.consts.offsetY + this.consts.fretHeight + this.consts.stringSpacing,
+                class: class_i,
+                x: this.consts.offsetX + 
+                    (i - 1 - this.state.startFret) * 
+                    this.consts.fretWidth + (this.consts.fretWidth /** / 2 **/),
+                y: this.consts.offsetY + this.consts.fretHeight + 
+                    y_adjust_i,
             });
 
             // tapping instruments 0 or X fret feature support
@@ -1048,16 +1059,15 @@ const colorPicker = Spectrum.create('#color-picker',{
     showAlpha: false,
     chooseText: "Done",
     togglePaletteMoreText: "more <click>, <esc> done",
-
-        palette: [
-        ["#000","#444","#666","#999","#ccc","#eee","#f3f3f3","#fff", "#f00","#f90","#ff0","#0f0","#0ff","#00f","#90f","#f0f"],
-
-        ["#f4cccc","#fce5cd","#fff2cc","#d9ead3","#d0e0e3","#cfe2f3","#d9d2e9","#ead1dc" ,  "#ea9999","#f9cb9c","#ffe599","#b6d7a8","#a2c4c9","#9fc5e8","#b4a7d6","#d5a6bd"],
-
-        ["#e06666","#f6b26b","#ffd966","#93c47d","#76a5af","#6fa8dc","#8e7cc3","#c27ba0" ,  "#c00","#e69138","#f1c232","#6aa84f","#45818e","#3d85c6","#674ea7","#a64d79"],
-
-            ["#900","#b45f06","#bf9000","#38761d","#134f5c","#0b5394","#351c75","#741b47" ,  "#600","#783f04","#7f6000","#274e13","#0c343d","#073763","#20124d","#4c1130"]
-    ]
+    palette: [[
+        "#000000","#eadbc0","#5e6061","#929494","#a7a8a5","#bcbbb6","#4d6aa8","#8fabc9","#abbdc8","#b6c6ce","#d9e1dd","#3e6e90","#679dae","#8ab5ba","#a8c4c1","#c6d5cc"
+    ], [
+        "#406e58","#91afa1","#becbb7","#3e6f42","#7fa25a","#abc17a","#c4d39b","#eacfa6","#d46c40","#dc8d67","#eacfb9","#9b3738","#e6cdbf","#8f3a43","#943a4d","#d6afa6"
+    ], [
+        "#8b4d3e","#cd9886","#dbbeaa","#68443c","#b67b66","#d8b29a","#e2cbb5","#4c423d","#b7a392","#5a5550","#928a7e","#b7ac9d","#ac443a","#eae4d7","#dba3af","#744438"
+    ], [
+        "#3a3b3b","#b8a136","#428f70","#81868b","#403c3a","#3957a5","#dbb07f","#74393b","#7aa7cb","#92969a","#ddbf99","#45423e","#c45e3a","#313d6b","#60646a","#f2bb1d"
+  ]]
 
 });
 const colorPickerElement = document.getElementById('color-picker');

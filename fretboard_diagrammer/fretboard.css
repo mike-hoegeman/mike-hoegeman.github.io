@@ -117,10 +117,26 @@ div.menu {
     /* text-align: center; */
 }
 
-text.marker {
+/* stroke: mistyrose; */
+path.linear-inlay-marker {
+    stroke: cadetblue;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 7;
+}
+
+text.fret-marker {
     text-anchor: middle;
     font-size: 16px;
+    font-style: italic;
     fill: black;
+    font-family: Arial, Helvetica, sans-serif;
+}
+text.small-fret-marker {
+    text-anchor: middle;
+    font-size: 13px;
+    font-style: italic;
+    fill: darkgray;
     font-family: Arial, Helvetica, sans-serif;
 }
 
