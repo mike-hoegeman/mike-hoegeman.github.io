@@ -200,6 +200,27 @@ const FRETBOARD_CONSTS = {
         notes: 
           [['A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A'],
           ['Bb', 'B', 'C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A']]
+    },
+
+    tapping_ns_stick_std: {
+        title: "Tapper: std N/S stick",
+        showOpenStrings: true, // NS can play open strings
+        offsetX: 40,
+        offsetY: 30,
+        stringDisplayWidths: [
+            0.4, 0.6, 0.8, 1.0, 1.2, 1.5, 2.0, 2.5
+        ],
+        stringIntervals: [
+            _x-2, _x-5, _x-10, _x-15, _x-20, _x-25, _x-30, _x-35
+        ],
+        markerOffset: -1, //  0 or 'X' fret in diagrams
+        markers: [3, 8, 13, 18], // inlays every 5 frets
+        fretWidth: 70,
+        stringSpacing: 40,
+        minStringSize: 0.2,
+        notes: 
+          [['A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A'],
+          ['Bb', 'B', 'C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A']]
     }
 
 }
