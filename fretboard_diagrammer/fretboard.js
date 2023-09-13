@@ -355,6 +355,20 @@ class Fretboard {
         return cc;
     }
 
+    updateColorFromButton(event) {
+        if (!this.state.selected) {
+            this.bell();
+        } else {
+            var c = event.currentTarget.getAttribute("title");
+            if (c === null) {
+                c = event.currentTarget.getAttribute("data-color");
+            }
+            this.updateNote(this.state.selected, {
+                color: c
+            });
+        }
+    }
+
     updateColor(event, picker=null) {
         if (event.detail.color === '') {
             return;
@@ -1015,7 +1029,7 @@ for (let button of shapeButtons) {
 const colorButtons = document.querySelectorAll("button.color");
 for (let button of colorButtons) {
     button.addEventListener('click', (event) => {
-        fretboard.updateColor(event);
+        fretboard.updateColorFromButton(event);
     });
 }
 
