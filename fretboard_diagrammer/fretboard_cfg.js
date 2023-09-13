@@ -203,7 +203,7 @@ const FRETBOARD_CONSTS = {
     },
 
     tapping_ns_stick_std: {
-        title: "Tapper: std N/S stick",
+        title: "Tapper: Std. N/S Stick",
         showOpenStrings: true, // NS can play open strings
         offsetX: 40,
         offsetY: 30,
@@ -211,7 +211,7 @@ const FRETBOARD_CONSTS = {
             0.4, 0.6, 0.8, 1.0, 1.2, 1.5, 2.0, 2.5
         ],
         stringIntervals: [
-            _x-2, _x-5, _x-10, _x-15, _x-20, _x-25, _x-30, _x-35
+            _x-2, _x-7, _x-12, _x-17, _x-22, _x-27, _x-32, _x-37
         ],
         markerOffset: -1, //  0 or 'X' fret in diagrams
         markers: [3, 8, 13, 18], // inlays every 5 frets
