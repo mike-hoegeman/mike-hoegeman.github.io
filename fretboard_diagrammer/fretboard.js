@@ -1035,7 +1035,8 @@ svgButton.addEventListener('click', () => {
  */
 const PROPERTIES = [
     "fill", "stroke", "stroke-width", "text-anchor", "dominant-baseline",
-    "stroke-linecap", "stroke-linejoin"
+    "stroke-linecap",
+    "font-family"
 ]
 
 function inlineCSS(svg) {
