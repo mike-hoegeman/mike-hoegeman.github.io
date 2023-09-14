@@ -107,31 +107,52 @@ pick a type of fretboard you want to diagram.
     to it's normal mode.
 
 <h4>Editing the location dots</h4>
+
+    <h5>Changing the color</h5>
     <ul>
-    <li> The middle row of colored buttons change the color of the
-    selected position dot. 
+    <li> The middle row of colored <i>quickcolor</i> buttons 
+    change the color of the selected position dot with single click</li>
+        <ul>
+        <li>
+        You can change color value for a quickcolor button by 
+        &lt;shift&gt;&lt;click&gt;-ing on the button and selecting a new color
+        from the pop-up color menu.
+
+        <li>
+	The are keyboard shortcuts for selecting quick colors.<br>Keys
+	&lt;Shift-1&gt; .. &lt;Shift-5&gt;<br> correspond with the 4
+	quickcolor buttons from left to right.  </ul>
+
+
     <li> The [Color...] button brings up a color
     selection menu that allows you to select a color beyond the four
-    "standard" ones for the selected position dot.
+    quickcolor's for the selected position dot.
     </li>
+    </ul>
 
+    <h5>Changing the shape</h5>
+    <ul>
     <li>
     The top row of shape buttons change the shape of the dots to other shapes
-    this is typically used to finger symbols
+    this is typically used for finger symbols
         <ul>
         <li>Circle for 1st (index) finger
         <li>Diamond for 2nd finger
         <li>Triangle for 3rd finger
         <li>Square for 4th finger
         </ul>
-    </li>
+    <li>
+    The keys <code>|1| .. |4|</code> (<code>Circle .. Square</code>) 
+    can also be used as shortcuts for setting the shape.
+    </ul>
 
+    <h5>Changing the text</h5>
+    <ul>
     <li> The text inside the dots can be edited by double clicking
     on the location.  You're limited (practically) to a few characters
     due to the size of the dot. the text will be preserved when you
     switch display modes or until you reset it with the [X] button.
     </li>
-
     </ul>
 
 <h4>Displaying unactivated location dots</h4>
@@ -143,13 +164,11 @@ pick a type of fretboard you want to diagram.
     You can clear the fretboard to an empty state by clicking the
     [Reset] Button. It will ask you if you really want to.
 
-<h3>Key Commands</h4>
+<h3>Key Command Summary</h4>
     <p> You can operate most of the buttons used to edit a selection
     with keyboard commands
 
-    <p>
-    <caption>Color Commands</caption>
-
+    <h6>Color Commands</h6>
     <table>
     <thead>
       <tr >
@@ -178,12 +197,33 @@ pick a type of fretboard you want to diagram.
         <td align="left">k</td>
         <td align="left">Set Color Black</td>
       </tr>
+
+      <tr>
+      </tr>
+        <td align="left">Shift-1</td>
+        <td align="left">Set Color to 1st (leftmost) button</td>
+      <tr>
+        <td align="left">Shift-2</td>
+        <td align="left">Set Color to 2nd button</td>
+      </tr>
+      <tr>
+        <td align="left">Shift-3</td>
+        <td align="left">Set Color to 3rd button</td>
+      </tr>
+      <tr>
+        <td align="left">Shift-4</td>
+        <td align="left">Set Color 4th Button</td>
+      </tr>
+      <tr>
+        <td align="left">Shift-5</td>
+        <td align="left">Set Color 5th Button</td>
+      </tr>
+
     </tbody>
     </table>
 
-    <p>
+    <h6>Shape Commands</h6>
     <table>
-    <caption>Shape Commands</caption>
     <thead>
       <tr >
         <th align="left">Key</th>
@@ -210,9 +250,8 @@ pick a type of fretboard you want to diagram.
     </tbody>
   </table>
 
-    <p>
+    <h6>Other Commands</h6>
     <table>
-    <caption>Other Commands</caption>
     <thead>
       <tr >
         <th align="left">Key</th>

@@ -57,7 +57,13 @@ class Fretboard {
         c.circleRadius = 18;
         c.sign = ['♯', '♭'];
         c.maxFretRange = 17;
-
+        c.leCorbusier = {
+            blue: '#4d6aa8',
+            green: '#406358',
+            red: '#ac443a',
+            white: '#ffffff',
+            black: '#000000'
+        };
         c.intervalNames = new Array(
             //---------------
             "P1", //unison
@@ -277,19 +283,24 @@ class Fretboard {
                     this.intervalizeNote();
                     break;
                 case 'KeyB':
-                    this.updateNote(selected, { color: "blue" });
+                    this.updateNote(selected, 
+                        { color: this.consts.leCorbusier.blue });
                     break;
                 case 'KeyK':
-                    this.updateNote(selected, { color: "black" });
+                    this.updateNote(selected, 
+                        { color: this.consts.leCorbusier.black });
                     break;
                 case 'KeyG':
-                    this.updateNote(selected, { color: "green" });
+                    this.updateNote(selected, 
+                        { color: this.consts.leCorbusier.green });
                     break;
                 case "KeyW":
-                    this.updateNote(selected, { color: "white" });
+                    this.updateNote(selected,
+                        { color: this.consts.leCorbusier.white });
                     break;
                 case "KeyR":
-                    this.updateNote(selected, { color: "red" });
+                    this.updateNote(selected, 
+                        { color: this.consts.leCorbusier.red });
                     break;
                 //
                 case "KeyX":
@@ -340,22 +351,42 @@ class Fretboard {
 
 
     getCustomColorByIndex(indexNumber) {
-        const ccBox = document.getElementsByClassName('customColorBox')[0];
-        if (!ccBox) {
+        const colorButtons = document.querySelectorAll("button.color");
+        if ((indexNumber < 0) || colorButtons.length <= indexNumber) {
             return null;
         }
-
-        const ccList = ccBox.getElementsByClassName('customColor');
-        if ((indexNumber < 0) || ccList.length <= indexNumber) {
+        const cc = colorButtons[indexNumber].getAttribute('title');
+        if (!cc) {
             return null;
         }
-        const cc = ccList[indexNumber].getAttribute('custom-hexcolor');
-        if (!cc)
-            return null;
         return cc;
     }
 
-    updateColorFromButton(event) {
+    updateColorButtonValue(event) {
+        // get the target element and change the title
+        // and background-xxxx style
+        const elem = event.target;
+        if (event.detail.color === '') {
+            return;
+        }
+        const c = event.detail.color.toHexString();
+        elem.title = c;
+        elem.style = 'background-color: ' + c + ';';
+    }
+
+    updateColorFromButton(event, spObj) {
+        const elem = event.target;
+        if (event.shiftKey) {
+            // shift click means allow the spectrum color picker 
+            // to pup up to update the color for the button
+            return;
+        } else {
+            // regular click use it to update the currently selected 
+            // position dot - hide the color picker before it has a chance to
+            // pop up
+            spObj.hide();
+        }
+
         if (!this.state.selected) {
             this.bell();
         } else {
@@ -838,8 +869,10 @@ class Fretboard {
 
         if ('shape' in update) {
             // clear shape and reconstruct it
-            var newshape = this.createShape(update.shape);
-            var oldshape = this.noteShape(elem);
+            const newshape = this.createShape(update.shape);
+            const oldshape = this.noteShape(elem);
+            const oldfill = oldshape.getAttribute('fill');
+            newshape.setAttribute('fill', oldfill);
             elem.replaceChild(newshape, oldshape);
         }
 
@@ -1054,10 +1087,38 @@ for (let button of shapeButtons) {
 }
 
 /* Color selector */
+
 const colorButtons = document.querySelectorAll("button.color");
-for (let button of colorButtons) {
-    button.addEventListener('click', (event) => {
-        fretboard.updateColorFromButton(event);
+const colorSps = Spectrum.createMultiple(colorButtons, {
+    type: 'color',
+    showPaletteOnly: true,
+    togglePaletteOnly: true,
+    maxSelectionSize: 9,
+    hideAfterPalletteSelect: true,
+    showButtons: true,
+    showAlpha: false,
+    chooseText: "Done",
+    togglePaletteMoreText: "more <click>, <esc> done",
+    palette: [[
+        "#000000","#eadbc0","#5e6061","#929494","#a7a8a5","#bcbbb6","#4d6aa8","#8fabc9","#abbdc8","#b6c6ce","#d9e1dd","#3e6e90","#679dae","#8ab5ba","#a8c4c1","#c6d5cc"
+    ], [
+        "#406e58","#91afa1","#becbb7","#3e6f42","#7fa25a","#abc17a","#c4d39b","#eacfa6","#d46c40","#dc8d67","#eacfb9","#9b3738","#e6cdbf","#8f3a43","#943a4d","#d6afa6"
+    ], [
+        "#8b4d3e","#cd9886","#dbbeaa","#68443c","#b67b66","#d8b29a","#e2cbb5","#4c423d","#b7a392","#5a5550","#928a7e","#b7ac9d","#ac443a","#eae4d7","#dba3af","#744438"
+    ], [
+        "#3a3b3b","#b8a136","#428f70","#81868b","#403c3a","#3957a5","#dbb07f","#74393b","#7aa7cb","#92969a","#ddbf99","#45423e","#c45e3a","#313d6b","#60646a","#f2bb1d"
+  ]]
+});
+
+for (let i = 0; i < colorButtons.length; i++) {
+
+    colorButtons[i].addEventListener('click', (event) => {
+        fretboard.updateColorFromButton(event, colorSps[i]);
+    });
+
+    // user is resetting the canned color to something custom
+    colorButtons[i].addEventListener('move', (event) => {
+        fretboard.updateColorButtonValue(event);
     });
 }
 
@@ -1089,8 +1150,9 @@ const colorPicker = Spectrum.create('#color-picker',{
     ], [
         "#3a3b3b","#b8a136","#428f70","#81868b","#403c3a","#3957a5","#dbb07f","#74393b","#7aa7cb","#92969a","#ddbf99","#45423e","#c45e3a","#313d6b","#60646a","#f2bb1d"
   ]]
-
 });
+
+
 const colorPickerElement = document.getElementById('color-picker');
 colorPickerElement.addEventListener('move', (event) => {
     fretboard.updateColor(event);
