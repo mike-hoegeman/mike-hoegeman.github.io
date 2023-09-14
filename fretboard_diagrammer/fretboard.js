@@ -486,7 +486,7 @@ class Fretboard {
                     class: 'linear-inlay-marker',
                     d: path,
                     /*
-                    style:  "stroke: mistyrose; "+
+                    style:  "stroke: cadetblue; "+
                             "stroke-linecap: round; "+
                             "stroke-linejoin: round; "+
                             "stroke-width: 7;"
@@ -1029,7 +1029,14 @@ svgButton.addEventListener('click', () => {
     a.click();
 });
 
-const PROPERTIES = ["fill", "stroke", "stroke-width", "text-anchor", "dominant-baseline"]
+/* 
+ * when visual attributes don't come out looking right when saving
+ * check this. more properties may need to be added
+ */
+const PROPERTIES = [
+    "fill", "stroke", "stroke-width", "text-anchor", "dominant-baseline",
+    "stroke-linecap", "stroke-linejoin"
+]
 
 function inlineCSS(svg) {
     const svgElements = document.querySelectorAll("#fretboard *");
