@@ -48,8 +48,14 @@ function createSvgElement(tag, attributes = null) {
 }
 
 class Fretboard {
+
     mergeStaticConsts() {
         const c = this.consts;
+
+        c.NOTENAMES = // #define
+          [['A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A'],
+          ['Bb', 'B', 'C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A']];
+
         c.numStrings = this.consts.stringIntervals.length;
         c.fretHeight = (this.consts.numStrings - 1) * this.consts.stringSpacing;
         c.sharpGlyph = '♯';
@@ -98,6 +104,7 @@ class Fretboard {
     }
 
     constructor(opts) {
+
         this.svg = opts.svg;
         this.opts = opts;
         this.savefile = "fretboard_diagram.svg";
@@ -662,7 +669,7 @@ class Fretboard {
     computeEnharmonicNoteName(noteId, fret, string) {
         const interval = this.consts.stringIntervals[string] + fret + 1;
         var i = Math.abs(interval % 12);
-        var s = this.consts.notes[this.state.enharmonic][i];
+        var s = this.consts.NOTENAMES[this.state.enharmonic][i];
         if (s.includes('#')) {
             s = s.replace('#', this.consts.sharpGlyph);
         } else if (s.includes("b")) {

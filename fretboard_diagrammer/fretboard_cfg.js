@@ -13,15 +13,12 @@ const FRETBOARD_CONSTS = {
         offsetX: 40,
         offsetY: 30,
         stringDisplayWidths: [ 0.4, 0.6, 0.8, 1.0, 1.2, 1.4 ],
-        stringIntervals: [24, 19, 15, 10, 5, 0], // intervals between strings 
+        stringIntervals: [_x-7, _x-12, _x-16, _x-21, _x-26, _x-31],
         markerOffset: 0,
         markers: [3, 5, 7, 9, 12, 15, 17, 19, 21],
         fretWidth: 70,
         stringSpacing: 40,
         minStringSize: 0.2,
-        notes: 
-          [['E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B', 'C', 'C#', 'D', 'D#'],
-          ['E', 'F', 'Gb', 'G', 'Ab', 'A', 'Bb', 'B', 'C', 'Db', 'D', 'Eb']]
     },
 
     /* 12 string tapping instruments like the chapman stick or the
