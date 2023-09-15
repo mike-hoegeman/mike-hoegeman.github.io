@@ -3,7 +3,44 @@
  * fretboard configurations
  *
  */
-var _x = 61;
+
+var _x = 59;
+
+/*
+ * Reference:
+ *
+ * it probably makes sense to use midi notes numbers 
+ *
+ * 60 == Midi Note Number for Middle C4
+ * 127== Midi Note for G8 upper limit
+ * 0  == Midi Note for C-2 lower limit
+ *
+ * C1 == low C on a piano  
+ * C4 == middle C
+ *
+ * C1 == the fret X/0 C on the low bass string of matched reciprocal 12str
+ * C4 == the fret X/0 C on the high melody string of matched reciprocal 12str
+ *
+ * E4 -- the high e on std guitar
+ *
+ * 60 seems like an ok 'reference point' as a relative reference
+ * to base the stringIntervals from. 
+ *
+ * So: 
+ *   -- if middle c is what your first open string is tuned too. 
+ *   then '0' is what your first value in stringIntervals should be. 
+ *   internally that will translate to midi 60
+ *
+ *   -- if your first open string is tuned one semitone lower 
+ *   to B below middle C (B2)  then your first value in stringIntervals 
+ *   should be '-1' internally that will translate to midi 59
+ *
+ * NOTE: Midi is stupid and shifts all the octave numbers down
+ * so in midi middleC in midi is usually referenced as C3 
+ * we are not using midi octave numbers in this dicussion
+ *
+ */
+
 const FRETBOARD_CONSTS = {
 
     /* 6 string guitar that uses standard tuning */

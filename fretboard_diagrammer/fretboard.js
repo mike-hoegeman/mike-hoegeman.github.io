@@ -52,9 +52,11 @@ class Fretboard {
     mergeStaticConsts() {
         const c = this.consts;
 
-        c.NOTENAMES = // #define
-          [['A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A'],
-          ['Bb', 'B', 'C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A']];
+        c.NOTENAMES = [[
+          'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'
+        ],[
+          'C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A', 'Bb', 'B'
+        ]];
 
         c.numStrings = this.consts.stringIntervals.length;
         c.fretHeight = (this.consts.numStrings - 1) * this.consts.stringSpacing;
