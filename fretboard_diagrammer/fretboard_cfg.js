@@ -4,7 +4,6 @@
  *
  */
 
-var _x = 59;
 
 /*
  * Reference:
@@ -50,6 +49,8 @@ var _x = 59;
  * 1, so in midi they refer to middleC usually as 'C3', not C4 
  * we are not using midi octave numbers in this dicussion
  */
+
+var _x = 59;
 
 const FRETBOARD_CATALOG = {
 
