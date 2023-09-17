@@ -1,147 +1,143 @@
 <!doctype html>
-
 <html lang="en">
 
 <head>
     <meta charset="utf-8">
-
     <title>Fretboard Diagram Creator</title>
     <link rel="stylesheet" href="fretboard.css">
     <link rel='stylesheet' href='spectrum/dist/spectrum.css'>
-
-    <!-- include fonts from webkit on this site -->
     <link rel="stylesheet" 
-        href="../webfontkit/mike-stylesheet.css" type="text/css" charset="utf-8" />
-
-    <!--
-    <link href='../sakura.css' id="sakura-css" rel='stylesheet' type='text/css'>
-    -->
-
+     href="../webfontkit/mike-stylesheet.css" type="text/css" charset="utf-8" />
 </head>
 
 <body>
 
-    <!-- viewBox="0 0 900 300" -->
-    <figure id="fretboard-diagram-creator" class="half-full">
-        <svg xmlns="http://www.w3.org/2000/svg" id="fretboard" 
-        style="background-color: white;"
-        width=1800 height=600>
+<!-- ************************************************************* -->
+<!-- viewBox="0 0 900 300" -->
+<figure id="fretboard-diagram-creator" class="half-full">
+    <svg xmlns="http://www.w3.org/2000/svg" id="fretboard" 
+    style="background-color: white;"
+    width=1800 height=600>
+        <defs>
+            <style type="text/css">
+            @font-face {
+              font-family: 
+              helvetica_neuelight, Arial, Helvetica, sans-serif;
+            }
+            @font-face {
+                font-family: 'helvetica_neuelight';
+                src: url('https://mike-hoegeman.github.io/webfontkit/helveticaneuelight-webfont.woff2') format('woff2'),
+     url('https://mike-hoegeman.github.io/webfontkit/helveticaneuelight-webfont.woff') format('woff');
+                font-weight: normal;
+                font-style: normal;
 
-            <defs>
-                <style type="text/css">
-                @font-face {
-                font-family: helvetica_neuelight, Arial, Helvetica, sans-serif;
-                }
+            }
+            @font-face {
+                font-family: 'helvetica_neuelight_italic';
+                src: url('https://mike-hoegeman.github.io/webfontkit/helveticaneuelightitalic-webfont.woff2') format('woff2'),
+     url('https://mike-hoegeman.github.io/webfontkit/helveticaneuelightitalic-webfont.woff') format('woff');
+                font-weight: normal;
+                font-style: normal;
 
-@font-face {
-    font-family: 'helvetica_neuelight';
-    src: url('https://mike-hoegeman.github.io/webfontkit/helveticaneuelight-webfont.woff2') format('woff2'),
-         url('https://mike-hoegeman.github.io/webfontkit/helveticaneuelight-webfont.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-
-}
-@font-face {
-    font-family: 'helvetica_neuelight_italic';
-    src: url('https://mike-hoegeman.github.io/webfontkit/helveticaneuelightitalic-webfont.woff2') format('woff2'),
-         url('https://mike-hoegeman.github.io/webfontkit/helveticaneuelightitalic-webfont.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-
-}
-                </style>
-
-            </defs>
-
-        </svg>
-    </figure>
+            }
+            </style>
+        </defs>
+    </svg>
+</figure>
 
 
-    <div class="menu">
-        <div id="shape-selector">
-            <button title="circle" 
-                class="shape circle sym-button">&#9675;</button>
-            <button title="diamond" 
-                class="shape diamond sym-button">&#9674;</button>
-            <button title="triangle" 
-                class="shape triangle sym-button">&#9653;</button>
-            <!-- not 9209 // soso 9634  9723-->
-            <button title="square" 
-                class="shape square sym-button">&#13004;</button>
-        </div>
-
-        <div id="color-selector">
-            <button title="intervalize" 
-                class="sym-button" id="intervalize-note">&#8596;</button>
-            <button id='color-picker'>Color..</label>
-            <!-- blue -->
-            <button class='color' title='#4d6aa8' 
-                style='background-color: #4d6aa8'></button>
-            <!-- green -->
-            <button class='color' title='#406358' 
-                style='background-color: #406358'></button>
-            <!-- red -->
-            <button class='color' title='#ac443a' 
-                style='background-color: #ac443a'></button>
-            <button class='color' title='#ffffff' 
-                style='background-color: #ffffff'></button>
-            <button class='color' title='#000000' 
-                style='background-color: #000000'></button>
-            <button title="delete" 
-                class="sym-button" id="delete-note">&#10683;</button>
-        </div>
-
-        <div id="global-actions">
-            <input id="start-fret" type="number" class="num-input" value="1" name="startFret" min=1 max=22 maxlength="2" size="5"
-                autocomplete=off>
-
-            <button id="enharmonic" style="width: 25px; text-align: center;">♭</button>
-            <button id="visibility" class="button">
-            <img src="svg-icons/cycle.svg" height="24" />
-            </button>
-
-            <button id="save-svg" 
-                onclick="fretboard.exportSvgPrompt(svg)" 
-                class="button">
-                <img src="svg-icons/svg.svg" height="24" />
-            </button>
-
-            <button id="save-svg" 
-                onclick="fretboard.saveFretboardPrompt()" 
-                class="button">
-                <img src="svg-icons/download.svg" height="24" />
-            </button>
-
-            <button id="readjsonB"
-                onclick="document.getElementById('readjson').click();">
-                <img src="svg-icons/upload.svg" height="24"/>
-            </button>
-            <input id="readjson" type="file" 
-                accept=".fbjson"
-                style="display:none;"
-                multiple onchange="fretboard.readJson(this)">
-            </input>
-
-            <button id="reset" class="button">Reset</button>
-            <input id="end-fret" type="number" class="num-input" value="12" name="startFret" min=1 max=22 maxlength="2" size="5
-                autocomplete=off>
-
-            <a id="svg-link" download="fretboard-diagram.svg"></a>
-
-        </div>
-
-        <div id="cfg-and-save">
-            <!-- leave empty filled in by app -->
-            <select name="fretboard-types" id="fretboard-types">&nbsp;</select>
-        </div>
-
+<div class="menu">
+    <div id="shape-selector">
+        <button title="circle" 
+            class="shape circle sym-button">&#9675;</button>
+        <button title="diamond" 
+            class="shape diamond sym-button">&#9674;</button>
+        <button title="triangle" 
+            class="shape triangle sym-button">&#9653;</button>
+        <!-- not 9209 // soso 9634  9723-->
+        <button title="square" 
+            class="shape square sym-button">&#13004;</button>
     </div>
 
-    <script src='spectrum/dist/spectrum.js'></script>
-    <script src="fretboard_cfg.js"></script>
-    <script src="fretboard.js"></script>
+    <div id="color-selector">
+        <button title="intervalize" 
+            class="sym-button" id="intervalize-note">&#8596;</button>
+        <!--
+        <button id='color-picker'>Color..</label>
+        -->
+        <!-- yellow -->
+        <button class='color' title='#f2bb1d' 
+            style='background-color: #f2bb1d'></button>
+        <!-- blue -->
+        <button class='color' title='#4d6aa8' 
+            style='background-color: #4d6aa8'></button>
+        <!-- green -->
+        <button class='color' title='#406358' 
+            style='background-color: #406358'></button>
+        <!-- red -->
+        <button class='color' title='#ac443a' 
+            style='background-color: #ac443a'></button>
+        <button class='color' title='#ffffff' 
+            style='background-color: #ffffff'></button>
+        <button class='color' title='#000000' 
+            style='background-color: #000000'></button>
+        <button title="delete" 
+            class="sym-button" id="delete-note">&#10683;</button>
+    </div>
 
+    <div id="global-actions">
+        <input id="start-fret" type="number" class="num-input" 
+            value="1" name="startFret" min=1 max=22 maxlength="2" size="5"
+            autocomplete="off">
+        <button id="enharmonic" 
+            style="width: 25px; text-align: center;">♭</button>
+        <button id="visibility" class="button">
+        <img src="svg-icons/cycle.svg" height="24" />
+        </button>
+        <button id="save-svg" 
+            onclick="fretboard.exportSvgPrompt(svg)" 
+            class="button">
+            <img src="svg-icons/svg.svg" height="24" />
+        </button>
+        <button id="save-svg" 
+            onclick="fretboard.saveFretboardPrompt()" 
+            class="button">
+            <img src="svg-icons/download.svg" height="24" />
+        </button>
+
+        <!-- ################ -->
+        <!-- finesse here to make a simple button only upload file input -->
+        <button id="readjsonB"
+            onclick="document.getElementById('readjson').click();">
+            <img src="svg-icons/upload.svg" height="24"/>
+        </button>
+        <input id="readjson" type="file" 
+            accept=".fbjson"
+            style="display:none;"
+            multiple onchange="fretboard.readJson(this)">
+        </input>
+        <!-- ################ -->
+
+        <button id="reset" class="button">Reset</button>
+        <input id="end-fret" type="number" class="num-input" 
+            value="12" name="startFret" min=1 max=22 maxlength="2" size="5"
+            autocomplete="off">
+
+        <a id="svg-link" download="fretboard-diagram.svg"></a>
+    </div>
+
+    <div id="fretboard-cfg">
+        <!-- leave empty filled in by app -->
+        <select name="fretboard-types" id="fretboard-types">&nbsp;</select>
+    </div>
+
+</div> <!-- end menu -->
+
+<!-- ************************************************************* -->
+
+<script src="spectrum/dist/spectrum.js"></script>
+<script src="fretboard_cfg.js"></script>
+<script src="fretboard.js"></script>
 
 </body>
-
 </html>
