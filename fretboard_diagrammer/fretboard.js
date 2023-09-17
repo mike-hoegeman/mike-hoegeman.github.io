@@ -47,32 +47,84 @@ function createSvgElement(tag, attributes = null) {
     return elem;
 }
 
+//
+// holds all items that can configure a FretBoard
+// part of a saved Fretboard session
+// A standard set of these live in FRETBOARD_CATALOG
+//
+class FretboardConfig {
+    constructor() {
+        // values with null are required from the supplier of the config
+        this.title = null; 
+        this.stringDisplayWidths = null;
+        this.stringIntervals = null
+        this.markers = null; 
+        //
+        this.showOpenStrings = true;
+        this.markerOffset = 0;
+
+        // Not often changed
+        this.offsetX =        40;
+        this.offsetY =        30;
+        this.fretWidth =      70;
+        this.stringSpacing = 40;
+        this.markerStyles = ['fret-number', 'linear-inlay'];
+    }
+}
+
+class FretboardConfigDerived {
+    recalc(fretboardCfg) {
+        this.numStrings = fretboardCfg.stringIntervals.length;
+        this.fretHeight = (this.numStrings - 1) * fretboardCfg.stringSpacing;
+    }
+    constructor(fretboardCfg) {
+        this.numStrings = null;
+        this.fretHeight = null;
+        this.recalc(fretboardCfg);
+    }
+}
+
+class FretboardSvgGroups {
+    constructor(fretboardCfg) {
+        this.notes = null;
+        this.strings = null;
+    }
+}
+
 class Fretboard {
 
-    mergeStaticConsts() {
-        const c = this.consts;
-
-        c.NOTENAMES = [[
-          'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'
+    //
+    // constants ala '#defines'
+    //
+    DEF = {
+        //
+        noteNames: [[
+            'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'
         ],[
-          'C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A', 'Bb', 'B'
-        ]];
-
-        c.numStrings = this.consts.stringIntervals.length;
-        c.fretHeight = (this.consts.numStrings - 1) * this.consts.stringSpacing;
-        c.sharpGlyph = '♯';
-        c.flatGlyph = '♭';
-        c.circleRadius = 18;
-        c.sign = ['♯', '♭'];
-        c.maxFretRange = 17;
-        c.leCorbusier = {
+            'C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A', 'Bb', 'B'
+        ]],
+        //
+        leCorbusierQuickColor: {
             blue: '#4d6aa8',
             green: '#406358',
             red: '#ac443a',
             white: '#ffffff',
             black: '#000000'
-        };
-        c.intervalNames = new Array(
+        },
+
+        //
+        leCorbusierPalette: [[
+        "#000000","#eadbc0","#5e6061","#929494","#a7a8a5","#bcbbb6","#4d6aa8","#8fabc9","#abbdc8","#b6c6ce","#d9e1dd","#3e6e90","#679dae","#8ab5ba","#a8c4c1","#c6d5cc"
+        ], [
+        "#406e58","#91afa1","#becbb7","#3e6f42","#7fa25a","#abc17a","#c4d39b","#eacfa6","#d46c40","#dc8d67","#eacfb9","#9b3738","#e6cdbf","#8f3a43","#943a4d","#d6afa6"
+        ], [
+        "#8b4d3e","#cd9886","#dbbeaa","#68443c","#b67b66","#d8b29a","#e2cbb5","#4c423d","#b7a392","#5a5550","#928a7e","#b7ac9d","#ac443a","#eae4d7","#dba3af","#744438"
+        ], [
+        "#3a3b3b","#b8a136","#428f70","#81868b","#403c3a","#3957a5","#dbb07f","#74393b","#7aa7cb","#92969a","#ddbf99","#45423e","#c45e3a","#313d6b","#60646a","#f2bb1d"
+        ]],
+
+        //
+        intervalNames: [
             //---------------
             "P1", //unison
             "m2", 
@@ -101,21 +153,77 @@ class Fretboard {
             "M14", // M7^
             "O^" // P1^^
             //---------------
-        );
-        c.markerStyles = ['fret-number', 'linear-inlay'];
+        ],
+        //
+        sharpGlyph:  '♯',
+        flatGlyph:   '♭',
+        sign:        ['♯', '♭'],
+        //
+        circleRadius: 18,
+        maxFretRange: 17,
+        minStringSize: 0.2,
+    };
+
+    // return null for ok. otherwise return an error string 
+    cfgCpy(dstCfg, srcCfg) {
+        const protoCfg = new FretboardConfig();
+        //------
+        // minimal quality check. make sure required attrs are in src
+        for (const protoKey in protoCfg) {
+            if (!protoCfg.hasOwnProperty(protoKey)) { continue; }
+            //
+            if (protoCfg[protoKey] === null) {
+                if (!srcCfg.hasOwnProperty(protoKey)) {
+                 return "cfgCpy: src cfg  missing required key: " + 
+                     protoKey;
+                }
+            }
+        }
+        // make sure src property is recognized as a property known by
+        // FretboardConfig
+        for (const srcKey in srcCfg) {
+            if (!srcCfg.hasOwnProperty(srcKey)) { continue; }
+            if (!protoCfg.hasOwnProperty(srcKey)) {
+                return "cfgCpy: src configuration contains unknown key: " + 
+                        srcKey;
+            }
+        }
+        //------
+        // Nominally ok
+        // copy the props from srcCfg to dstCfg
+        for (const srcKey in srcCfg) {
+            if (!srcCfg.hasOwnProperty(srcKey)) { continue; }
+            dstCfg[srcKey] = srcCfg[srcKey];
+            /*
+            console.log("(%s) %s <<-- %s", 
+                dstCfg[srcKey], srcKey, srcCfg[srcKey]);
+            */
+        }
     }
 
     constructor(opts) {
-
-        this.svg = opts.svg;
         this.opts = opts;
+        this.svg = opts.svg;
         this.savefile = "fretboard_diagram.svg";
+        this.bellAudio = new Audio('sounds/bell.wav');
 
-        this.bellAudio = new Audio(
-            'sounds/bell.wav'
-        );
-        this.consts = FRETBOARD_CONSTS[opts.fretboardCfg];
-        this.mergeStaticConsts();
+        this.svgGrp = new FretboardSvgGroups();
+        this.cfg = new FretboardConfig();
+        // holds eveything save-able / load-able besides the 
+        // per (string,fret) note data
+
+        // load startup cfg in
+        var err = this.cfgCpy(this.cfg, FRETBOARD_CATALOG[opts.fretboardCfg]);
+        if (err != null) {
+            console.log("%s",
+                "Error loading inital cfg "+opts.fretboardCfg+": "+err);
+        }
+        /*
+        console.log("LOADED CFG:\n-------\n%s", 
+            JSON.stringify(this.cfg,null, "    "));
+        */
+
+        this.cfgDerived = new FretboardConfigDerived(this.cfg);
 
         this.state = {
             selected: null,
@@ -128,7 +236,7 @@ class Fretboard {
 
 
         // Set end fret according to viewport width
-        this.state.endFret = Math.min(Math.floor((window.innerWidth - 2 * this.consts.offsetX ) / this.consts.fretWidth), 16);
+        this.state.endFret = Math.min(Math.floor((window.innerWidth - 2 * this.cfg.offsetX ) / this.cfg.fretWidth), 16);
         opts.endFret.value = this.state.endFret;
 
         this.computeDependents();
@@ -137,7 +245,7 @@ class Fretboard {
         this.draw();
     }
 
-    savefileName(newname) {
+    savefileName(newname, ext) {
         if (newname === null) {
             return this.savefile;
         }
@@ -147,13 +255,121 @@ class Fretboard {
         return this.savefile;
     }
 
+    saveBlob(blobData, blobType, fileName) {
+        //
+        if (!fileName) {
+            this.bell();
+            return;
+        }
+        const blob = new Blob([blobData], { type: blobType });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = fileName;
+        a.id='download-link';
+        // Click handler releases the object URL after the elem has been clicked
+        // This is required for one-off downloads of the blob content
+        const clickHandler = () => {
+            setTimeout(() => {
+              URL.revokeObjectURL(url);
+              removeEventListener('click', clickHandler);
+            }, 150);
+        };
+        // Add the click event listener on the anchor element
+        // and do the click to kickoff download
+        a.addEventListener('click', clickHandler, false);
+        a.click();
+    }
+
+    readJson(elem) {
+        var files = elem.files
+        for (let i = 0; i < files.length; i++) {
+            var file = files[i];
+            console.log(file);
+            var reader = new FileReader();
+
+            // callback functions
+            // use closure wrapper to have access to 'this'
+            reader.onload = (function(fbHandle){
+                return function(e) {
+                    var result = e.target.result;
+                    const obj = JSON.parse(result);
+                    fbHandle.cfg = obj.cfg;
+                    fbHandle.cfgDerived.recalc(fbHandle.cfg);
+                    fbHandle.reset();
+                    fbHandle.erase();
+                    fbHandle.data = obj.data;
+                    fbHandle.draw();
+                };
+            })(this);
+
+            reader.onerror = function(stuff) {
+              console.log("error", stuff);
+              console.log (stuff.getMessage());
+            }
+            // initiate the read
+            reader.readAsText(file) //readAsdataURL
+        }
+        elem.value = '';
+    }
+
+    saveJson(filename) {
+        const objToSave = this;
+        // slice out only the attrs we want to export
+        const slice = {
+            cfg: objToSave.cfg,
+            data: objToSave.data,
+            state: objToSave.state,
+        };
+        const jsonData = JSON.stringify(slice, null, "  ");
+        const jsonBlobType = "data:text/json;charset=utf-8";
+        this.saveBlob(jsonData, jsonBlobType, filename);
+    }
+
+    saveFretboardPrompt() {
+        var filename=prompt("Save this fretboard to:", "fretboard");
+        if (filename === null || filename === "") {
+            return null;
+        } else {
+            // trim off any extension
+            var v = filename.split('.');
+            if (v.length > 1) {
+                v.pop()
+                filename = v.join('.')
+            }
+            filename += ".fbjson";
+            this.saveJson(filename);
+        }
+    }
+
+    //
+    // Save the current fretboard as an svg file
+    //
+    exportSvgPrompt(svgToSave) {
+        var text = null;
+        const filename=prompt("Export SVG file to:", "fretboard");
+        if (filename === null || filename === "") {
+                return null;
+        } else {
+            this.saveSvg(svgToSave, filename);
+        }
+    }
+    saveSvg(svgToSave, filename) {
+        // svcToSave -- fretboard svg diagram element to save
+        this.clearSelection();
+        const fn = this.savefileName(filename);
+        const svgCopy = inlineCSS(svgToSave);
+        var svgData = svgCopy.outerHTML;
+        this.saveBlob(svgData, "image/svg+xml;charset=utf-8", fn);
+    }
+
     bell() {
         this.bellAudio.play();
     }
 
     computeDependents() {
         this.state.numFrets = this.state.endFret - this.state.startFret;
-        this.state.fretboardWidth = this.consts.fretWidth * this.state.numFrets;
+        this.state.fretboardWidth = this.cfg.fretWidth * this.state.numFrets;
     }
 
     intervalizeNote (event) {
@@ -174,7 +390,7 @@ class Fretboard {
         this.state.enharmonic = (untoggledEnharmonic + 1) % 2;
         this.erase();
         this.draw();
-        return this.consts.sign[untoggledEnharmonic];
+        return this.DEF.sign[untoggledEnharmonic];
     }
 
     setFretWindow(fretWindow) {
@@ -193,13 +409,13 @@ class Fretboard {
             this.state.endFret = end;
             return;
         }
-        if (end - start > this.consts.maxFretRange) {
+        if (end - start > this.DEF.maxFretRange) {
             this.drawError(
                 "Maximal number of displayable frets is " +
-                this.consts.maxFretRange +
-                ", <br/> e.g., 1st to " + this.consts.maxFretRange +
+                this.DEF.maxFretRange +
+                ", <br/> e.g., 1st to " + this.DEF.maxFretRange +
                 "th or 4th to " +
-                (this.consts.maxFretRange + 3) +
+                (this.DEF.maxFretRange + 3) +
                 "th!"
             );
             this.state.startFret = start;
@@ -236,14 +452,14 @@ class Fretboard {
 
         // adjust diagram width to number of selected frets
         setAttributes(this.svg, {
-            width: this.state.fretboardWidth + 2 * this.consts.offsetX,
+            width: this.state.fretboardWidth + 2 * this.cfg.offsetX,
         })
         // adjust diagram height to number of strings , etc..
         setAttributes(this.svg, {
             height:  
-                this.consts.fretHeight +
-                this.consts.stringSpacing + // space for marker area 
-                (2 * this.consts.offsetY),
+                this.cfgDerived.fretHeight +
+                this.cfg.stringSpacing + // space for marker area 
+                (2 * this.cfg.offsetY),
         })
 
         this.svg.addEventListener('click', () => {
@@ -293,23 +509,23 @@ class Fretboard {
                     break;
                 case 'KeyB':
                     this.updateNote(selected, 
-                        { color: this.consts.leCorbusier.blue });
+                        { color: this.DEF.leCorbusierQuickColor.blue });
                     break;
                 case 'KeyK':
                     this.updateNote(selected, 
-                        { color: this.consts.leCorbusier.black });
+                        { color: this.DEF.leCorbusierQuickColor.black });
                     break;
                 case 'KeyG':
                     this.updateNote(selected, 
-                        { color: this.consts.leCorbusier.green });
+                        { color: this.DEF.leCorbusierQuickColor.green });
                     break;
                 case "KeyW":
                     this.updateNote(selected,
-                        { color: this.consts.leCorbusier.white });
+                        { color: this.DEF.leCorbusierQuickColor.white });
                     break;
                 case "KeyR":
                     this.updateNote(selected, 
-                        { color: this.consts.leCorbusier.red });
+                        { color: this.DEF.leCorbusierQuickColor.red });
                     break;
                 //
                 case "KeyX":
@@ -433,13 +649,13 @@ class Fretboard {
 
     drawFrets() {
         var pathSegments = 
-            ["M " + this.consts.offsetX + " " + this.consts.offsetY];
+            ["M " + this.cfg.offsetX + " " + this.cfg.offsetY];
 
         for (let i = this.state.startFret; i < (this.state.endFret + 1); i++) {
 
             let factor = (i - this.state.startFret) % 2 == 0 ? 1 : -1;
-            pathSegments.push("v " + (factor) * this.consts.fretHeight);
-            pathSegments.push("m " + this.consts.fretWidth + " " + 0);
+            pathSegments.push("v " + (factor) * this.cfgDerived.fretHeight);
+            pathSegments.push("m " + this.cfg.fretWidth + " " + 0);
 
             if (i === 0) {
                 // nut
@@ -453,8 +669,8 @@ class Fretboard {
                 // reset path for the rest of the frets
                 pathSegments = 
                     ["M " + 
-                    (this.consts.offsetX+this.consts.fretWidth) + " " + 
-                    (this.consts.offsetY+this.consts.fretHeight)];
+                    (this.cfg.offsetX+this.cfg.fretWidth) + " " + 
+                    (this.cfg.offsetY+this.cfgDerived.fretHeight)];
             }
         }
 
@@ -470,10 +686,10 @@ class Fretboard {
         const markers = createSvgElement('g', {
             class: 'markers'
         });
-        if (this.consts.markerStyles.includes('fret-number')) {
+        if (this.cfg.markerStyles.includes('fret-number')) {
             this.drawFretNumberMarkers(markers);
         }
-        if (this.consts.markerStyles.includes('linear-inlay')) {
+        if (this.cfg.markerStyles.includes('linear-inlay')) {
             this.drawLinearInlayMarkers(markers);
         }
     }
@@ -481,14 +697,14 @@ class Fretboard {
     drawLinearInlayMarkers(markers) {
         const inlayOffsetX = -7; // offset from fret
         const inlayOffsetY = 8; // offset from fret
-        var px = this.consts.offsetX + inlayOffsetX;
-        var py = this.consts.offsetY + inlayOffsetY;
-        const filteredMarkers = this.consts.markers
+        var px = this.cfg.offsetX + inlayOffsetX;
+        var py = this.cfg.offsetY + inlayOffsetY;
+        const filteredMarkers = this.cfg.markers
             .filter(i => i > this.state.startFret && i <= this.state.endFret);
         for (let i = this.state.startFret; i < (this.state.endFret + 1); i++) {
             if (filteredMarkers.includes(i)) {
                 var pathSegments = ["M " + px + " " + py];
-                const v = this.consts.fretHeight-(inlayOffsetY*2);
+                const v = this.cfgDerived.fretHeight-(inlayOffsetY*2);
                 pathSegments.push("v " + v);
                 const path = pathSegments.join(" ");
                 const marker = createSvgElement('path', {
@@ -503,13 +719,13 @@ class Fretboard {
                 });
                 markers.appendChild(marker);
             }
-            px += this.consts.fretWidth;
+            px += this.cfg.fretWidth;
         }
         this.svg.appendChild(markers);
     }
 
     drawFretNumberMarkers(markers) {
-        const filteredMarkers = this.consts.markers
+        const filteredMarkers = this.cfg.markers
             .filter(i => i > this.state.startFret && i <= this.state.endFret);
 
         for (let i=this.state.startFret+1; i < (this.state.endFret + 1); i++) {
@@ -517,45 +733,45 @@ class Fretboard {
             var y_adjust_i;
             if (filteredMarkers.includes(i)) {
                 class_i = 'fret-marker';
-                y_adjust_i = this.consts.stringSpacing;
+                y_adjust_i = this.cfg.stringSpacing;
             } else {
                 class_i = 'small-fret-marker';
-                y_adjust_i = this.consts.stringSpacing*.75;
+                y_adjust_i = this.cfg.stringSpacing*.75;
             }
 
             const marker = createSvgElement('text', {
                 class: class_i,
-                x: this.consts.offsetX + 
+                x: this.cfg.offsetX + 
                     (i - 1 - this.state.startFret) * 
-                    this.consts.fretWidth + (this.consts.fretWidth /** / 2 **/),
-                y: this.consts.offsetY + this.consts.fretHeight + 
+                    this.cfg.fretWidth + (this.cfg.fretWidth /** / 2 **/),
+                y: this.cfg.offsetY + this.cfgDerived.fretHeight + 
                     y_adjust_i,
             });
 
             // tapping instruments 0 or X fret feature support
-            marker.innerHTML = i + this.consts.markerOffset; 
+            marker.innerHTML = i + this.cfg.markerOffset; 
             markers.appendChild(marker);
         }
         this.svg.appendChild(markers);
     }
 
     drawStrings() {
-        var sw = this.consts.minStringSize * 2;
-        this.strings = createSvgElement('g', {
+        var sw = this.DEF.minStringSize * 2;
+        this.svgGrp.strings = createSvgElement('g', {
             'class': 'strings',
         })
-        this.svg.appendChild(this.strings);
-        for (let i = 0; i < this.consts.numStrings; i++) {
+        this.svg.appendChild(this.svgGrp.strings);
+        for (let i = 0; i < this.cfgDerived.numStrings; i++) {
             let path = "M " + 
-                this.consts.offsetX + " " + 
-                (this.consts.offsetY + 
-                i * this.consts.stringSpacing) + 
+                this.cfg.offsetX + " " + 
+                (this.cfg.offsetY + 
+                i * this.cfg.stringSpacing) + 
                 " h " + this.state.fretboardWidth;
 
-            if (this.consts.stringDisplayWidths != null) {
-                sw = this.consts.stringDisplayWidths[i];
+            if (this.cfg.stringDisplayWidths != null) {
+                sw = this.cfg.stringDisplayWidths[i];
                 if (sw === undefined) {
-                    sw = this.consts.minStringSize * 2;
+                    sw = this.DEF.minStringSize * 2;
                 }
             }
 
@@ -566,7 +782,7 @@ class Fretboard {
                     'stroke-width': sw,
                 }
             });
-            this.strings.appendChild(string);
+            this.svgGrp.strings.appendChild(string);
         }
     }
 
@@ -574,11 +790,11 @@ class Fretboard {
         var shapeElem = null;
         if (shape === 'circle') {
             shapeElem = createSvgElement('circle', {
-                'r': this.consts.circleRadius,
+                'r': this.DEF.circleRadius,
             });
         } else if (shape === 'diamond') {
-            const ysz = this.consts.circleRadius;
-            const xsz = this.consts.circleRadius;
+            const ysz = this.DEF.circleRadius;
+            const xsz = this.DEF.circleRadius;
             var x = -0;
             var y = ysz;
             var p = x+","+y;
@@ -595,8 +811,8 @@ class Fretboard {
 
             });
         } else if (shape === 'triangle') {
-            const ysz = this.consts.circleRadius*1.2;
-            const xsz = this.consts.circleRadius*1.2;
+            const ysz = this.DEF.circleRadius*1.2;
+            const xsz = this.DEF.circleRadius*1.2;
             var x = -xsz;
             var y = ysz/2;
             var p = x+","+y;
@@ -611,7 +827,7 @@ class Fretboard {
 
             });
         } else if (shape === 'square') {
-            const l=this.consts.circleRadius*2-4
+            const l=this.DEF.circleRadius*2-4
             shapeElem = createSvgElement('rect', {
                 'shape': shape,
                 'width': l,
@@ -624,7 +840,7 @@ class Fretboard {
     }
 
     drawNote(noteId, x, y, noteName, isOpen) {
-        if (isOpen && !this.consts.showOpenStrings) {
+        if (isOpen && !this.cfg.showOpenStrings) {
             return;
         }
         const note = createSvgElement('g', {
@@ -633,7 +849,7 @@ class Fretboard {
             'data-x': x,
             'data-y': y,
         });
-        this.notes.appendChild(note);
+        this.svgGrp.notes.appendChild(note);
         note.addEventListener("click", 
             (event) => this.noteClickHandler(event));
         note.addEventListener("dblclick", 
@@ -668,14 +884,29 @@ class Fretboard {
         this.updateNote(note, update);
     }
 
+    // Middle C will return 4
+    computeOctave(fret, string) {
+        var i = this.computeMidiNote(fret, string);
+        i = Math.trunc(i/12)-1;
+        return i;
+    }
+
+    // Middle C will return 60
+    computeMidiNote(fret, string) {
+        const interval = this.cfg.stringIntervals[string] + fret + 1;
+        return interval;
+    }
+
     computeEnharmonicNoteName(noteId, fret, string) {
-        const interval = this.consts.stringIntervals[string] + fret + 1;
+        const interval = this.cfg.stringIntervals[string] + fret + 1;
         var i = Math.abs(interval % 12);
-        var s = this.consts.NOTENAMES[this.state.enharmonic][i];
+        var s = this.DEF.noteNames[this.state.enharmonic][i];
         if (s.includes('#')) {
-            s = s.replace('#', this.consts.sharpGlyph);
+            s = s.replace('#', this.DEF.sharpGlyph);
         } else if (s.includes("b")) {
-            s = s.replace('b', this.consts.flatGlyph);
+            s = s.replace('b', this.DEF.flatGlyph);
+        } else if (s === 'C') {
+            // s += this.computeOctave(fret, string);
         }
         return s;
     }
@@ -698,9 +929,9 @@ class Fretboard {
             // dc holds the relative x,y, from root
             const dc = new Array(nc[0]-rc[0], nc[1]-rc[1]);
 
-            //const ni = this.consts.stringIntervals[string] + fret + 1;
-            const ni = this.consts.stringIntervals[string];
-            const ri = this.consts.stringIntervals[string-dc[1]];
+            //const ni = this.cfg.stringIntervals[string] + fret + 1;
+            const ni = this.cfg.stringIntervals[string];
+            const ri = this.cfg.stringIntervals[string-dc[1]];
 
             var ic = new Array( 
                 nc[0]-rc[0],
@@ -715,13 +946,13 @@ class Fretboard {
                 (ni-ri)
             );
 
-            if (i < 0 || i >= this.consts.intervalNames.length) {
+            if (i < 0 || i >= this.DEF.intervalNames.length) {
                 return this.computeEnharmonicNoteName(noteId, fret, string);
             } else {
-                if (this.consts.intervalNames[i] === undefined)  {
+                if (this.DEF.intervalNames[i] === undefined)  {
                     return this.computeEnharmonicNoteName(noteId, fret, string);
                 }
-                return this.consts.intervalNames[i];
+                return this.DEF.intervalNames[i];
             }
 
 
@@ -731,25 +962,25 @@ class Fretboard {
     }
 
     drawNotes() {
-        this.notes = createSvgElement('g', {
+        this.svgGrp.notes = createSvgElement('g', {
             'class': 'notes',
         })
-        this.svg.appendChild(this.notes);
+        this.svg.appendChild(this.svgGrp.notes);
 
         // open notes (fret: -1)
-        for (let j = 0; j < this.consts.numStrings; j++) {
+        for (let j = 0; j < this.cfgDerived.numStrings; j++) {
             const noteId = `o-s${j}`;
-            const x = this.consts.offsetX / 2;
-            const y = this.consts.offsetY + this.consts.stringSpacing * j;
+            const x = this.cfg.offsetX / 2;
+            const y = this.cfg.offsetY + this.cfg.stringSpacing * j;
             const noteName = this.computeNoteName(noteId, -1, j);
             this.drawNote(noteId, x, y, noteName, true);
         }
         // notes on fretboard
         for (let i = this.state.startFret; i < this.state.endFret; i++) {
-            for (let j = 0; j < this.consts.numStrings; j++) {
+            for (let j = 0; j < this.cfgDerived.numStrings; j++) {
                 const noteId = `f${i}-s${j}`;
-                const x = this.consts.offsetX + (this.consts.fretWidth / 2) + this.consts.fretWidth * (i - this.state.startFret);
-                const y = this.consts.offsetY + this.consts.stringSpacing * j;
+                const x = this.cfg.offsetX + (this.cfg.fretWidth / 2) + this.cfg.fretWidth * (i - this.state.startFret);
+                const y = this.cfg.offsetY + this.cfg.stringSpacing * j;
                 const noteName = this.computeNoteName(noteId, i, j);
                 this.drawNote(noteId, x, y, noteName, false);
             }
@@ -795,10 +1026,10 @@ class Fretboard {
         const x = selected.getAttribute('data-x');
         const y = selected.getAttribute('data-y');
         setAttributes(this.editableText, {
-            x: x - this.consts.circleRadius,
-            y: y - this.consts.circleRadius + 4,
-            height: 2 * this.consts.circleRadius,
-            width: 2 * this.consts.circleRadius,
+            x: x - this.DEF.circleRadius,
+            y: y - this.DEF.circleRadius + 4,
+            height: 2 * this.DEF.circleRadius,
+            width: 2 * this.DEF.circleRadius,
             class: 'visible',
             styles: {
                 display: 'block',
@@ -926,7 +1157,7 @@ class Fretboard {
 
     toggleVisibility() {
         this.state.visibility = this.state.visibility === 'hidden' ? 'transparent' : 'hidden';
-        for (let note of this.notes.children) {
+        for (let note of this.svgGrp.notes.children) {
             if (note.className.baseVal.endsWith('visible') || note.className.baseVal.endsWith('selected')) {
                 continue;
             }
@@ -960,7 +1191,7 @@ class Fretboard {
     reset() {
         this.state.intervalRoot = null;
         this.data = {};
-        for (let note of this.notes.children) {
+        for (let note of this.svgGrp.notes.children) {
             // reset text
             const text = this.noteText(note);
             if (text) {
@@ -974,8 +1205,17 @@ class Fretboard {
 
     changeConfiguration(event) {
         const k = event.target.value;
-        this.consts = FRETBOARD_CONSTS[k];
-        this.mergeStaticConsts();
+        var err = this.cfgCpy(this.cfg, FRETBOARD_CATALOG[k]);
+        if (err != null) {
+            console.log("%s",
+                "Error loading new cfg " + k + ": "+err);
+        } else {
+            /*
+            console.log("LOADED CFG:\n-------\n%s", 
+                JSON.stringify(this.cfg,null, "    "));
+            */
+            this.cfgDerived.recalc(this.cfg);
+        }
         this.reset();
         this.erase();
         this.draw();
@@ -1000,42 +1240,6 @@ const fretboard = new Fretboard({
 const togglebutton = document.getElementById('visibility');
 togglebutton.addEventListener('click', (event) => {
     fretboard.toggleVisibility();
-});
-
-/* Save SVG button and save file name */
-
-var svgButton = document.getElementById('save-svg');
-
-var savefileNameInput = document.getElementById('savefile-name');
-savefileNameInput.addEventListener('change', () => {
-    fretboard.savefileName(savefileNameInput.value);
-});
-
-svgButton.addEventListener('click', () => {
-    fretboard.clearSelection();
-    const filename = fretboard.savefileName(null);
-    //
-    const svgCopy = inlineCSS(svg);
-    var svgData = svgCopy.outerHTML;
-    var svgBlob = new Blob([svgData], { type: "image/svg+xml;charset=utf-8" });
-    var svgUrl = URL.createObjectURL(svgBlob);
-    //
-    const a = document.createElement('a');
-    a.href = svgUrl;
-    a.download = filename != null ? filename : 'fretboard_diagram.svg';
-    a.id='svg-link';
-    // Click handler releases the object URL after the element has been clicked
-    // This is required for one-off downloads of the blob content
-    const clickHandler = () => {
-        setTimeout(() => {
-          URL.revokeObjectURL(svgUrl);
-          removeEventListener('click', clickHandler);
-        }, 150);
-    };
-    // Add the click event listener on the anchor element
-    // and do the click to kickoff download
-    a.addEventListener('click', clickHandler, false);
-    a.click();
 });
 
 /* 
@@ -1116,15 +1320,7 @@ const colorSps = Spectrum.createMultiple(colorButtons, {
     showAlpha: false,
     chooseText: "Done",
     togglePaletteMoreText: "more <click>, <esc> done",
-    palette: [[
-        "#000000","#eadbc0","#5e6061","#929494","#a7a8a5","#bcbbb6","#4d6aa8","#8fabc9","#abbdc8","#b6c6ce","#d9e1dd","#3e6e90","#679dae","#8ab5ba","#a8c4c1","#c6d5cc"
-    ], [
-        "#406e58","#91afa1","#becbb7","#3e6f42","#7fa25a","#abc17a","#c4d39b","#eacfa6","#d46c40","#dc8d67","#eacfb9","#9b3738","#e6cdbf","#8f3a43","#943a4d","#d6afa6"
-    ], [
-        "#8b4d3e","#cd9886","#dbbeaa","#68443c","#b67b66","#d8b29a","#e2cbb5","#4c423d","#b7a392","#5a5550","#928a7e","#b7ac9d","#ac443a","#eae4d7","#dba3af","#744438"
-    ], [
-        "#3a3b3b","#b8a136","#428f70","#81868b","#403c3a","#3957a5","#dbb07f","#74393b","#7aa7cb","#92969a","#ddbf99","#45423e","#c45e3a","#313d6b","#60646a","#f2bb1d"
-  ]]
+    palette: fretboard.DEF.leCorbusierPalette,
 });
 
 for (let i = 0; i < colorButtons.length; i++) {
@@ -1147,7 +1343,6 @@ intervalizeNoteButton.addEventListener('click', (event) => {
 /*
  * 
  */
-
 const colorPicker = Spectrum.create('#color-picker',{
     type: 'color',
     showPaletteOnly: true,
@@ -1158,15 +1353,8 @@ const colorPicker = Spectrum.create('#color-picker',{
     showAlpha: false,
     chooseText: "Done",
     togglePaletteMoreText: "more <click>, <esc> done",
-    palette: [[
-        "#000000","#eadbc0","#5e6061","#929494","#a7a8a5","#bcbbb6","#4d6aa8","#8fabc9","#abbdc8","#b6c6ce","#d9e1dd","#3e6e90","#679dae","#8ab5ba","#a8c4c1","#c6d5cc"
-    ], [
-        "#406e58","#91afa1","#becbb7","#3e6f42","#7fa25a","#abc17a","#c4d39b","#eacfa6","#d46c40","#dc8d67","#eacfb9","#9b3738","#e6cdbf","#8f3a43","#943a4d","#d6afa6"
-    ], [
-        "#8b4d3e","#cd9886","#dbbeaa","#68443c","#b67b66","#d8b29a","#e2cbb5","#4c423d","#b7a392","#5a5550","#928a7e","#b7ac9d","#ac443a","#eae4d7","#dba3af","#744438"
-    ], [
-        "#3a3b3b","#b8a136","#428f70","#81868b","#403c3a","#3957a5","#dbb07f","#74393b","#7aa7cb","#92969a","#ddbf99","#45423e","#c45e3a","#313d6b","#60646a","#f2bb1d"
-  ]]
+    palette: fretboard.DEF.leCorbusierPalette,
+
 });
 
 
@@ -1188,11 +1376,11 @@ enharmonicToggle.addEventListener('click', () => {
 
 /* fretboard type selection */
 const fretboardTypes = document.getElementById('fretboard-types');
-for (const key in FRETBOARD_CONSTS) {
-    if (FRETBOARD_CONSTS.hasOwnProperty(key)) {
+for (const key in FRETBOARD_CATALOG) {
+    if (FRETBOARD_CATALOG.hasOwnProperty(key)) {
         var opt = document.createElement('option');
-        if (FRETBOARD_CONSTS[key].hasOwnProperty('title')) {
-            opt.innerHTML = FRETBOARD_CONSTS[key].title;
+        if (FRETBOARD_CATALOG[key].hasOwnProperty('title')) {
+            opt.innerHTML = FRETBOARD_CATALOG[key].title;
         } else {
             opt.innerHTML = key.replaceAll('_', ' ');
         }

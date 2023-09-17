@@ -9,53 +9,58 @@ var _x = 59;
 /*
  * Reference:
  *
- * it probably makes sense to use midi notes numbers 
+ * Midi note numbers are used for the stringInterval values
+ * of the Fretboard object.
+ *
+ * Midi notes are in units of semitones.
  *
  * 60 == Midi Note Number for Middle C4
- * 127== Midi Note for G8 upper limit
- * 0  == Midi Note for C-2 lower limit
+ * 127== Midi Note for G8. upper limit of MIDI note value range
+ * 0  == Midi Note for C-2. lower limit of MIDI note value range
  *
  * C1 == low C on a piano  
  * C4 == middle C
  *
- * C1 == the fret X/0 C on the low bass string of matched reciprocal 12str
- * C4 == the fret X/0 C on the high melody string of matched reciprocal 12str
+ * C1 == the C on the X/0 fret for the low bass string of a 
+ *       matched reciprocal 12str
+ * C4 == the C on the X/0 fret for the high melody string of 
+ *       matched reciprocal 12str
  *
- * E4 -- the high e on std guitar
+ * E4 -- the high open e on std guitar
  *
- * 60 seems like an ok 'reference point' as a relative reference
- * to base the stringIntervals from. 
+ * Given all these numbers above, using midi notes numbers is a practical
+ * way to express the stringInterval numbers in a fretboard configuration.
+ *
+ * Doing this allows us to do some simple arithmetic with 
+ * stringIntervals, and a position's fret and string number, 
+ * to calculate that positions midi value.
  *
  * So: 
- *   -- if middle c is what your first open string is tuned too. 
+ *   -- if middle C is what your first open string is tuned too. 
  *   then '0' is what your first value in stringIntervals should be. 
  *   internally that will translate to midi 60
  *
  *   -- if your first open string is tuned one semitone lower 
  *   to B below middle C (B2)  then your first value in stringIntervals 
- *   should be '-1' internally that will translate to midi 59
+ *   should be 59. 
+ *      In fact , this is the case for 12 string 
+ *   matched reciprocal which you can see in the catalog below
  *
  * NOTE: Midi is stupid and shifts all the octave numbers down
- * so in midi middleC in midi is usually referenced as C3 
+ * 1, so in midi they refer to middleC usually as 'C3', not C4 
  * we are not using midi octave numbers in this dicussion
- *
  */
 
-const FRETBOARD_CONSTS = {
+const FRETBOARD_CATALOG = {
 
     /* 6 string guitar that uses standard tuning */
     guitar: {
         title: "Guitar",
         showOpenStrings: true,
-        offsetX: 40,
-        offsetY: 30,
         stringDisplayWidths: [ 0.4, 0.6, 0.8, 1.0, 1.2, 1.4 ],
         stringIntervals: [_x-7, _x-12, _x-16, _x-21, _x-26, _x-31],
         markerOffset: 0,
         markers: [3, 5, 7, 9, 12, 15, 17, 19, 21],
-        fretWidth: 70,
-        stringSpacing: 40,
-        minStringSize: 0.2,
     },
 
     /* 12 string tapping instruments like the chapman stick or the
@@ -64,8 +69,6 @@ const FRETBOARD_CONSTS = {
     tapping_10_str_matched_reciprocal: {
         title: "Tapper: 10str matched reciprocal",
         showOpenStrings: false, // tapping instruments can't play open strings 
-        offsetX: 40,
-        offsetY: 30,
         stringDisplayWidths: [
             0.4, 0.6, 0.8, 1.0, 1.2, //melody
             3.4, 3.0, 2.4, 2.0, 1.0 //bass
@@ -80,19 +83,12 @@ const FRETBOARD_CONSTS = {
         // stringIntervals: [25, 20, 15, 10, 5, 0, 25, 20, 15, 10, 5, 0],
         markerOffset: -1, //  0 or 'X' fret in diagrams
         markers: [3, 8, 13, 18], // inlays every 5 frets
-        fretWidth: 70,
-        stringSpacing: 40,
-        minStringSize: 0.2,
-        notes: 
-          [['A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A'],
-          ['Bb', 'B', 'C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A']]
     },
 
     tapping_12_str_matched_reciprocal: {
         title: "Tapper: 12str matched reciprocal",
         showOpenStrings: false, // tapping instruments can't play open strings 
-        offsetX: 40,
-        offsetY: 30,
+
         stringDisplayWidths: [
             0.4, 0.6, 0.8, 1.0, 1.2, 1.4, //melody
             3.4, 3.0, 2.4, 2.0, 1.0, 0.6  //bass
@@ -103,63 +99,41 @@ const FRETBOARD_CONSTS = {
             // bass - shift down 11 semi tones and start doing 5ths 
             _x-36, _x-36+7, _x-36+14, _x-36+21, _x-36+28, _x-36+35,
         ],
-        // stringIntervals: [25, 20, 15, 10, 5, 0, 25, 20, 15, 10, 5, 0],
         markerOffset: -1, //  0 or 'X' fret in diagrams
         markers: [3, 8, 13, 18], // inlays every 5 frets
-        fretWidth: 70,
-        stringSpacing: 40,
-        minStringSize: 0.2,
-        notes: 
-          [['A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A'],
-          ['Bb', 'B', 'C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A']]
     },
-
 
     tapping_12_str_matched_reciprocal_melody: {
         title: "Tapper: 12str matched reciprocal melody",
         showOpenStrings: false, // can't play open strings 
-        offsetX: 40,
-        offsetY: 30,
         stringDisplayWidths: [
-            0.4, 0.6, 0.8, 1.0, 1.2, 1.4 //melody
-            // 3.4, 3.0, 2.4, 2.0, 1.0, 0.6  //bass
+            0.4, 0.6, 0.8, 1.0, 1.2, 1.4, //melody
         ],
-        stringIntervals: [25, 20, 15, 10, 5, 0],
+        stringIntervals: [
+            // melody
+            _x, _x-5, _x-10, _x-15, _x-20, _x-25,
+        ],
         markerOffset: -1, // 0 or 'X' fret in diagrams
         markers: [3, 8, 13, 18], // inlays every 5 frets
-        fretWidth: 70,
-        stringSpacing: 40,
-        minStringSize: 0.2,
-        notes: 
-          [['A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A'],
-          ['Bb', 'B', 'C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A']]
     },
 
     tapping_12_str_matched_reciprocal_bass: {
         title: "Tapper: 12str matched reciprocal bass",
         showOpenStrings: false, // can't play open strings 
-        offsetX: 40,
-        offsetY: 30,
         stringDisplayWidths: [
-            // 0.4, 0.6, 0.8, 1.0, 1.2, 1.4, //melody
             3.4, 3.0, 2.4, 2.0, 1.0, 0.6  //bass
         ],
-        stringIntervals: [0, 7, 14, 21, 28, 35],
+        stringIntervals: [
+            // bass - shift down 11 semi tones and start doing 5ths 
+            _x-36, _x-36+7, _x-36+14, _x-36+21, _x-36+28, _x-36+35,
+        ],
         markerOffset: -1, // 0 or 'X' fret in diagrams
         markers: [3, 8, 13, 18], // have inlays every 5 frets
-        fretWidth: 70,
-        stringSpacing: 40,
-        minStringSize: 0.2,
-        notes: 
-          [['A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A'],
-          ['Bb', 'B', 'C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A']]
     },
 
     tapping_10_str_classic: {
         title: "Tapper: 10str classic",
         showOpenStrings: false, // tapping instruments can't play open strings 
-        offsetX: 40,
-        offsetY: 30,
         stringDisplayWidths: [
             0.4, 0.6, 0.8, 1.0, 1.2, //melody
             3.4, 3.0, 2.4, 2.0, 1.0 //bass
@@ -174,19 +148,11 @@ const FRETBOARD_CONSTS = {
         ],
         markerOffset: -1, //  0 or 'X' fret in diagrams
         markers: [3, 8, 13, 18], // inlays every 5 frets
-        fretWidth: 70,
-        stringSpacing: 40,
-        minStringSize: 0.2,
-        notes: 
-          [['A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A'],
-          ['Bb', 'B', 'C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A']]
     },
 
     tapping_12_str_classic: {
         title: "Tapper: 12str classic",
         showOpenStrings: false, // tapping instruments can't play open strings 
-        offsetX: 40,
-        offsetY: 30,
         stringDisplayWidths: [
             0.4, 0.6, 0.8, 1.0, 1.2, 1.4, //melody
             3.4, 3.0, 2.4, 2.0, 1.0, 0.6  //bass
@@ -201,19 +167,11 @@ const FRETBOARD_CONSTS = {
         ],
         markerOffset: -1, //  0 or 'X' fret in diagrams
         markers: [3, 8, 13, 18], // inlays every 5 frets
-        fretWidth: 70,
-        stringSpacing: 40,
-        minStringSize: 0.2,
-        notes: 
-          [['A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A'],
-          ['Bb', 'B', 'C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A']]
     },
 
     tapping_10_str_full_baritone: {
         title: "Tapper: 10str full baritone",
         showOpenStrings: false, // tapping instruments can't play open strings 
-        offsetX: 40,
-        offsetY: 30,
         stringDisplayWidths: [
             0.4, 0.6, 0.8, 1.0, 1.2, //melody
             3.4, 3.0, 2.4, 2.0, 1.0 //bass
@@ -228,19 +186,11 @@ const FRETBOARD_CONSTS = {
         ],
         markerOffset: -1, //  0 or 'X' fret in diagrams
         markers: [3, 8, 13, 18], // inlays every 5 frets
-        fretWidth: 70,
-        stringSpacing: 40,
-        minStringSize: 0.2,
-        notes: 
-          [['A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A'],
-          ['Bb', 'B', 'C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A']]
     },
 
     tapping_ns_stick_std: {
         title: "Tapper: Std. N/S Stick",
         showOpenStrings: true, // NS can play open strings
-        offsetX: 40,
-        offsetY: 30,
         stringDisplayWidths: [
             0.4, 0.6, 0.8, 1.0, 1.2, 1.5, 2.0, 2.5
         ],
@@ -249,12 +199,6 @@ const FRETBOARD_CONSTS = {
         ],
         markerOffset: -1, //  0 or 'X' fret in diagrams
         markers: [3, 8, 13, 18], // inlays every 5 frets
-        fretWidth: 70,
-        stringSpacing: 40,
-        minStringSize: 0.2,
-        notes: 
-          [['A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A'],
-          ['Bb', 'B', 'C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A']]
     }
 
 }

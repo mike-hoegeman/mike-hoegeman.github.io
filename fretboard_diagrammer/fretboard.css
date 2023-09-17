@@ -147,19 +147,7 @@ text.small-fret-marker {
     font-family: helvetica_neuelight_italic, Arial, Helvetica, sans-serif;
 }
 
-/*
-path.marker {
-    stroke: teal;
-    stroke-width: 5px;
-    fill: none;
-    stroke-linejoin: round;
-    stroke-linecap: round;
-}
-*/
-
-
 /* Controls */
-
 /* Actions on nodes */
 
 #shape-selector {
@@ -181,7 +169,7 @@ path.marker {
 }
 
 button {
-    height: 25px;
+    height: 28px;
 }
 
 button.color {
@@ -226,7 +214,7 @@ button.sym-button:hover {
 
 #cfg-and-save {
     margin: auto;
-    width: 500px;
+    width: 300px;
     padding: 10px;
     display: flex;
     justify-content: space-between;

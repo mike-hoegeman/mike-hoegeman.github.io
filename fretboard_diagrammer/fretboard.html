@@ -73,9 +73,7 @@
         <div id="color-selector">
             <button title="intervalize" 
                 class="sym-button" id="intervalize-note">&#8596;</button>
-
             <button id='color-picker'>Color..</label>
-
             <!-- blue -->
             <button class='color' title='#4d6aa8' 
                 style='background-color: #4d6aa8'></button>
@@ -85,14 +83,12 @@
             <!-- red -->
             <button class='color' title='#ac443a' 
                 style='background-color: #ac443a'></button>
-
             <button class='color' title='#ffffff' 
                 style='background-color: #ffffff'></button>
             <button class='color' title='#000000' 
                 style='background-color: #000000'></button>
-
-            <button title="delete" class="sym-button" id="delete-note">&#10683;</button>
-
+            <button title="delete" 
+                class="sym-button" id="delete-note">&#10683;</button>
         </div>
 
         <div id="global-actions">
@@ -100,8 +96,32 @@
                 autocomplete=off>
 
             <button id="enharmonic" style="width: 25px; text-align: center;">♭</button>
-            <button id="visibility" class="button">Toggle</button>
-            <button id="save-svg" class="button">Save</button>
+            <button id="visibility" class="button">
+            <img src="svg-icons/cycle.svg" height="24" />
+            </button>
+
+            <button id="save-svg" 
+                onclick="fretboard.exportSvgPrompt(svg)" 
+                class="button">
+                <img src="svg-icons/svg.svg" height="24" />
+            </button>
+
+            <button id="save-svg" 
+                onclick="fretboard.saveFretboardPrompt()" 
+                class="button">
+                <img src="svg-icons/download.svg" height="24" />
+            </button>
+
+            <button id="readjsonB"
+                onclick="document.getElementById('readjson').click();">
+                <img src="svg-icons/upload.svg" height="24"/>
+            </button>
+            <input id="readjson" type="file" 
+                accept=".fbjson"
+                style="display:none;"
+                multiple onchange="fretboard.readJson(this)">
+            </input>
+
             <button id="reset" class="button">Reset</button>
             <input id="end-fret" type="number" class="num-input" value="12" name="startFret" min=1 max=22 maxlength="2" size="5
                 autocomplete=off>
@@ -110,21 +130,12 @@
 
         </div>
 
-        <div id='cfg-and-save'>
+        <div id="cfg-and-save">
             <!-- leave empty filled in by app -->
-            <select name="fretboard-types" id="fretboard-types">
-            &nbsp;
-            <input id="savefile-name" size="25" placeholder="Save file name" type="text"></input>
-            </select>
+            <select name="fretboard-types" id="fretboard-types">&nbsp;</select>
         </div>
 
-
     </div>
-
-    <!-- fretboard strings/tuning configurations -->
-    <!--
-    <script src="colorpicker/CustomHexColorPicker.lib.js"></script>
-    -->
 
     <script src='spectrum/dist/spectrum.js'></script>
     <script src="fretboard_cfg.js"></script>
