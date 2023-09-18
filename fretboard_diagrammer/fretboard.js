@@ -24,6 +24,10 @@ class FretboardConfig {
         this.fretWidth =      70;
         this.stringSpacing = 40;
         this.markerStyles = ['fret-number', 'linear-inlay'];
+        this.isIOS = false
+        if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
+            this.isIOS = true;
+        }
     }
 }
 
@@ -608,7 +612,8 @@ class Fretboard {
 
     updateColorFromButton(event, spObj) {
         const elem = event.target;
-        if (event.shiftKey) {
+        // IOS always reports the shift key as being down - lame
+        if (event.shiftKey && !this.isIOS) {
             // shift click means allow the spectrum color picker 
             // to pup up to update the color for the button
             return;

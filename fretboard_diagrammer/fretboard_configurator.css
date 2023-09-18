@@ -1,0 +1,28 @@
+/*
+ * fretboard_configurator.css
+ */
+.kheader { grid-area: header; }
+.kstringheader { grid-area: stringheader; }
+.kleftmain { grid-area: leftmain; }
+.krightmain { grid-area: rightmain; }
+.kfooter { grid-area: footer; }
+.kstringinterval { grid-area: stringinterval; }
+.kstringdisplaywidth { grid-area: stringdisplaywidth; }
+.fbc-grid-container {
+  display: grid;
+  grid-template-areas:
+    'header       header        header          header          header          header'
+    'stringheader stringheader  leftmain        leftmain        rightmain       rightmain'
+    'stringinterval stringdisplaywidth  footer          footer          footer          footer'
+    ;
+  gap: 10px;
+  background-color: #2196F3;
+  padding: 10px;
+}
+.fbc-grid-container > div {
+  background-color: rgba(255, 255, 255, 0.8);
+  text-align: left;
+  padding: 24 0;
+  font-size: 16px;
+  font-family: helvetica_neuelight, Arial, Helvetica, sans-serif;
+}

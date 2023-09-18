@@ -5,9 +5,11 @@
     <meta charset="utf-8">
     <title>Fretboard Diagram Creator</title>
     <link rel="stylesheet" href="fretboard.css">
+    <link rel='stylesheet' href='fretboard_configurator.css'>
     <link rel='stylesheet' href='spectrum/dist/spectrum.css'>
     <link rel="stylesheet" 
      href="../webfontkit/mike-stylesheet.css" type="text/css" charset="utf-8" />
+
 </head>
 
 <body>
@@ -133,11 +135,34 @@
 
 </div> <!-- end menu -->
 
-<!-- ************************************************************* -->
-
 <script src="spectrum/dist/spectrum.js"></script>
-<script src="fretboard_cfg.js"></script>
+<script src="fretboard_catalog.js"></script>
 <script src="fretboard.js"></script>
+<script src="fretboard_configurator.js"></script>
+
+<!--
+<body>
+
+<hr>
+<div id="fbc-main">
+<div class="fbc-grid-container">
+  <div class="kheader"><b>Fretboard Configurator</b></div>
+  <div class="kstringheader">
+    <label># of Strings</label>
+    <input id="stringcount" type="number" class="num-input" 
+        value="1" name="startFret" min=1 max=20 maxlength="2" size="5"
+        autocomplete="off"/>
+  </div>
+  <div class="kleftmain">LeftMain</div>
+  <div class="krightmain">RightMain</div>
+  <div class="kstringinterval">SI</div>
+  <div class="kstringdisplaywidth">SDW</div>
+  <div class="kfooter">Footer</div>
+</div>
+</div>
+
+</body>
+-->
 
 </body>
 </html>
