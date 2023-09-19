@@ -204,6 +204,33 @@ class Fretboard {
         this.draw();
     }
 
+    inlineCSS(svg) {
+        const svgElements = document.querySelectorAll("#fretboard *");
+        var deep = true;
+        const clonedSVG = svg.cloneNode(deep);
+        const clonedElements = clonedSVG.querySelectorAll("*");
+        for (let i = 0; i < svgElements.length; i++) {
+            const computedStyle = getComputedStyle(svgElements[i]);
+            // remove invisible elements to reduce file size
+            const opacity = computedStyle.getPropertyValue('opacity');
+            if (opacity === '0') {
+                clonedElements[i].remove();
+                continue;
+            }
+            const styles = { opacity: opacity }
+            for (let attr of PROPERTIES) {
+                let value = computedStyle.getPropertyValue(attr);
+                if (value) {
+                    styles[attr] = value;
+                }
+            }
+            this.setAttributes(clonedElements[i], {
+                'styles': styles,
+            });
+        }
+        return clonedSVG;
+    }
+
     setAttributes(elem, attrs) {
         for (var idx in attrs) {
             if (
@@ -380,7 +407,7 @@ class Fretboard {
         // svcToSave -- fretboard svg diagram element to save
         this.clearSelection();
         const fn = this.savefileName(filename);
-        const svgCopy = inlineCSS(svgToSave);
+        const svgCopy = this.inlineCSS(svgToSave);
         var svgData = svgCopy.outerHTML;
         this.saveBlob(svgData, "image/svg+xml;charset=utf-8", fn);
     }
@@ -1319,7 +1346,7 @@ const PROPERTIES = [
     "font-family", 'font-size', 'font-style'
 ]
 
-function inlineCSS(svg) {
+function xxinlineCSS(svg) {
     const svgElements = document.querySelectorAll("#fretboard *");
     const clonedSVG = svg.cloneNode(deep = true);
     const clonedElements = clonedSVG.querySelectorAll("*");
