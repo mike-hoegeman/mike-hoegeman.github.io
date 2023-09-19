@@ -659,15 +659,18 @@ class Fretboard {
     updateColorFromButton(event, spObj) {
         const elem = event.target;
         // IOS always reports the shift key as being down - lame
-        if (event.shiftKey && !this.isIOS) {
+        if (event.shiftKey) {
             // shift click means allow the spectrum color picker 
-            // to pup up to update the color for the button
+            // to pop up to update the color for the button
             return;
         } else {
             // regular click use it to update the currently selected 
             // position dot - hide the color picker before it has a chance to
-            // pop up
-            spObj.hide();
+            // pop up ( if it exists - we dont use it on IOS )
+            // as this event hijacking does not work there..
+            if (spObj != null) {
+                spObj.hide();
+            }
         }
 
         if (!this.state.selected) {
@@ -1405,21 +1408,26 @@ for (let button of shapeButtons) {
  * Color selector 
  */
 const colorButtons = document.querySelectorAll("button.color");
-const colorSps = Spectrum.createMultiple(colorButtons, {
-    type: 'color',
-    showPaletteOnly: true,
-    togglePaletteOnly: true,
-    maxSelectionSize: 9,
-    hideAfterPalletteSelect: true,
-    showButtons: true,
-    showAlpha: false,
-    chooseText: "Done",
-    togglePaletteMoreText: "more <click>, <esc> done",
-    palette: fretboard.DEF.leCorbusierPalette,
-});
+var colorSps = null;
+if (!fretboard.isIOS) {
+    colorSps = Spectrum.createMultiple(colorButtons, {
+        type: 'color',
+        showPaletteOnly: true,
+        togglePaletteOnly: true,
+        maxSelectionSize: 9,
+        hideAfterPalletteSelect: true,
+        showButtons: true,
+        showAlpha: false,
+        chooseText: "Done",
+        togglePaletteMoreText: "more <click>, <esc> done",
+        palette: fretboard.DEF.leCorbusierPalette,
+    });
+}
+
 for (let i = 0; i < colorButtons.length; i++) {
     colorButtons[i].addEventListener('click', (event) => {
-        fretboard.updateColorFromButton(event, colorSps[i]);
+        fretboard.updateColorFromButton(event, 
+            colorSps === null ? null : colorSps[i]);
     });
     // user is resetting the canned color to something custom
     colorButtons[i].addEventListener('move', (event) => {
