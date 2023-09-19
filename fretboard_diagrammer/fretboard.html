@@ -140,16 +140,14 @@
         <select name="fretboard-types" id="fretboard-types">&nbsp;</select>
         <div><label style="vertical-align: middle;">Customize..</label>
         <input type="checkbox" id="show-configurator" 
-           onchange="fretboard.showConfigurator(this)" checked=false></input>
+           onchange="fretboard.showConfigurator(this)"></input>
         </div>
     </div>
 
 </div> <!-- end menu -->
 
 <!-- FretboardConfigurator fills this div in with it's UI -->
-<div id="fbc-main">
-
-</div>
+<div id="fbc-main" style="display: none"></div>
 
 <script src="spectrum/dist/spectrum.js"></script>
 <script src="fretboard_catalog.js"></script>
