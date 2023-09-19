@@ -1,28 +1,67 @@
 /*
  * fretboard_configurator.css
  */
+
+select {
+    font-family: helvetica_neue, Arial, Helvetica, sans-serif;
+}
+label {
+    display: inline-block;
+    vertical-align: middle;
+    font-family: helvetica_neue, Arial, Helvetica, sans-serif;
+}
+input[type=checkbox]{
+    width: 18px;
+    height: 18px;
+    accent-color: #eae4d7;
+    vertical-align: middle;
+}
+input[type=checkbox]:checked{
+    accent-color: #eae4d7;
+}
+
 .kheader { grid-area: header; }
+.kheader>button { grid-area: header; margin: 4px;}
 .kstringheader { grid-area: stringheader; }
-.kleftmain { grid-area: leftmain; }
-.krightmain { grid-area: rightmain; }
-.kfooter { grid-area: footer; }
-.kstringinterval { grid-area: stringinterval; }
-.kstringdisplaywidth { grid-area: stringdisplaywidth; }
+.kstringheader>button { margin: 1px; }
+.kmarkers { grid-area: markers; }
+.kfree { grid-area: free; }
+.kstrings { grid-area: strings; }
+
+.fbc-strings-grid {
+  display: grid;
+  grid-template-columns: 50px 40px 60px;
+  border-radius: 8px;
+  gap: 10px;
+  padding: 1px;
+}
+.fbc-strings-grid-col-interval-note {
+}
+.fbc-strings-grid-col-interval-octave {
+}
+.fbc-strings-grid-col-displaywidth {
+}
+
 .fbc-grid-container {
   display: grid;
   grid-template-areas:
-    'header       header        header          header          header          header'
-    'stringheader stringheader  leftmain        leftmain        rightmain       rightmain'
-    'stringinterval stringdisplaywidth  footer          footer          footer          footer'
+    'header       header        header          header'
+    'stringheader markers  markers        markers'
+    'strings    free     free          free'
     ;
   gap: 10px;
-  background-color: #2196F3;
   padding: 10px;
+  border-radius: 4px;
+  border-color: black;
+  border: solid;
+  border-width: 1px;
+  background-color: #abbdc8;
 }
+
+/* background-color: pink; */
 .fbc-grid-container > div {
-  background-color: rgba(255, 255, 255, 0.8);
   text-align: left;
   padding: 24 0;
   font-size: 16px;
-  font-family: helvetica_neuelight, Arial, Helvetica, sans-serif;
+  font-family: helvetica_neue, Arial, Helvetica, sans-serif;
 }

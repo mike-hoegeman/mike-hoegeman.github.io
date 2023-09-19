@@ -9,7 +9,6 @@
     <link rel='stylesheet' href='spectrum/dist/spectrum.css'>
     <link rel="stylesheet" 
      href="../webfontkit/mike-stylesheet.css" type="text/css" charset="utf-8" />
-
 </head>
 
 <body>
@@ -50,20 +49,26 @@
 
 <div class="menu">
     <div id="shape-selector">
-        <button title="circle" 
-            class="shape circle sym-button">&#9675;</button>
-        <button title="diamond" 
-            class="shape diamond sym-button">&#9674;</button>
+        <button title="circle" class="shape circle sym-button">
+            <img src=svg-icons/circle.svg height=20/>
+            </button>
+        <button title="diamond" class="shape diamond sym-button">
+            <img src=svg-icons/diamond.svg height=20/>
+            </button>
         <button title="triangle" 
-            class="shape triangle sym-button">&#9653;</button>
-        <!-- not 9209 // soso 9634  9723-->
-        <button title="square" 
-            class="shape square sym-button">&#13004;</button>
+            class="shape triangle sym-button">
+            <img src=svg-icons/triangle.svg height=20/>
+            </button>
+        <button title="square" class="shape square sym-button">
+            <img src=svg-icons/square.svg height=20/>
+            </button>
     </div>
 
     <div id="color-selector">
         <button title="intervalize" 
-            class="sym-button" id="intervalize-note">&#8596;</button>
+            class="sym-button" id="intervalize-note">
+            <img src="svg-icons/arrows_h.svg" height="24" />
+            </button>
         <!--
         <button id='color-picker'>Color..</label>
         -->
@@ -84,7 +89,9 @@
         <button class='color' title='#000000' 
             style='background-color: #000000'></button>
         <button title="delete" 
-            class="sym-button" id="delete-note">&#10683;</button>
+            class="sym-button" id="delete-note">
+            <img src="svg-icons/cross.svg" height="20" />
+            </button>
     </div>
 
     <div id="global-actions">
@@ -116,7 +123,7 @@
         <input id="readjson" type="file" 
             accept=".fbjson"
             style="display:none;"
-            multiple onchange="fretboard.readJson(this)">
+            onchange="fretboard.readJson(this)">
         </input>
         <!-- ################ -->
 
@@ -129,40 +136,26 @@
     </div>
 
     <div id="fretboard-cfg">
-        <!-- leave empty filled in by app -->
+        <!-- filled in by Fretboard object -->
         <select name="fretboard-types" id="fretboard-types">&nbsp;</select>
+        <div><label style="vertical-align: middle;">Customize..</label>
+        <input type="checkbox" id="show-configurator" 
+           onchange="fretboard.showConfigurator(this)" checked=false></input>
+        </div>
     </div>
 
 </div> <!-- end menu -->
 
+<!-- FretboardConfigurator fills this div in with it's UI -->
+<div id="fbc-main">
+
+</div>
+
 <script src="spectrum/dist/spectrum.js"></script>
 <script src="fretboard_catalog.js"></script>
-<script src="fretboard.js"></script>
 <script src="fretboard_configurator.js"></script>
+<script src="fretboard.js"></script>
 
-<!--
-<body>
-
-<hr>
-<div id="fbc-main">
-<div class="fbc-grid-container">
-  <div class="kheader"><b>Fretboard Configurator</b></div>
-  <div class="kstringheader">
-    <label># of Strings</label>
-    <input id="stringcount" type="number" class="num-input" 
-        value="1" name="startFret" min=1 max=20 maxlength="2" size="5"
-        autocomplete="off"/>
-  </div>
-  <div class="kleftmain">LeftMain</div>
-  <div class="krightmain">RightMain</div>
-  <div class="kstringinterval">SI</div>
-  <div class="kstringdisplaywidth">SDW</div>
-  <div class="kfooter">Footer</div>
-</div>
-</div>
-
-</body>
--->
 
 </body>
 </html>

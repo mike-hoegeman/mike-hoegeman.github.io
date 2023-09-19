@@ -187,7 +187,7 @@ pick a type of fretboard you want to diagram.
     You can clear the fretboard to an empty state by clicking the
     [Reset] Button. It will ask you if you really want to.
 
-<h3>Key Command Summary</h4>
+<h4>Key Command Summary</h4>
     <p> You can operate most of the buttons used to edit a selection
     with keyboard commands
 
@@ -304,6 +304,65 @@ pick a type of fretboard you want to diagram.
       </tr>
     </tbody> </table>
 
+<h4>Customize... making your own fretboard tuning</h4>
+    <p>
+    If you need a tuning that's not in the standard 
+    tuning selector, you can make you own tuning by accessing the 
+    the dialog via the Customize.. [X]checkbox
+
+<h6>Customize dialog (with 12 str matched reciprocal settings)</h6>
+    <p>
+    <img src='Fretboard_Configurator_Snapshot.png' />
+    <br>
+
+    This dialog give you all the settings necessary to make your own
+    tuning and then apply it to the Diagram widget with the<p>
+
+    <br/><img width="32" height="32" src="svg-icons/sendtoapp.svg" /> 
+    <br>
+    button. Once you do that, you can then save the diagram itself
+    to your local device, and read it back in later as a template 
+    to make more diagrams with your custom tuning.
+
+<h5>Customizer settings</h5>
+<h6># of strings</h6>
+    Set the number of strings for the fretboard.  When you change
+    this number, the string table below it will automatically update
+    to the new number of strings.
+
+<h6>The string table</h6>
+    <ul>
+        <li><b>The <i>Note</i> column</b>
+            The <b><i>open</i></b> string note for the string
+        </li>
+        <li><b>The <i>Octave</i> column</b>
+            Set the octave of the open string note for this string.
+            Middle C is note 'C' and octave '4' for reference.
+        </li>
+        <li><b>The <i>String Thickness</i> column</b>
+            Set the thickness of the string in the diagram display
+        </li>
+    </ul>
+
+<h6>Show open strings</h6>
+    Show fret position dots to the left of the nut to represent
+    open string notes. you would usually set to be on.  If you are
+    using a tapping instrument, you usually turn this off since you
+    can't play those notes.
+
+<h6>Markers at frets</h6>
+    A comma seperated list of fret numbers where you want your fret
+    inlays to ap appear
+
+<h6>Add X/0 fret</h6>
+    <blockquote>Note: if you use this function. The <b>Markers at frets</b>
+    settings need to have values 1 larger that you would normally
+    expect. This is because the fret numbering is starting at 0
+    instead of 1.</blockquote>
+<h6>The 'apply to diagram' button</h6>
+    Configures the diagram with the values configured in the dialog.
+
+<h5>
 
 </body>
 </html>

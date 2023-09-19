@@ -24,10 +24,6 @@ class FretboardConfig {
         this.fretWidth =      70;
         this.stringSpacing = 40;
         this.markerStyles = ['fret-number', 'linear-inlay'];
-        this.isIOS = false
-        if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
-            this.isIOS = true;
-        }
     }
 }
 
@@ -165,6 +161,10 @@ class Fretboard {
         this.svg = opts.svg;
         this.savefile = "fretboard_diagram.svg";
         this.bellAudio = new Audio('sounds/bell.wav');
+        this.isIOS = false
+        if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
+            this.isIOS = true;
+        }
 
         this.svgGrp = new FretboardSvgGroups();
         this.cfg = new FretboardConfig();
@@ -284,11 +284,30 @@ class Fretboard {
         a.click();
     }
 
+
+    loadJsonCfg(jsonData) {
+        const obj = JSON.parse(jsonData);
+        this.cfg = obj.cfg;
+        this.cfgDerived.recalc(this.cfg);
+        this.reset();
+        this.erase();
+        this.data = {};
+        this.draw();
+    }
+
+    showConfigurator(elem) {
+        if (elem.checked) {
+            document.getElementById('fbc-main').style.display = 'block';
+        } else {
+            document.getElementById('fbc-main').style.display = 'none';
+        }
+        return;
+    }
+
     readJson(elem) {
         var files = elem.files
         for (let i = 0; i < files.length; i++) {
             var file = files[i];
-            console.log(file);
             var reader = new FileReader();
 
             // callback functions
@@ -948,6 +967,7 @@ class Fretboard {
         } else if (s === 'C') {
             // s += this.computeOctave(fret, string);
         }
+        s += this.computeOctave(fret, string);
         return s;
     }
 
@@ -1280,6 +1300,7 @@ const fretboard = new Fretboard({
     endFret: endFret,
     fretboardCfg: 'tapping_12_str_matched_reciprocal'
 })
+const fretboardConfigurator = new FretboardConfigurator(fretboard);
 
 /* Button for toggeling unselected notes */
 

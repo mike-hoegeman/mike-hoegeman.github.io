@@ -128,7 +128,7 @@ g.note>text {
 div.menu {
     width:100%;
     text-align: center;
-    /* text-align: center; */
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 /* stroke: mistyrose; */
@@ -221,7 +221,7 @@ button.sym-button:hover {
 
 #fretboard-cfg {
     margin: auto;
-    width: 300px;
+    width: 380px;
     padding: 10px;
     display: flex;
     justify-content: space-between;
