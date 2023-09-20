@@ -87,14 +87,12 @@ g.note>text {
     /* border: 1px solid; */
 }
 
-
 div.menu {
     width:100%;
     text-align: center;
     font-family: Arial, Helvetica, sans-serif;
 }
 
-/* stroke: mistyrose; */
 path.linear-inlay-marker {
     stroke: cadetblue;
     stroke-linecap: round;
@@ -181,6 +179,14 @@ button.sym-button:hover { transform: scale(1.075); }
 #fretboard-cfg {
     margin: auto;
     width: 380px;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+#fbc-main {
+    margin: auto;
+    width: 550px;
     padding: 10px;
     display: flex;
     justify-content: space-between;
