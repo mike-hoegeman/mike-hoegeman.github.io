@@ -170,7 +170,7 @@ text.small-fret-marker {
     /* background-color: lightgray; */
     margin: auto;
     padding-bottom: 10px;
-    width: 400px;
+    width: 450px;
     display: flex;
     justify-content: space-between;
 }
@@ -183,12 +183,8 @@ button.color {
     width: 44px;
 }
 
-button.color:hover {
-    transform: scale(1.1);
-}
-button.sym-button:hover {
-    transform: scale(1.1);
-}
+button.color:hover { transform: scale(1.075); }
+button.sym-button:hover { transform: scale(1.075); }
 
 .color.blue {
     background-color: steelblue;

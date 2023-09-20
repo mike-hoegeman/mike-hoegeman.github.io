@@ -622,7 +622,6 @@ class Fretboard {
         this.state.selected = null;
     }
 
-
     getContrastColor50(hexcolor){
         hexcolor = hexcolor.replace('#', '');
         const i =  parseInt(hexcolor, 16);
@@ -630,7 +629,6 @@ class Fretboard {
             '#000000':
             '#ffffff';
     }
-
 
     getCustomColorByIndex(indexNumber) {
         const colorButtons = document.querySelectorAll("button.color");
@@ -658,7 +656,6 @@ class Fretboard {
 
     updateColorFromButton(event, spObj) {
         const elem = event.target;
-        // IOS always reports the shift key as being down - lame
         if (event.shiftKey) {
             // shift click means allow the spectrum color picker 
             // to pop up to update the color for the button
@@ -1443,11 +1440,11 @@ intervalizeNoteButton.addEventListener('click', (event) => {
     fretboard.intervalizeNote(event);
 });
 
-/*
- * 
- */
-/*
-const colorPicker = Spectrum.create('#color-picker',{
+// For use on ios
+// as it's problematic to build the color picker into 
+// the quickcolor buttons on the platform
+if (fretboard.isIOS) {
+  const colorPicker = Spectrum.create('#color-picker',{
     type: 'color',
     showPaletteOnly: true,
     togglePaletteOnly: true,
@@ -1458,12 +1455,13 @@ const colorPicker = Spectrum.create('#color-picker',{
     chooseText: "Done",
     togglePaletteMoreText: "more <click>, <esc> done",
     palette: fretboard.DEF.leCorbusierPalette,
-});
-const colorPickerElement = document.getElementById('color-picker');
-colorPickerElement.addEventListener('move', (event) => {
+  });
+  const colorPickerElement = document.getElementById('color-picker');
+  colorPickerElement.addEventListener('move', (event) => {
     fretboard.updateColor(event);
-});
-*/
+  });
+  document.getElementById('color-picker').style.display = 'block';
+}
 
 /*
  *
