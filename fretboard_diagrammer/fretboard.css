@@ -49,43 +49,6 @@ g.note.highlight {
     fill: yellow;
 }
 
-g.note.blue {
-    fill: steelblue;
-}
-
-g.note.blue>text {
-    stroke: white;
-    fill: white;
-}
-
-g.note.black {
-    fill: black;
-}
-
-
-g.note.black>text {
-    stroke: white;
-    fill: white;
-}
-
-g.note.red {
-    fill: indianred;
-}
-
-g.note.red>text {
-    stroke: white;
-    fill: white;
-}
-
-g.note.green {
-    fill: teal;
-}
-
-g.note.green>text {
-    stroke: white;
-    fill: white;
-}
-
 path.string {
     stroke: black;
     fill: none;
