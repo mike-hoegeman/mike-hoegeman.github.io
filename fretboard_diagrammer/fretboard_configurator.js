@@ -42,11 +42,14 @@ class FretboardConfigurator {
 
         this.gridcontainer = this.fbcGridContainer('fbc-main');
         this.kheader();
+        this.ksendtoapp();
         this.kstringheader();
+        this.kopenstrings();
         this.strings = this.kstrings();
         this.fbcStrings(this.strings, 12);
         document.getElementById('numstrings').value=12;
-        this.kmarkers();
+        this.kleftmarkers();
+        this.krightmarkers();
     }
 
     readRequest(event) {
@@ -82,13 +85,13 @@ class FretboardConfigurator {
 
         //
         o.cfg.markers = [];
-        if (document.getElementById('markers').value === "") {
+        if (document.getElementById('leftmarkers').value === "") {
             o.cfg.markers = [];
-        } else if (!document.getElementById('markers').value) {
+        } else if (!document.getElementById('leftmarkers').value) {
             o.cfg.markers = [];
         } else {
             var markers =
-                document.getElementById('markers').value.split(",");
+                document.getElementById('leftmarkers').value.split(",");
             for(let i=0; i < markers.length; i++) { 
                 var m = parseInt(markers[i]);
                 if (m!=0 && !m) {
@@ -107,7 +110,7 @@ class FretboardConfigurator {
 
     kheader() {
         const p = document.getElementsByClassName('kheader')[0]; 
-        const tn = this.mk.textNode("Fretboard configurator: ", p);
+        const tn = this.mk.textNode("Fretboard configurator", p);
 
         /*
         const read = this.mk.elemWithAttrs('button', p, {
@@ -120,24 +123,26 @@ class FretboardConfigurator {
             this.readRequest(event);
         });
         */
+    }
 
+    ksendtoapp() {
+        const p = document.getElementsByClassName('ksendtoapp')[0]; 
         const write = this.mk.elemWithAttrs('button', p, {
             id: "write-to-fretboard", 
         });
         this.mk.elemWithAttrs('img', write, {
-            src: "svg-icons/sendtoapp.svg", height: 24
+            src: "svg-icons/sendtoapp.svg", height: 20
         });
         write.addEventListener("click", (event) => {
             this.writeRequest(event);
         });
-
     }
 
-    kmarkers() {
-        const p = document.getElementsByClassName('kmarkers')[0]; 
+    kleftmarkers() {
+        const p = document.getElementsByClassName('kleftmarkers')[0]; 
         // 
         var label = this.mk.elemWithAttrs('label', p, { for: "markers", });
-        label.innerHTML = "&nbsp;Markers at frets: ";
+        label.innerHTML = "Markers at frets: ";
         const input = this.mk.elemWithAttrs('input', p, {
             type: "text",
             class: "markers-input", 
@@ -157,9 +162,17 @@ class FretboardConfigurator {
             this.markersChanged(event);
         });
 
-        //
-        label = this.mk.elemWithAttrs('label', p, { for: "include-xfret", });
-        label.innerHTML = "&nbsp;Add X/0 fret: ";
+    }
+
+    includeXFretChanged(event) {
+    }
+
+    krightmarkers() {
+        const p = document.getElementsByClassName('krightmarkers')[0]; 
+        var label = this.mk.elemWithAttrs('label', p, { 
+            for: "include-xfret", 
+        });
+        label.innerHTML = "Add X/0 fret: ";
         const checkbox = this.mk.elemWithAttrs('input', p, {
             type: "checkbox",
             id: "include-xfret",
@@ -169,8 +182,6 @@ class FretboardConfigurator {
             this.includeXFretChanged(event);
         });
     }
-    includeXFretChanged(event) {
-    }
 
     kstringheader() {
         const p = document.getElementsByClassName('kstringheader')[0]; 
@@ -178,7 +189,7 @@ class FretboardConfigurator {
         var label = this.mk.elemWithAttrs('label', p, {
             for: "numstrings",
         });
-        label.innerHTML = "&nbsp;# of strings: ";
+        label.innerHTML = "# of strings: ";
         const input = this.mk.elemWithAttrs('input', p, {
             type: "number",
             class: "num-input", 
@@ -189,11 +200,15 @@ class FretboardConfigurator {
         input.addEventListener("change", (event) => {
             this.numStringsChanged(event);
         });
+        return input;
+    }
 
-        label = this.mk.elemWithAttrs('label', p, {
+    kopenstrings() {
+        const p = document.getElementsByClassName('kopenstrings')[0]; 
+        var label = this.mk.elemWithAttrs('label', p, {
             for: "show-open-strings",
         });
-        label.innerHTML = "&nbsp;Show open strings: ";
+        label.innerHTML = "Show open strings: ";
         const checkbox = this.mk.elemWithAttrs('input', p, {
             type: "checkbox",
             id: "show-open-strings",
@@ -201,8 +216,9 @@ class FretboardConfigurator {
         checkbox.addEventListener("change", (event) => {
             this.showOpenStringsChanged(event);
         });
-        return input;
+        return checkbox;
     }
+
     kstrings() {
         const p = document.getElementsByClassName('kstrings')[0]; 
 
@@ -366,10 +382,11 @@ class FretboardConfigurator {
         var cont = this.mk.elemWithAttrs('div', p,
             { class: 'fbc-grid-container' });
         const klist = [
-            'kheader', 'kstringheader', 
+            'kheader', 'ksendtoapp', 
+            'kstringheader', 'kopenstrings',
             'kstringinterval', 'kstringdisplaywidth',
             'kstrings',
-            'kmarkers',
+            'kleftmarkers', 'krightmarkers',
             'kfree'
         ];
         for (let i = 0; i< klist.length; i++) {

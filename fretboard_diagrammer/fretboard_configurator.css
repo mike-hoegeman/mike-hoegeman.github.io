@@ -21,12 +21,15 @@ input[type=checkbox]:checked{
 }
 
 .kheader { grid-area: header; }
+.ksendtoapp { grid-area: sendtoapp; }
 .kheader>button { grid-area: header; margin: 4px;}
 .kstringheader { grid-area: stringheader; }
 .kstringheader>button { margin: 1px; }
-.kmarkers { grid-area: markers; }
-.kfree { grid-area: free; }
+.kopenstrings { grid-area: openstrings; }
+.kleftmarkers { grid-area: leftmarkers; }
+.krightmarkers { grid-area: rightmarkers; }
 .kstrings { grid-area: strings; }
+.kfree { grid-area: free; }
 
 .fbc-strings-grid {
   display: grid;
@@ -45,8 +48,9 @@ input[type=checkbox]:checked{
 .fbc-grid-container {
   display: grid;
   grid-template-areas:
-    'header       header        header          header'
-    'stringheader markers  markers        markers'
+    'header   header  sendtoapp sendtoapp'
+    'leftmarkers  leftmarkers rightmarkers rightmarkers'
+    'stringheader stringheader openstrings  openstrings'
     'strings    free     free          free'
     ;
   gap: 10px;
