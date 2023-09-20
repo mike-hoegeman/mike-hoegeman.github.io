@@ -15,6 +15,7 @@ class FretboardConfig {
         this.stringIntervals = null
         this.markers = null; 
         //
+        this.octaveNotes = false;
         this.showOpenStrings = true;
         this.markerOffset = 0;
 
@@ -181,7 +182,6 @@ class Fretboard {
         console.log("LOADED CFG:\n-------\n%s", 
             JSON.stringify(this.cfg,null, "    "));
         */
-
         this.cfgDerived = new FretboardConfigDerived(this.cfg);
 
         this.state = {
@@ -931,7 +931,6 @@ class Fretboard {
 
         note.appendChild(text);
 
-                //color: 'white',
         const update = (noteId in this.data) 
             ?  this.data[noteId] 
             : { 
@@ -991,10 +990,10 @@ class Fretboard {
             s = s.replace('#', this.DEF.sharpGlyph);
         } else if (s.includes("b")) {
             s = s.replace('b', this.DEF.flatGlyph);
-        } else if (s === 'C') {
-            // s += this.computeOctave(fret, string);
         }
-        s += this.computeOctave(fret, string);
+        if (this.cfg.octaveNotes === true) {
+            s += this.computeOctave(fret, string);
+        }
         return s;
     }
 
@@ -1298,7 +1297,11 @@ class Fretboard {
 
     changeConfiguration(event) {
         const k = event.target.value;
-        var err = this.cfgCpy(this.cfg, FRETBOARD_CATALOG[k]);
+        // make a "default value" cfg
+        // that way old cfgs with missing values get the default
+        // values
+        var protocfg = new FretboardConfig();
+        var err = this.cfgCpy(protocfg, FRETBOARD_CATALOG[k]);
         if (err != null) {
             console.log("%s",
                 "Error loading new cfg " + k + ": "+err);
@@ -1307,6 +1310,7 @@ class Fretboard {
             console.log("LOADED CFG:\n-------\n%s", 
                 JSON.stringify(this.cfg,null, "    "));
             */
+            this.cfg = protocfg;
             this.cfgDerived.recalc(this.cfg);
         }
         this.reset();
