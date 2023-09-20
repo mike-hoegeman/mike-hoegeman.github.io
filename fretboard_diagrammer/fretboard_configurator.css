@@ -59,7 +59,7 @@ input[type=checkbox]:checked{
   border-color: black;
   border: solid;
   border-width: 1px;
-  background-color: #abbdc8;
+  background-color: cadetblue;
 }
 
 /* background-color: pink; */
