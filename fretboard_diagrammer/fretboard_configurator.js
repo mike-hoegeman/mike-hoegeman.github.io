@@ -146,7 +146,7 @@ class FretboardConfigurator {
         const input = this.mk.elemWithAttrs('input', p, {
             type: "text",
             class: "markers-input", 
-            id: "markers",
+            id: "leftmarkers",
             value: "3,8,13,18",
             min: 1, max: 200, maxlength: 100, size: 25,
             pattern: '(?:\\d+,\\s*)+\\d+',
