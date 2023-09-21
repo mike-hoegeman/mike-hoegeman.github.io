@@ -21,7 +21,7 @@ input[type=checkbox]:checked{
 }
 
 .kheader { grid-area: header; }
-.ksendtoapp { grid-area: sendtoapp; }
+.kreadwritefretboard { grid-area: readwritefretboard; }
 .kheader>button { grid-area: header; margin: 4px;}
 .kstringheader { grid-area: stringheader; }
 .kstringheader>button { margin: 1px; }
@@ -48,7 +48,7 @@ input[type=checkbox]:checked{
 .fbc-grid-container {
   display: grid;
   grid-template-areas:
-    'header   header  sendtoapp sendtoapp'
+    'header   header  readwritefretboard readwritefretboard'
     'leftmarkers  leftmarkers rightmarkers rightmarkers'
     'stringheader stringheader openstrings  openstrings'
     'strings    free     free          free'

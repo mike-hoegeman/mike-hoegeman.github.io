@@ -986,10 +986,13 @@ class Fretboard {
         return interval;
     }
 
-    computeEnharmonicNoteName(noteId, fret, string) {
+    computeEnharmonicNoteName(fret, string, which=null) {
+        if (which===null) {
+            which = this.state.enharmonic;
+        }
         const interval = this.cfg.stringIntervals[string] + fret + 1;
         var i = Math.abs(interval % 12);
-        var s = this.DEF.noteNames[this.state.enharmonic][i];
+        var s = this.DEF.noteNames[which][i];
         if (s.includes('#')) {
             s = s.replace('#', this.DEF.sharpGlyph);
         } else if (s.includes("b")) {
@@ -1011,7 +1014,7 @@ class Fretboard {
         if (this.state.intervalRoot != null) {
             if (noteId === this.state.intervalRoot.id) {
              return "*"+ 
-                this.computeEnharmonicNoteName(noteId, fret, string) ;
+                this.computeEnharmonicNoteName(fret, string) ;
             }
 
             const rc = this.coordFromId(this.state.intervalRoot.id);
@@ -1037,17 +1040,17 @@ class Fretboard {
             );
 
             if (i < 0 || i >= this.DEF.intervalNames.length) {
-                return this.computeEnharmonicNoteName(noteId, fret, string);
+                return this.computeEnharmonicNoteName(fret, string);
             } else {
                 if (this.DEF.intervalNames[i] === undefined)  {
-                    return this.computeEnharmonicNoteName(noteId, fret, string);
+                    return this.computeEnharmonicNoteName(fret, string);
                 }
                 return this.DEF.intervalNames[i];
             }
 
 
         } else {
-            return this.computeEnharmonicNoteName(noteId, fret, string);
+            return this.computeEnharmonicNoteName(fret, string);
         }
     }
 

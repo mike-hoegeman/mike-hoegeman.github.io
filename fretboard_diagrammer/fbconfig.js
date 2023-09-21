@@ -42,7 +42,7 @@ class FretboardConfigurator {
 
         this.gridcontainer = this.fbcGridContainer('fbc-main');
         this.kheader();
-        this.ksendtoapp();
+        this.kreadwritefretboard();
         this.kstringheader();
         this.kopenstrings();
         this.strings = this.kstrings();
@@ -54,7 +54,56 @@ class FretboardConfigurator {
 
     readRequest(event) {
         const e = document.getElementById('read-from-fretboard');
+        //this.bell();
+        const json = JSON.stringify(this.fretboard.cfg, null, "  ");
+        const o = this.fretboard;
+        console.log("READREQ: %s:", json);
+
+        //
+        document.getElementById('show-open-strings').checked
+            = o.cfg.showOpenStrings;
+        //
+        document.getElementById('include-xfret').checked 
+            = o.cfg.markerOffset ? -1 : 0;
+
+        // markers
+        document.getElementById('leftmarkers').value
+            = o.cfg.markers.toString();
+
+        // per string stuff
+        const stringgrid = document.getElementById('fbc-strings-grid');
+        // re-size dialog's umber of strings
+        var numStrings = o.cfg.stringIntervals.length;
+        this.fbcStrings(stringgrid, numStrings);
+        //
+        var notes = stringgrid.children[0].children;
+        var octaves = stringgrid.children[1].children;
+        var widths = stringgrid.children[2].children;
+
+
+        for (let row=0; row<o.cfg.stringIntervals.length; row++) {
+            const midinote = o.cfg.stringIntervals[row]; 
+            notes[row].value = o.cfg.stringIntervals[row]; 
+            widths[row].value = o.cfg.stringDisplayWidths[row]; 
+
+            octaves[row].value = o.computeOctave(-1, row); 
+            const sharpmode = 0;
+            const nn = o.computeEnharmonicNoteName(-1, row, sharpmode);
+            var notename = nn[0];
+            if (nn[1] === o.DEF.sharpGlyph) {
+                notename += "#"; 
+            }
+            notes[row].value = notename;
+
+            //var w = parseFloat(widths[row].value);
+            //o.cfg.stringDisplayWidths.push(w);
+            //var s = notes[row].value+octaves[row].value;
+            //var i = this.fretboard.computeNoteOctaveStrToMidi(s);
+            //o.cfg.stringIntervals.push(i);
+        }
+
     }
+
     writeRequest(event) {
         const e = document.getElementById('write-to-fretboard');
         const o = {cfg: new FretboardConfig()};
@@ -83,7 +132,6 @@ class FretboardConfigurator {
             o.cfg.stringIntervals.push(i);
         }
 
-        //
         o.cfg.markers = [];
         if (document.getElementById('leftmarkers').value === "") {
             o.cfg.markers = [];
@@ -111,31 +159,33 @@ class FretboardConfigurator {
     kheader() {
         const p = document.getElementsByClassName('kheader')[0]; 
         const tn = this.mk.textNode("Fretboard configurator", p);
+    }
 
-        /*
+    kreadwritefretboard() {
+        const p = document.getElementsByClassName('kreadwritefretboard')[0]; 
+
+        //read
         const read = this.mk.elemWithAttrs('button', p, {
             id: "read-from-fretboard", 
         });
         this.mk.elemWithAttrs('img', read, {
-            src: "svg-icons/download.svg", height: 24
+            src: "svg-icons/readfromfretboard.svg", height: 20
         });
         read.addEventListener("click", (event) => {
             this.readRequest(event);
         });
-        */
-    }
 
-    ksendtoapp() {
-        const p = document.getElementsByClassName('ksendtoapp')[0]; 
+        //write
         const write = this.mk.elemWithAttrs('button', p, {
             id: "write-to-fretboard", 
         });
         this.mk.elemWithAttrs('img', write, {
-            src: "svg-icons/sendtoapp.svg", height: 20
+            src: "svg-icons/writetofretboard.svg", height: 20
         });
         write.addEventListener("click", (event) => {
             this.writeRequest(event);
         });
+
     }
 
     kleftmarkers() {
@@ -382,7 +432,7 @@ class FretboardConfigurator {
         var cont = this.mk.elemWithAttrs('div', p,
             { class: 'fbc-grid-container' });
         const klist = [
-            'kheader', 'ksendtoapp', 
+            'kheader', 'kreadwritefretboard', 
             'kstringheader', 'kopenstrings',
             'kstringinterval', 'kstringdisplaywidth',
             'kstrings',
