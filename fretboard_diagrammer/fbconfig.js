@@ -156,6 +156,7 @@ class FretboardConfigurator {
     kreadwritefretboard() {
         const p = document.getElementsByClassName('kreadwritefretboard')[0]; 
 
+        /*
         //read
         const read = this.mk.elemWithAttrs('button', p, {
             id: "read-from-fretboard", 
@@ -166,6 +167,7 @@ class FretboardConfigurator {
         read.addEventListener("click", (event) => {
             this.readRequest();
         });
+        */
 
         //write
         const write = this.mk.elemWithAttrs('button', p, {
