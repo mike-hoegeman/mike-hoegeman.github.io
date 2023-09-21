@@ -940,7 +940,8 @@ class Fretboard {
         if (isOpen) {
             var shapes = note.getElementsByClassName('noteshape');
             this.setAttributes(shapes[0], {
-                'stroke': 'none'
+                'stroke': 'none',
+                'fill': 'none'
             });
         }
     }
