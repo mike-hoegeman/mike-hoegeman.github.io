@@ -52,7 +52,7 @@ class FretboardConfigurator {
         this.krightmarkers();
     }
 
-    readRequest(event) {
+    readRequest() {
         const e = document.getElementById('read-from-fretboard');
         //this.bell();
         const json = JSON.stringify(this.fretboard.cfg, null, "  ");
@@ -93,14 +93,7 @@ class FretboardConfigurator {
                 notename += "#"; 
             }
             notes[row].value = notename;
-
-            //var w = parseFloat(widths[row].value);
-            //o.cfg.stringDisplayWidths.push(w);
-            //var s = notes[row].value+octaves[row].value;
-            //var i = this.fretboard.computeNoteOctaveStrToMidi(s);
-            //o.cfg.stringIntervals.push(i);
         }
-
     }
 
     writeRequest(event) {
@@ -171,7 +164,7 @@ class FretboardConfigurator {
             src: "svg-icons/readfromfretboard.svg", height: 20
         });
         read.addEventListener("click", (event) => {
-            this.readRequest(event);
+            this.readRequest();
         });
 
         //write

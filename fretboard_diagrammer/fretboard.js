@@ -169,6 +169,7 @@ class Fretboard {
 
         this.svgGrp = new FretboardSvgGroups();
         this.cfg = new FretboardConfig();
+        this.fretboardConfigurator = new FretboardConfigurator(this);
         // holds eveything save-able / load-able besides the 
         // per (string,fret) note data
 
@@ -199,9 +200,10 @@ class Fretboard {
         opts.endFret.value = this.state.endFret;
 
         this.computeDependents();
-
         this.data = {};
         this.draw();
+        // pre fill customizer panel with current config 
+        this.fretboardConfigurator.readRequest();
     }
 
     inlineCSS(svg) {
@@ -349,6 +351,8 @@ class Fretboard {
                     fbHandle.erase();
                     fbHandle.data = obj.data;
                     fbHandle.draw();
+                    // fill customize panel with new diagram details
+                    fbHandle.fretboardConfigurator.readRequest();
                 };
             })(this);
 
@@ -1337,6 +1341,8 @@ class Fretboard {
         this.reset();
         this.erase();
         this.draw();
+        // fill customize panel with new diagram details
+        this.fretboardConfigurator.readRequest();
     }
 }
 
@@ -1350,9 +1356,8 @@ const endFret = document.getElementById('end-fret');
 const fretboard = new Fretboard({
     svg: svg,
     endFret: endFret,
-    fretboardCfg: 'tapping_12_str_matched_reciprocal'
+    fretboardCfg: 'guitar'
 })
-const fretboardConfigurator = new FretboardConfigurator(fretboard);
 
 /* Button for toggeling unselected notes */
 
@@ -1370,32 +1375,6 @@ const PROPERTIES = [
     "stroke-linecap",
     "font-family", 'font-size', 'font-style'
 ]
-
-function xxinlineCSS(svg) {
-    const svgElements = document.querySelectorAll("#fretboard *");
-    const clonedSVG = svg.cloneNode(deep = true);
-    const clonedElements = clonedSVG.querySelectorAll("*");
-    for (let i = 0; i < svgElements.length; i++) {
-        const computedStyle = getComputedStyle(svgElements[i]);
-        // remove invisible elements to reduce file size
-        const opacity = computedStyle.getPropertyValue('opacity');
-        if (opacity === '0') {
-            clonedElements[i].remove();
-            continue;
-        }
-        const styles = { opacity: opacity }
-        for (let attr of PROPERTIES) {
-            let value = computedStyle.getPropertyValue(attr);
-            if (value) {
-                styles[attr] = value;
-            }
-        }
-        this.setAttributes(clonedElements[i], {
-            'styles': styles,
-        });
-    }
-    return clonedSVG;
-}
 
 /* Reset button */
 
