@@ -846,9 +846,12 @@ class Fretboard {
     }
 
     createShape(shape) {
+        const classname = 'noteshape';
         var shapeElem = null;
         if (shape === 'circle') {
             shapeElem = this.createSvgElement('circle', {
+                'class': classname,
+                'shape': shape,
                 'r': this.DEF.circleRadius,
             });
         } else if (shape === 'diamond') {
@@ -865,6 +868,7 @@ class Fretboard {
                 p = p+" "+x+","+y;
 
             shapeElem = this.createSvgElement('polygon', {
+                'class': classname,
                 'shape': shape,
                 'points': p,
 
@@ -881,6 +885,7 @@ class Fretboard {
                 p = p+" "+x+","+y;
 
             shapeElem = this.createSvgElement('polygon', {
+                'class': classname,
                 'shape': shape,
                 'points': p,
 
@@ -888,6 +893,7 @@ class Fretboard {
         } else if (shape === 'square') {
             const l=this.DEF.circleRadius*2-4
             shapeElem = this.createSvgElement('rect', {
+                'class': classname,
                 'shape': shape,
                 'width': l,
                 'height': l,
@@ -913,14 +919,7 @@ class Fretboard {
             (event) => this.noteClickHandler(event));
         note.addEventListener("dblclick", 
             (event) => this.noteDoubleClickHandler(event));
-
         const shape = this.createShape('circle');
-        if (isOpen) {
-            this.setAttributes(shape, {
-                // don't show shape around open notes
-                'stroke': 'none',
-            })
-        }
         note.appendChild(shape);
 
         // compute name of note
@@ -928,10 +927,8 @@ class Fretboard {
             'data-note': noteName,
         });
         text.innerHTML = noteName;
-
         note.appendChild(text);
-
-        const update = (noteId in this.data) 
+        var update = (noteId in this.data) 
             ?  this.data[noteId] 
             : { 
                 type: 'note', 
@@ -940,6 +937,12 @@ class Fretboard {
                 visibility: this.state.visibility
               };
         this.updateNote(note, update);
+        if (isOpen) {
+            var shapes = note.getElementsByClassName('noteshape');
+            this.setAttributes(shapes[0], {
+                'stroke': 'none'
+            });
+        }
     }
 
     // Middle C will return 4
@@ -1203,8 +1206,13 @@ class Fretboard {
             // clear shape and reconstruct it
             const newshape = this.createShape(update.shape);
             const oldshape = this.noteShape(elem);
-            const oldfill = oldshape.getAttribute('fill');
-            newshape.setAttribute('fill', oldfill);
+            const preserves = ['fill', 'stroke'];
+            for (let i = 0; i < preserves.length; i++) {
+                newshape.setAttribute(
+                    preserves[i],
+                    oldshape.getAttribute(preserves[i])
+                );
+            }
             elem.replaceChild(newshape, oldshape);
         }
 
@@ -1244,6 +1252,15 @@ class Fretboard {
         const noteData = this.data[elem.id];
         for (let [key, value] of Object.entries(update)) {
             noteData[key] = value;
+        }
+    }
+
+    showOctaveNotes(show = null) {
+        if (show === null) {
+            // toggle and redraw notes;
+            this.cfg.octaveNotes = this.cfg.octaveNotes ? false : true;
+        } else {
+            this.cfg.octaveNotes = show ? false : true;
         }
     }
 
