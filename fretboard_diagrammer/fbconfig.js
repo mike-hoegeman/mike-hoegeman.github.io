@@ -57,7 +57,6 @@ class FretboardConfigurator {
         //this.bell();
         const json = JSON.stringify(this.fretboard.cfg, null, "  ");
         const o = this.fretboard;
-        console.log("READREQ: %s:", json);
 
         //
         document.getElementById('show-open-strings').checked
