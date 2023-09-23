@@ -21,7 +21,7 @@ class FretboardConfig {
 
         // Not often changed
         this.offsetX =        40;
-        this.offsetY =        30;
+        this.offsetY =        40;
         this.fretWidth =      70;
         this.stringSpacing = 40;
         this.markerStyles = ['fret-number', 'linear-inlay'];
@@ -44,6 +44,11 @@ class FretboardSvgGroups {
     constructor(fretboardCfg) {
         this.notes = null;
         this.strings = null;
+    }
+}
+
+class FretboardAnnotation {
+    constructor () {
     }
 }
 
@@ -175,6 +180,7 @@ class Fretboard {
 
         // load startup cfg in
         var err = this.cfgCpy(this.cfg, FRETBOARD_CATALOG[opts.fretboardCfg]);
+        this.cfg.title = ""; // remove the title - just for selector display 
         if (err != null) {
             console.log("%s",
                 "Error loading inital cfg "+opts.fretboardCfg+": "+err);
@@ -186,6 +192,7 @@ class Fretboard {
         this.cfgDerived = new FretboardConfigDerived(this.cfg);
 
         this.state = {
+            selectedAnnotation: null,
             selected: null,
             visibility: 'transparent',
             startFret: 0,
@@ -196,10 +203,18 @@ class Fretboard {
 
 
         // Set end fret according to viewport width
-        this.state.endFret = Math.min(Math.floor((window.innerWidth - 2 * this.cfg.offsetX ) / this.cfg.fretWidth), 16);
+        this.state.endFret = Math.min(
+            Math.floor(
+              (window.innerWidth - 2 * this.cfg.offsetX ) / this.cfg.fretWidth
+            ), 
+          16
+        );
         opts.endFret.value = this.state.endFret;
 
         this.computeDependents();
+
+        // attribute data for each fret/string postion pair on the 
+        // fretboard
         this.data = {};
         this.draw();
         // pre fill customizer panel with current config 
@@ -226,6 +241,9 @@ class Fretboard {
                     styles[attr] = value;
                 }
             }
+
+            const jsonData = JSON.stringify(
+                clonedElements[i].getAttributes(), null, "  ");
             this.setAttributes(clonedElements[i], {
                 'styles': styles,
             });
@@ -324,11 +342,22 @@ class Fretboard {
         this.draw();
     }
 
+    showTitle() {
+        if (this.cfg.title === "") {
+            this.cfg.title = "*Title*";
+        }
+        this.titleDoubleClickHandler(null);
+    }
+
     showConfigurator(elem) {
-        if (elem.checked) {
-            document.getElementById('fbc-main').style.display = 'block';
+        const fbcmain = document.getElementById('fbc-main');
+        const sc = document.getElementById('show-configurator');
+        if (fbcmain.style.display === 'none') {
+            fbcmain.style.display = 'block';
+            sc.style.background='cadetblue';
         } else {
-            document.getElementById('fbc-main').style.display = 'none';
+            sc.style.background='';
+            fbcmain.style.display = 'none';
         }
         return;
     }
@@ -497,6 +526,7 @@ class Fretboard {
     }
 
     draw() {
+        this.drawTitle();
         this.drawFrets();
         this.drawMarkers();
         this.drawStrings();
@@ -517,10 +547,7 @@ class Fretboard {
 
         this.svg.addEventListener('click', () => {
             if (this.state.selected) {
-                this.updateNote(this.state.selected, {
-                    visibility: 'visible',
-                });
-                this.state.selected = null;
+                this.clearSelection();
             }
         });
 
@@ -757,6 +784,26 @@ class Fretboard {
         }
     }
 
+    drawTitle() {
+        const x = this.cfg.offsetX/2-5;
+        const y = 12;
+        const g = this.createSvgElement('g', {
+            class: 'annotation',
+            id: 'fretboard-title',
+            transform: "translate(" + x + "," + y + ")",
+            'data-x': x,
+            'data-y': y,
+        });
+        const annotation = this.createSvgElement('text', {
+            'data-annotation': this.cfg.title
+        });
+        annotation.innerHTML = this.cfg.title;
+        g.addEventListener("dblclick", 
+            (event) => this.titleDoubleClickHandler(event));
+        g.appendChild(annotation);
+        this.svg.appendChild(g);
+    }
+
     drawLinearInlayMarkers(markers) {
         const inlayOffsetX = -7; // offset from fret
         const inlayOffsetY = 8; // offset from fret
@@ -773,12 +820,6 @@ class Fretboard {
                 const marker = this.createSvgElement('path', {
                     class: 'linear-inlay-marker',
                     d: path,
-                    /*
-                    style:  "stroke: cadetblue; "+
-                            "stroke-linecap: round; "+
-                            "stroke-linejoin: round; "+
-                            "stroke-width: 7;"
-                    */
                 });
                 markers.appendChild(marker);
             }
@@ -1076,7 +1117,9 @@ class Fretboard {
         for (let i = this.state.startFret; i < this.state.endFret; i++) {
             for (let j = 0; j < this.cfgDerived.numStrings; j++) {
                 const noteId = `f${i}-s${j}`;
-                const x = this.cfg.offsetX + (this.cfg.fretWidth / 2) + this.cfg.fretWidth * (i - this.state.startFret);
+                const x = this.cfg.offsetX + 
+                    (this.cfg.fretWidth / 2) + 
+                    (this.cfg.fretWidth * (i - this.state.startFret));
                 const y = this.cfg.offsetY + this.cfg.stringSpacing * j;
                 const noteName = this.computeNoteName(noteId, i, j);
                 this.drawNote(noteId, x, y, noteName, false);
@@ -1097,15 +1140,33 @@ class Fretboard {
             visibility: 'selected',
         });
         this.state.selected = note;
-
         if (event.ctrlKey) {
-            this.editSelectedLabel();
+            this.editSelectedLabel(note);
         }
+    }
+
+    titleDoubleClickHandler(event) {
+        var annotation = null;
+        if (event != null) {
+            event.stopPropagation();
+            annotation = event.currentTarget;
+        } else {
+            annotation = document.getElementById('fretboard-title');
+        }
+        this.clearSelection();
+        this.state.selectedAnnotation = annotation;
+        this.editSelectedLabel(this.state.selectedAnnotation, {
+                x: this.cfg.offsetX/2-5,
+                y:  0,
+                width: 400,
+                height: 20
+        });
     }
 
     noteDoubleClickHandler(event) {
         event.stopPropagation();
         const note = event.currentTarget;
+        this.clearSelection();
         if (this.state.selected) {
             this.updateNote(this.state.selected, {
                 visibility: 'visible',
@@ -1115,25 +1176,41 @@ class Fretboard {
             visibility: 'selected',
         });
         this.state.selected = note;
-        this.editSelectedLabel();
+        this.editSelectedLabel(this.state.selected);
     }
 
-    editSelectedLabel() {
-        const selected = this.state.selected;
+    editSelectedLabel(selected, attrs=null) {
+        //const selected = this.state.selected;
         const x = selected.getAttribute('data-x');
         const y = selected.getAttribute('data-y');
-        this.setAttributes(this.editableText, {
-            x: x - this.DEF.circleRadius,
-            y: y - this.DEF.circleRadius + 4,
-            height: 2 * this.DEF.circleRadius,
-            width: 2 * this.DEF.circleRadius,
-            class: 'visible',
-            styles: {
-                display: 'block',
-            }
-        });
+        const srcstyles = getComputedStyle(this.elemText(selected));
+        const dststyles = {
+            'display': 'block',
+            'font-size': srcstyles['font-size'],
+            'font-family': srcstyles['font-family'],
+            'text-align': srcstyles['text-align'],
+        };
 
-        const selectedText = this.noteText(this.state.selected);
+        if (attrs === null) {
+            attrs = {
+                class: 'visible',
+                x: x - this.DEF.circleRadius,
+                y: y - this.DEF.circleRadius / 2,
+                height: 2 * this.DEF.circleRadius,
+                width: 2 * this.DEF.circleRadius,
+                styles: dststyles,
+            };
+        } else {
+            attrs['styles'] = dststyles;
+            attrs['class'] =  'visible';
+        }
+
+        this.setAttributes(this.editableText, attrs);
+        this.setAttributes(this.editableText.childNodes[0], attrs);
+
+        const selectedText = this.elemText(selected);
+        // hide in-diagram text. we are about to show the edit field in it's
+        // stead
         this.setAttributes(selectedText, {
             styles: {
                 display: 'none',
@@ -1142,8 +1219,19 @@ class Fretboard {
 
         this.editableText.children[0].innerHTML = selectedText.innerHTML;
         this.editableText.children[0].focus();
+
         // select all text in editable div
         document.execCommand('selectAll', false, null);
+    }
+
+    selectedEditable() {
+        if (this.state.selectedAnnotation) {
+            return this.state.selectedAnnotation;
+        }
+        if (this.state.selected) {
+            return this.state.selected;
+        }
+        return null;
     }
 
     addEditableDiv() {
@@ -1163,17 +1251,28 @@ class Fretboard {
             }
         });
         div.addEventListener('blur', (event) => {
-            if (!this.state.selected) {
+            //if (!this.state.selected) { return; }
+            const selected = this.selectedEditable();
+            if (selected === null) {
                 return;
             }
-            const selectedText = this.noteText(this.state.selected);
+            const selectedText = this.elemText(selected);
 
             var newText = this.editableText.children[0].innerText;
-            // don't allow empty labels
-            if (newText.trim()) {
-                this.updateNote(this.state.selected, {
-                    noteText: newText,
-                });
+
+            const cstr = selected.className.baseVal;
+            const classlist = cstr.split(/\s+/);
+            if (classlist.includes("annotation")) {
+                if (!newText.trim()) {
+                    newText = newText.trim();
+                }
+                this.elemText(selected).innerHTML = newText;
+                this.cfg.title = newText;
+            } else {
+                // don't allow empty labels
+                if (newText.trim()) {
+                    this.updateNote(selected, { noteText: newText, });
+                }
             }
 
             this.editableText.children[0].innerHTML = '';
@@ -1196,6 +1295,9 @@ class Fretboard {
         return elem.childNodes[0];
     }
     noteText(elem) {
+        return elem.lastChild;
+    }
+    elemText(elem) {
         return elem.lastChild;
     }
 
@@ -1298,6 +1400,9 @@ class Fretboard {
             });
             this.state.selected = null;
         }
+        if (this.state.selectedAnnotation) {
+            this.state.selectedAnnotation = null;
+        }
     }
 
     erase() {
@@ -1327,14 +1432,11 @@ class Fretboard {
         // values
         var protocfg = new FretboardConfig();
         var err = this.cfgCpy(protocfg, FRETBOARD_CATALOG[k]);
+        protocfg.title = ""; // remove the title - just for selector display 
         if (err != null) {
             console.log("%s",
                 "Error loading new cfg " + k + ": "+err);
         } else {
-            /*
-            console.log("LOADED CFG:\n-------\n%s", 
-                JSON.stringify(this.cfg,null, "    "));
-            */
             this.cfg = protocfg;
             this.cfgDerived.recalc(this.cfg);
         }

@@ -100,8 +100,7 @@ class FretboardConfigurator {
         const e = document.getElementById('write-to-fretboard');
         const o = {cfg: new FretboardConfig()};
 
-        o.cfg.title = "definedbyuser";
-
+        o.cfg.title = this.fretboard.cfg.title; 
         o.cfg.showOpenStrings = 
             document.getElementById('show-open-strings').checked;
 
@@ -143,7 +142,6 @@ class FretboardConfigurator {
             }
         }
         const json = JSON.stringify(o, null, "  ");
-        //console.log("%s", json);
         this.fretboard.loadJsonCfg(json);
         return;
     }

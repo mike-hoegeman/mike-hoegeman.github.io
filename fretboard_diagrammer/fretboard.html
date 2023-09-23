@@ -150,11 +150,19 @@
     </div>
 
     <div id="fretboard-cfg">
+        <button id="showtitle"
+            onclick="fretboard.showTitle()">
+            <img src="svg-icons/title.svg" height="20"/>
+        </button>
+
         <!-- filled in by Fretboard object -->
         <select name="fretboard-types" id="fretboard-types">&nbsp;</select>
-        <div><label style="vertical-align: middle;">Customize..</label>
-        <input type="checkbox" id="show-configurator" 
-           onchange="fretboard.showConfigurator(this)" ></input>
+
+        <button id="show-configurator"
+            onclick="fretboard.showConfigurator(this)">
+            <img src="svg-icons/settings.svg" height="20"/>
+        </button>
+
         </div>
     </div>
 
