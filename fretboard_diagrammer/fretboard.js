@@ -785,7 +785,8 @@ class Fretboard {
     }
 
     drawTitle() {
-        const x = this.cfg.offsetX/2-5;
+        const xdiv = this.cfg.showOpenStrings ? 2 : 1;
+        const x = this.cfg.offsetX/xdiv-5;
         const y = 12;
         const g = this.createSvgElement('g', {
             class: 'annotation',
@@ -1155,8 +1156,9 @@ class Fretboard {
         }
         this.clearSelection();
         this.state.selectedAnnotation = annotation;
+        const xdiv = this.cfg.showOpenStrings ? 2 : 1;
         this.editSelectedLabel(this.state.selectedAnnotation, {
-                x: this.cfg.offsetX/2-5,
+                x: this.cfg.offsetX/xdiv-5,
                 y:  0,
                 width: 400,
                 height: 20
