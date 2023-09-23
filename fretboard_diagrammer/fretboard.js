@@ -406,7 +406,8 @@ class Fretboard {
     }
 
     saveFretboardPrompt() {
-        var filename=prompt("Save this fretboard to:", "fretboard");
+        var filename = this.filenameFromTitle(this.cfg.title);
+        filename=prompt("Save this fretboard to:", filename);
         if (filename === null || filename === "") {
             return null;
         } else {
@@ -421,12 +422,26 @@ class Fretboard {
         }
     }
 
+    filenameFromTitle(title) {
+        var fname = title.trim();
+        fname = fname.replace(/:+/g, " x "); // cvt colons to 'x'
+        fname = fname.replace(/\s+/g, "_"); // cvt spaces to underscore
+        fname = fname.split(/([\W])/); // trunc after 1st punct. char
+        fname = fname[0];
+        fname = fname.replace(/_$/, ""); // trim trailing _ if any 
+        return fname;
+    }
+
     //
     // Save the current fretboard as an svg file
     //
     exportSvgPrompt(svgToSave) {
         var text = null;
-        const filename=prompt("Export SVG file to:", "fretboard");
+        var filename = this.filenameFromTitle(this.cfg.title);
+        if (filename.length === 0) {
+            filename="fretboard";
+        }
+        filename=prompt("Export SVG file to:", filename);
         if (filename === null || filename === "") {
                 return null;
         } else {
