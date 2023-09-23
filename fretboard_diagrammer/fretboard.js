@@ -241,9 +241,6 @@ class Fretboard {
                     styles[attr] = value;
                 }
             }
-
-            const jsonData = JSON.stringify(
-                clonedElements[i].getAttributes(), null, "  ");
             this.setAttributes(clonedElements[i], {
                 'styles': styles,
             });
@@ -1160,7 +1157,7 @@ class Fretboard {
         this.editSelectedLabel(this.state.selectedAnnotation, {
                 x: this.cfg.offsetX/xdiv-5,
                 y:  0,
-                width: 400,
+                width: 500,
                 height: 20
         });
     }
