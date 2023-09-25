@@ -1240,10 +1240,10 @@
   "state": {
     "selectedAnnotation": null,
     "selected": null,
-    "visibility": "transparent",
+    "visibility": "hidden",
     "startFret": 0,
     "endFret": 14,
-    "enharmonic": 0,
+    "enharmonic": 1,
     "intervalRoot": null,
     "numFrets": 14,
     "fretboardWidth": 980

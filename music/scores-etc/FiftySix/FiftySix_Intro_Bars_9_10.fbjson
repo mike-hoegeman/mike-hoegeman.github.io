@@ -1,6 +1,6 @@
 {
   "cfg": {
-    "title": "FiftySix: Intro: Bars 9-10: [Cm7] (Db D E D Db) / (Bb Eb Bb) (D Eb F Eb D x x x)",
+    "title": "FiftySix: Intro: Bars 9-10: [Cm7] (D Eb F Eb D Eb D C) / (Bb Eb Bb) (C D C Bb A)",
     "stringDisplayWidths": [
       0.4,
       0.6,
@@ -1238,14 +1238,14 @@
     }
   },
   "state": {
-    "selectedAnnotation": {},
+    "selectedAnnotation": null,
     "selected": null,
     "visibility": "hidden",
     "startFret": 0,
-    "endFret": 16,
+    "endFret": 14,
     "enharmonic": 1,
     "intervalRoot": null,
-    "numFrets": 16,
-    "fretboardWidth": 1120
+    "numFrets": 14,
+    "fretboardWidth": 980
   }
 }
