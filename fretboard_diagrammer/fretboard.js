@@ -1193,7 +1193,7 @@ class Fretboard {
         this.editSelectedLabel(this.state.selectedAnnotation, {
                 x: this.cfg.offsetX/xdiv-5,
                 y:  0,
-                width: 500,
+                width: 700,
                 height: 20
         });
     }
