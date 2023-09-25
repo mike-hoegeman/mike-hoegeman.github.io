@@ -302,9 +302,9 @@ class Fretboard {
         return this.savefile;
     }
 
-    saveBlob(blobData, blobType, fileName) {
+    saveBlob(blobData, blobType, filename) {
         //
-        if (!fileName) {
+        if (!filename) {
             this.bell();
             return;
         }
@@ -312,7 +312,7 @@ class Fretboard {
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = fileName;
+        a.download = filename;
         a.id='download-link';
         // Click handler releases the object URL after the elem has been clicked
         // This is required for one-off downloads of the blob content
@@ -327,7 +327,6 @@ class Fretboard {
         a.addEventListener('click', clickHandler, false);
         a.click();
     }
-
 
     loadJsonCfg(jsonData) {
         const obj = JSON.parse(jsonData);
@@ -406,28 +405,35 @@ class Fretboard {
     }
 
     saveFretboardPrompt() {
-        var filename = this.filenameFromTitle(this.cfg.title);
+        var filename = this.filenameFromCfg();
         filename=prompt("Save this fretboard to:", filename);
         if (filename === null || filename === "") {
             return null;
         } else {
-            // trim off any extension
-            var v = filename.split('.');
-            if (v.length > 1) {
-                v.pop()
-                filename = v.join('.')
-            }
             filename += ".fbjson";
             this.saveJson(filename);
         }
     }
 
-    filenameFromTitle(title) {
-        var fname = title.trim();
-        fname = fname.replace(/:+/g, " x "); // cvt colons to 'x'
-        fname = fname.replace(/\s+/g, "_"); // cvt spaces to underscore
-        fname = fname.split(/([\W])/); // trunc after 1st punct. char
-        fname = fname[0];
+    filenameFromCfg() {
+        var fname = "fretboard";
+        if (this.cfg.title) {
+            fname = this.cfg.title;
+        }
+
+        // remove any extension
+        var v = fname.split('.');
+        if (v.length > 1) {
+            v.pop();
+            fname = v.join('.');
+        }
+        // remove any section of the title that is within [] 
+        fname = fname.replace(/(\[[^\]]*\])+/g, " ");
+        // remove any section of the title that is within <> 
+        fname = fname.replace(/(\([^\)]*\))+/g, " ");
+        fname = fname.replace(/([\W])+/g, " "); // non word chars to space
+        fname = fname.trim();
+        fname = fname.replace(/\s+/g, "_"); // space  runs to underscore
         fname = fname.replace(/_$/, ""); // trim trailing _ if any 
         return fname;
     }
@@ -436,8 +442,9 @@ class Fretboard {
     // Save the current fretboard as an svg file
     //
     exportSvgPrompt(svgToSave) {
+        svgToSave.setAttribute("xmlns", "http://www.w3.org/2000/svg");
         var text = null;
-        var filename = this.filenameFromTitle(this.cfg.title);
+        var filename = this.filenameFromCfg();
         if (filename.length === 0) {
             filename="fretboard";
         }
@@ -448,13 +455,28 @@ class Fretboard {
             this.saveSvg(svgToSave, filename);
         }
     }
+
     saveSvg(svgToSave, filename) {
-        // svcToSave -- fretboard svg diagram element to save
         this.clearSelection();
         const fn = this.savefileName(filename);
         const svgCopy = this.inlineCSS(svgToSave);
         var svgData = svgCopy.outerHTML;
-        this.saveBlob(svgData, "image/svg+xml;charset=utf-8", fn);
+        const dummy = document.createElement("div");
+
+        // ------------------ 
+        // svg recognizes only 5 html entities: 
+        //   &amp;, &quot;, &apos;, &lt;, and &gt; 
+        // filter out the rest
+        //
+        var svgData = 
+        svgData.replace(/(&(?!(amp|gt|lt|quot|apos))[^;]+;)/g, a => {
+            dummy.innerHTML = a;
+            return dummy.textContent;
+        });
+        // ------------------ 
+
+        this.saveBlob(svgData,
+	"image/svg+xml;charset=utf-8", fn); dummy.remove();
     }
 
     bell() {
@@ -530,7 +552,7 @@ class Fretboard {
             y: 140,
             class: 'error',
         });
-        text.innerHTML = message;
+        text.textContent = message;
         this.svg.appendChild(text);
         this.setAttributes(this.svg, {
             width: 800,
@@ -656,7 +678,7 @@ class Fretboard {
         if (selected) {
             const text = this.noteText(selected);
             if (text) {
-                text.innerHTML = text.getAttribute('data-note');
+                text.textContent = text.getAttribute('data-note');
             }
             this.updateNote(selected, { 
                 color: "white", shape: "circle", visibility: this.state.visibility, 
@@ -808,9 +830,8 @@ class Fretboard {
             'data-y': y,
         });
         const annotation = this.createSvgElement('text', {
-            'data-annotation': this.cfg.title
         });
-        annotation.innerHTML = this.cfg.title;
+        annotation.textContent = this.cfg.title;
         g.addEventListener("dblclick", 
             (event) => this.titleDoubleClickHandler(event));
         g.appendChild(annotation);
@@ -866,7 +887,7 @@ class Fretboard {
             });
 
             // tapping instruments 0 or X fret feature support
-            marker.innerHTML = i + this.cfg.markerOffset; 
+            marker.textContent = i + this.cfg.markerOffset; 
             markers.appendChild(marker);
         }
         this.svg.appendChild(markers);
@@ -984,7 +1005,7 @@ class Fretboard {
         const text = this.createSvgElement('text', {
             'data-note': noteName,
         });
-        text.innerHTML = noteName;
+        text.textContent = noteName;
         note.appendChild(text);
         var update = (noteId in this.data) 
             ?  this.data[noteId] 
@@ -1231,7 +1252,7 @@ class Fretboard {
             }
         });
 
-        this.editableText.children[0].innerHTML = selectedText.innerHTML;
+        this.editableText.children[0].textContent = selectedText.textContent;
         this.editableText.children[0].focus();
 
         // select all text in editable div
@@ -1246,6 +1267,9 @@ class Fretboard {
             return this.state.selected;
         }
         return null;
+    }
+    stripNbsp(s) {
+        return s.replace(/&nbsp;/g, "");
     }
 
     addEditableDiv() {
@@ -1270,17 +1294,18 @@ class Fretboard {
             if (selected === null) {
                 return;
             }
-            const selectedText = this.elemText(selected);
-
+            var selectedText = this.elemText(selected);
             var newText = this.editableText.children[0].innerText;
+
+            // seems chrome puts in nbsp's in input widgets
+            // and then refuses to read them in exported svg data.
+            newText = this.stripNbsp(newText);
 
             const cstr = selected.className.baseVal;
             const classlist = cstr.split(/\s+/);
             if (classlist.includes("annotation")) {
-                if (!newText.trim()) {
-                    newText = newText.trim();
-                }
-                this.elemText(selected).innerHTML = newText;
+                newText = newText.trim();
+                this.elemText(selected).textContent = newText;
                 this.cfg.title = newText;
             } else {
                 // don't allow empty labels
@@ -1289,7 +1314,7 @@ class Fretboard {
                 }
             }
 
-            this.editableText.children[0].innerHTML = '';
+            this.editableText.children[0].textContent = '';
             this.setAttributes(selectedText, {
                 styles: {
                     display: 'block',
@@ -1370,7 +1395,7 @@ class Fretboard {
         elem.setAttribute('class', classValue);
 
         if ('noteText' in update) {
-            this.noteText(elem).innerHTML = update.noteText;
+            this.noteText(elem).textContent = update.noteText;
         }
 
         const noteData = this.data[elem.id];
@@ -1431,7 +1456,7 @@ class Fretboard {
             // reset text
             const text = this.noteText(note);
             if (text) {
-                text.innerHTML = text.getAttribute('data-note');
+                text.textContent = text.getAttribute('data-note');
             }
             this.updateNote(note,
                 { type: "note", color: "white", shape: "circle", visibility: this.state.visibility });
@@ -1595,7 +1620,7 @@ deleteNoteButton.addEventListener('click', () => fretboard.deleteNote());
 const enharmonicToggle = document.getElementById("enharmonic");
 enharmonicToggle.addEventListener('click', () => {
     const sign = fretboard.toggleEnharmonic();
-    enharmonicToggle.innerHTML = sign;
+    enharmonicToggle.textContent = sign;
 });
 
 /* 
@@ -1606,9 +1631,9 @@ for (const key in FRETBOARD_CATALOG) {
     if (FRETBOARD_CATALOG.hasOwnProperty(key)) {
         var opt = document.createElement('option');
         if (FRETBOARD_CATALOG[key].hasOwnProperty('title')) {
-            opt.innerHTML = FRETBOARD_CATALOG[key].title;
+            opt.textContent = FRETBOARD_CATALOG[key].title;
         } else {
-            opt.innerHTML = key.replaceAll('_', ' ');
+            opt.textContent = key.replaceAll('_', ' ');
         }
         opt.value = key;
         fretboardTypes.appendChild(opt);
