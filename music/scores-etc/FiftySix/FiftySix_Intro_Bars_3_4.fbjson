@@ -446,9 +446,10 @@
     },
     "f10-s0": {
       "type": "note",
-      "color": "white",
+      "color": "#679dae",
       "shape": "circle",
-      "visibility": "hidden"
+      "visibility": "visible",
+      "noteText": "<<Bb"
     },
     "f10-s1": {
       "type": "note",
@@ -1240,12 +1241,12 @@
   "state": {
     "selectedAnnotation": null,
     "selected": null,
-    "visibility": "hidden",
-    "startFret": 2,
+    "visibility": "transparent",
+    "startFret": 0,
     "endFret": 14,
     "enharmonic": 1,
     "intervalRoot": null,
-    "numFrets": 12,
-    "fretboardWidth": 840
+    "numFrets": 14,
+    "fretboardWidth": 980
   }
 }
