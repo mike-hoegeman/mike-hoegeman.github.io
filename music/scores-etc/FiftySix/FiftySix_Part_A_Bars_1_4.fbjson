@@ -1,6 +1,6 @@
 {
   "cfg": {
-    "title": "FiftySix: Part A: Bars 13-16: (Eb Bb -Bb) (Bb G F)",
+    "title": "FiftySix: Part A: Bars 1-4: (Eb Bb -Bb) (Bb G F)",
     "stringDisplayWidths": [
       0.4,
       0.6,
@@ -1238,9 +1238,9 @@
     }
   },
   "state": {
-    "selectedAnnotation": null,
+    "selectedAnnotation": {},
     "selected": null,
-    "visibility": "hidden",
+    "visibility": "transparent",
     "startFret": 0,
     "endFret": 14,
     "enharmonic": 1,
