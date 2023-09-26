@@ -1,6 +1,6 @@
 {
   "cfg": {
-    "title": "FiftySix: Part B: Bar 21:  (C D, C Bb A, A~Bb~A)",
+    "title": "FiftySix: Part B: Bar 2:  (G F Eb, D Eb D C, D Eb)",
     "stringDisplayWidths": [
       0.4,
       0.6,
@@ -904,19 +904,19 @@
       "type": "note",
       "color": "white",
       "shape": "circle",
-      "visibility": "visible"
+      "visibility": "hidden"
     },
     "f12-s1": {
       "type": "note",
-      "color": "#4d6aa8",
+      "color": "#ffffff",
       "shape": "circle",
       "visibility": "visible"
     },
     "f12-s2": {
       "type": "note",
-      "color": "white",
+      "color": "#4d6aa8",
       "shape": "circle",
-      "visibility": "hidden"
+      "visibility": "visible"
     },
     "f12-s3": {
       "type": "note",
@@ -986,9 +986,9 @@
     },
     "f13-s2": {
       "type": "note",
-      "color": "white",
-      "shape": "circle",
-      "visibility": "hidden"
+      "color": "#4d6aa8",
+      "shape": "diamond",
+      "visibility": "visible"
     },
     "f13-s3": {
       "type": "note",
@@ -1046,9 +1046,9 @@
     },
     "f14-s0": {
       "type": "note",
-      "color": "#4d6aa8",
-      "shape": "diamond",
-      "visibility": "visible"
+      "color": "white",
+      "shape": "circle",
+      "visibility": "hidden"
     },
     "f14-s1": {
       "type": "note",
@@ -1130,15 +1130,15 @@
     },
     "f15-s2": {
       "type": "note",
-      "color": "white",
-      "shape": "circle",
-      "visibility": "hidden"
+      "color": "#4d6aa8",
+      "shape": "triangle",
+      "visibility": "visible"
     },
     "f15-s3": {
       "type": "note",
-      "color": "white",
-      "shape": "circle",
-      "visibility": "hidden"
+      "color": "#4d6aa8",
+      "shape": "triangle",
+      "visibility": "visible"
     },
     "f15-s4": {
       "type": "note",
