@@ -280,6 +280,7 @@ class FretboardConfigurator {
         return checkbox;
     }
 
+    //
     kstrings() {
         const p = document.getElementsByClassName('kstrings')[0]; 
 
