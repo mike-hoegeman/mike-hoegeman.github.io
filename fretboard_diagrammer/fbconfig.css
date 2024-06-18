@@ -1,5 +1,5 @@
 /*
- * fretboard_configurator.css
+ * fbconfig.css
  */
 
 select {
@@ -20,6 +20,9 @@ input[type=checkbox]:checked{
     accent-color: #eae4d7;
 }
 
+//
+// Fretboard Configurator
+//
 .kheader { grid-area: header; }
 .kreadwritefretboard { grid-area: readwritefretboard; }
 .kheader>button { grid-area: header; margin: 4px;}
@@ -31,21 +34,20 @@ input[type=checkbox]:checked{
 .kstrings { grid-area: strings; }
 .kfree { grid-area: free; }
 
-.fbc-strings-grid {
+.fbcfg-strings-grid {
   display: grid;
   grid-template-columns: 50px 40px 60px;
   border-radius: 8px;
   gap: 10px;
   padding: 1px;
 }
-.fbc-strings-grid-col-interval-note {
+.fbcfg-strings-grid-col-interval-note {
 }
-.fbc-strings-grid-col-interval-octave {
+.fbcfg-strings-grid-col-interval-octave {
 }
-.fbc-strings-grid-col-displaywidth {
+.fbcfg-strings-grid-col-displaywidth {
 }
-
-.fbc-grid-container {
+.fbcfg-grid-container {
   display: grid;
   grid-template-areas:
     'header   header  readwritefretboard readwritefretboard'
@@ -59,11 +61,11 @@ input[type=checkbox]:checked{
   border-color: black;
   border: solid;
   border-width: 1px;
-  background-color: cadetblue;
+  background-color: #c6d5cc;
 }
-
+/*LeCorbusierQuickColor['skyOceanWaves'] = '#c6d5cc' */
 /* background-color: pink; */
-.fbc-grid-container > div {
+.fbcfg-grid-container > div {
   text-align: left;
   padding: 24 0;
   font-size: 16px;

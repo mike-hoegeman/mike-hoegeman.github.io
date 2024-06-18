@@ -1,0 +1,48 @@
+/*
+ * fbcolors.css
+ */
+
+//
+// Fretboard Colors Panel
+//
+.clrheader { grid-area: header; }
+.clrheader>button { grid-area: header; margin: 4px;}
+.clrtargetsheader { grid-area: targetsheader; }
+.clrtargets { grid-area: targets; }
+.clrfree { grid-area: free; }
+
+.fbcolors-targets-grid {
+  display: grid;
+  grid-template-columns: 50px 40px 60px;
+  border-radius: 8px;
+  gap: 10px;
+  padding: 1px;
+}
+.fbcolors-targets-grid-target-name {
+}
+.fbcolors-targets-grid-target-color {
+}
+
+.fbcolors-grid-container {
+  display: grid;
+  grid-template-areas:
+    'header   header  header header'
+    'targetsheader   targetsheader  targetsheader targetsheader'
+    'targetname targetname targetcolor  targetcolor'
+    ;
+  gap: 10px;
+  padding: 10px;
+  border-radius: 4px;
+  border-color: black;
+  border: solid;
+  border-width: 1px;
+  background-color: #eacfb9;
+}
+/*LeCorbusierQuickColor['sandyOrange'] = '#eacfb9' */
+/* background-color: pink; */
+.fbcolors-grid-container > div {
+  text-align: left;
+  padding: 24 0;
+  font-size: 16px;
+  font-family: Arial, Helvetica, sans-serif;
+}

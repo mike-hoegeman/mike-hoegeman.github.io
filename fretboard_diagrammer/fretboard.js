@@ -2,6 +2,41 @@
  * fretboard.js -- A fretboard digramming gadget
  */
 
+//-----------------------------------------------------------------------------
+// reference:
+// https://observablehq.com/@taekie/le-corbusier-color-pallete
+//
+const LeCorbusierQuickColor = {
+    sandyOrange: '#eacfb9',
+    skyOceanWaves: '#c6d5cc',
+    mediumGrey: '#929494',
+    emeraldGreen: '#428f70',
+    luminousCerulean: '#679dae',
+    luminousPink: '#dba3af',
+    ivoryBlack: '#3a3b3b',
+    ivoryWhite: '#eae4d7',
+    ironGrey: '#536061',
+    yellow: '#f2bb1d',
+    blue: '#4d6aa8',
+    green: '#406358',
+    red: '#ac443a',
+    white: '#ffffff',
+    black: '#000000'
+};
+//
+const LeCorbusierPalette = [[
+    "#000000","#eadbc0","#5e6061","#929494","#a7a8a5","#bcbbb6","#4d6aa8","#8fabc9","#abbdc8","#b6c6ce","#d9e1dd","#3e6e90","#679dae","#8ab5ba","#a8c4c1","#c6d5cc"
+    ], [
+    "#406e58","#91afa1","#becbb7","#3e6f42","#7fa25a","#abc17a","#c4d39b","#eacfa6","#d46c40","#dc8d67","#eacfb9","#9b3738","#e6cdbf","#8f3a43","#943a4d","#d6afa6"
+    ], [
+    "#8b4d3e","#cd9886","#dbbeaa","#68443c","#b67b66","#d8b29a","#e2cbb5","#4c423d","#b7a392","#5a5550","#928a7e","#b7ac9d","#ac443a","#eae4d7","#dba3af","#744438"
+    ], [
+    "#3a3b3b","#b8a136","#428f70","#81868b","#403c3a","#3957a5","#dbb07f","#74393b","#7aa7cb","#92969a","#ddbf99","#45423e","#c45e3a","#313d6b","#60646a","#f2bb1d"
+]];
+//
+//-----------------------------------------------------------------------------
+
+
 //
 // holds all items that can configure a FretBoard
 // part of a saved Fretboard session
@@ -25,6 +60,29 @@ class FretboardConfig {
         this.fretWidth =      70;
         this.stringSpacing = 40;
         this.markerStyles = ['fret-number', 'linear-inlay'];
+
+        this.colorLight = {
+            'fret-marker': LeCorbusierQuickColor['black'],
+            'small-fret-marker': LeCorbusierQuickColor['mediumGrey'],
+            'nut': LeCorbusierQuickColor['ironGrey'],
+            'string': LeCorbusierQuickColor['ivoryBlack'],
+            'fret': LeCorbusierQuickColor['ivoryBlack'],
+            'inlay': LeCorbusierQuickColor['skyOceanWaves'],
+            'note-default': LeCorbusierQuickColor['ivoryWhite'],
+            'title': LeCorbusierQuickColor['black']
+        };
+        this.colorDark = {
+            'fret-marker': LeCorbusierQuickColor['black'],
+            'small-fret-marker': LeCorbusierQuickColor['mediumGrey'],
+            'nut': LeCorbusierQuickColor['ironGrey'],
+            'string': LeCorbusierQuickColor['ivoryBlack'],
+            'fret': LeCorbusierQuickColor['ivoryBlack'],
+            'inlay': LeCorbusierQuickColor['luminousCerulean'],
+            'note-default': LeCorbusierQuickColor['ivoryWhite'],
+            'title': LeCorbusierQuickColor['black']
+        }
+
+        this.color = this.colorLight;
     }
 }
 
@@ -62,26 +120,6 @@ class Fretboard {
             'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'
         ],[
             'C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A', 'Bb', 'B'
-        ]],
-        //
-        leCorbusierQuickColor: {
-            yellow: '#f2bb1d',
-            blue: '#4d6aa8',
-            green: '#406358',
-            red: '#ac443a',
-            white: '#ffffff',
-            black: '#000000'
-        },
-
-        //
-        leCorbusierPalette: [[
-        "#000000","#eadbc0","#5e6061","#929494","#a7a8a5","#bcbbb6","#4d6aa8","#8fabc9","#abbdc8","#b6c6ce","#d9e1dd","#3e6e90","#679dae","#8ab5ba","#a8c4c1","#c6d5cc"
-        ], [
-        "#406e58","#91afa1","#becbb7","#3e6f42","#7fa25a","#abc17a","#c4d39b","#eacfa6","#d46c40","#dc8d67","#eacfb9","#9b3738","#e6cdbf","#8f3a43","#943a4d","#d6afa6"
-        ], [
-        "#8b4d3e","#cd9886","#dbbeaa","#68443c","#b67b66","#d8b29a","#e2cbb5","#4c423d","#b7a392","#5a5550","#928a7e","#b7ac9d","#ac443a","#eae4d7","#dba3af","#744438"
-        ], [
-        "#3a3b3b","#b8a136","#428f70","#81868b","#403c3a","#3957a5","#dbb07f","#74393b","#7aa7cb","#92969a","#ddbf99","#45423e","#c45e3a","#313d6b","#60646a","#f2bb1d"
         ]],
 
         //
@@ -122,7 +160,7 @@ class Fretboard {
         //
         circleRadius: 18,
         maxFretRange: 17,
-        minStringSize: 0.2,
+        minStringSize: 0.2
     };
 
     // return null for ok. otherwise return an error string 
@@ -175,6 +213,7 @@ class Fretboard {
         this.svgGrp = new FretboardSvgGroups();
         this.cfg = new FretboardConfig();
         this.fretboardConfigurator = new FretboardConfigurator(this);
+        this.fretboardColors = new FretboardColors(this);
         // holds eveything save-able / load-able besides the 
         // per (string,fret) note data
 
@@ -345,15 +384,28 @@ class Fretboard {
         this.titleDoubleClickHandler(null);
     }
 
-    showConfigurator(elem) {
-        const fbcmain = document.getElementById('fbc-main');
-        const sc = document.getElementById('show-configurator');
-        if (fbcmain.style.display === 'none') {
-            fbcmain.style.display = 'block';
-            sc.style.background='cadetblue';
+    showColors(elem) {
+        const main = document.getElementById('fbcolors-main');
+        const sc = document.getElementById('show-colors');
+        if (main.style.display === 'none') {
+            main.style.display = 'block';
+            sc.style.background=LeCorbusierQuickColor['sandyOrange'];
         } else {
             sc.style.background='';
-            fbcmain.style.display = 'none';
+            main.style.display = 'none';
+        }
+        return;
+    }
+
+    showConfigurator(elem) {
+        const main = document.getElementById('fbcfg-main');
+        const sc = document.getElementById('show-configurator');
+        if (main.style.display === 'none') {
+            main.style.display = 'block';
+            sc.style.background=LeCorbusierQuickColor['skyOceanWaves'];
+        } else {
+            sc.style.background='';
+            main.style.display = 'none';
         }
         return;
     }
@@ -627,27 +679,27 @@ class Fretboard {
 
                 case 'KeyY':
                     this.updateNote(selected, 
-                        { color: this.DEF.leCorbusierQuickColor.yellow });
+                        { color: LeCorbusierQuickColor.yellow });
                     break;
                 case 'KeyB':
                     this.updateNote(selected, 
-                        { color: this.DEF.leCorbusierQuickColor.blue });
+                        { color: LeCorbusierQuickColor.blue });
                     break;
                 case 'KeyK':
                     this.updateNote(selected, 
-                        { color: this.DEF.leCorbusierQuickColor.black });
+                        { color: LeCorbusierQuickColor.black });
                     break;
                 case 'KeyG':
                     this.updateNote(selected, 
-                        { color: this.DEF.leCorbusierQuickColor.green });
+                        { color: LeCorbusierQuickColor.green });
                     break;
                 case "KeyW":
                     this.updateNote(selected,
-                        { color: this.DEF.leCorbusierQuickColor.white });
+                        { color: LeCorbusierQuickColor.white });
                     break;
                 case "KeyR":
                     this.updateNote(selected, 
-                        { color: this.DEF.leCorbusierQuickColor.red });
+                        { color: LeCorbusierQuickColor.red });
                     break;
                 //
                 case "KeyX":
@@ -681,7 +733,9 @@ class Fretboard {
                 text.textContent = text.getAttribute('data-note');
             }
             this.updateNote(selected, { 
-                color: "white", shape: "circle", visibility: this.state.visibility, 
+                color: this.cfg.color['note-default'],
+                shape: "circle", 
+                visibility: this.state.visibility, 
             });
         }
         this.state.selected = null;
@@ -786,6 +840,7 @@ class Fretboard {
                 const nutpath = pathSegments.join(" ");
                 const nut = this.createSvgElement('path', {
                     'class': 'fretboard-nut',
+                    'stroke': this.cfg.color['nut'],
                     'd': nutpath,
                 });
                 this.svg.appendChild(nut);
@@ -801,6 +856,7 @@ class Fretboard {
         const path = pathSegments.join(" ");
         const frets = this.createSvgElement('path', {
             'class': 'frets',
+            'stroke': this.cfg.color['fret'],
             'd': path,
         });
         this.svg.appendChild(frets);
@@ -830,6 +886,8 @@ class Fretboard {
             'data-y': y,
         });
         const annotation = this.createSvgElement('text', {
+            fill: this.cfg.color['title'],
+            stroke: this.cfg.color['title']
         });
         annotation.textContent = this.cfg.title;
         g.addEventListener("dblclick", 
@@ -853,6 +911,7 @@ class Fretboard {
                 const path = pathSegments.join(" ");
                 const marker = this.createSvgElement('path', {
                     class: 'linear-inlay-marker',
+                    stroke: this.cfg.color['inlay'],
                     d: path,
                 });
                 markers.appendChild(marker);
@@ -879,6 +938,7 @@ class Fretboard {
 
             const marker = this.createSvgElement('text', {
                 class: class_i,
+                fill: this.cfg.color[class_i],
                 x: this.cfg.offsetX + 
                     (i - 1 - this.state.startFret) * 
                     this.cfg.fretWidth + (this.cfg.fretWidth /** / 2 **/),
@@ -916,6 +976,7 @@ class Fretboard {
             const string = this.createSvgElement('path', {
                 'class': 'string',
                 'd': path,
+                'stroke' : this.cfg.color['string'],
                 'styles': {
                     'stroke-width': sw,
                 }
@@ -1011,7 +1072,7 @@ class Fretboard {
             ?  this.data[noteId] 
             : { 
                 type: 'note', 
-                color: '#FFFFFF', 
+                color: this.cfg.color['note-default'],
                 shape: 'circle', 
                 visibility: this.state.visibility
               };
@@ -1220,6 +1281,8 @@ class Fretboard {
         const y = selected.getAttribute('data-y');
         const srcstyles = getComputedStyle(this.elemText(selected));
         const dststyles = {
+            // color not fill or stroke for text color in the div
+            'color': this.cfg.color['title'],
             'display': 'block',
             'font-size': srcstyles['font-size'],
             'font-family': srcstyles['font-family'],
@@ -1458,8 +1521,12 @@ class Fretboard {
             if (text) {
                 text.textContent = text.getAttribute('data-note');
             }
-            this.updateNote(note,
-                { type: "note", color: "white", shape: "circle", visibility: this.state.visibility });
+            this.updateNote(note, { 
+                type: "note", 
+                color: this.cfg.color['note-default'],
+                shape: "circle", 
+                visibility: this.state.visibility 
+            });
             this.state.selected = null;
         }
     }
@@ -1557,12 +1624,12 @@ if (!fretboard.isIOS) {
         showPaletteOnly: true,
         togglePaletteOnly: true,
         maxSelectionSize: 9,
-        hideAfterPalletteSelect: true,
+        hideAfterPaletteSelect: true,
         showButtons: true,
         showAlpha: false,
         chooseText: "Done",
         togglePaletteMoreText: "more <click>, <esc> done",
-        palette: fretboard.DEF.leCorbusierPalette,
+        palette: LeCorbusierPalette,
     });
 }
 
@@ -1594,7 +1661,7 @@ if (fretboard.isIOS) {
     showPaletteOnly: true,
     togglePaletteOnly: true,
     maxSelectionSize: 9,
-    hideAfterPalletteSelect: true,
+    hideAfterPaletteSelect: true,
     showButtons: true,
     showAlpha: false,
     chooseText: "Done",

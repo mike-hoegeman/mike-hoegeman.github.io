@@ -1,47 +1,22 @@
 /*
- * ui for building fretboard configurations
+ * ui for specifiying fretboard colors
  * in the form of a css/html grid with widget
  * elements
  */
 
-// helper functions for constructing dom 
-class MakeElements {
-    elemWithAttrs(elemtype, parent=null, attrs=null) {
-        const e = document.createElement(elemtype);
-        if (attrs !=null) {
-            for (let key in attrs) {
-                e.setAttribute(key, attrs[key]);
-            }
-        }
-        if (parent != null) {
-            parent.appendChild(e);
-        }
-        return e;
-    }
-    textNode(text, parent=null, attrs=null) {
-        var tnode = document.createTextNode(text);
-        if (parent != null) {
-            parent.appendChild(tnode);
-        }
-        if (attrs != null) {
-        }
-        return tnode;
-    }
-}
-
-class FretboardConfigurator {
+class FretboardColors {
 
     constructor(fretboard) {
         this.perRowClasses = [
-            'fbcfg-strings-grid-col-interval-note',
-            'fbcfg-strings-grid-col-interval-octave',
-            'fbcfg-strings-grid-col-displaywidth',
+            'fbcolors-strings-grid-col-interval-note',
+            'fbcolors-strings-grid-col-interval-octave',
+            'fbcolors-strings-grid-col-displaywidth',
         ];
         this.fretboard = fretboard;
         this.mk = new MakeElements();
-
-        this.gridcontainer = this.fbcGridContainer('fbcfg-main');
-        this.kheader();
+        this.gridcontainer = this.fbColorsGridContainer('fbcolors-main');
+        this.clrheader();
+        /*
         this.kreadwritefretboard();
         this.kstringheader();
         this.kopenstrings();
@@ -50,134 +25,12 @@ class FretboardConfigurator {
         document.getElementById('numstrings').value=12;
         this.kleftmarkers();
         this.krightmarkers();
-    }
-
-    readRequest() {
-        const e = document.getElementById('read-from-fretboard');
-        //this.bell();
-        const json = JSON.stringify(this.fretboard.cfg, null, "  ");
-        const o = this.fretboard;
-
-        //
-        document.getElementById('show-open-strings').checked
-            = o.cfg.showOpenStrings;
-        //
-        document.getElementById('include-xfret').checked 
-            = o.cfg.markerOffset ? -1 : 0;
-
-        // markers
-        document.getElementById('leftmarkers').value
-            = o.cfg.markers.toString();
-
-        // per string stuff
-        const stringgrid = document.getElementById('fbcfg-strings-grid');
-        // re-size dialog's umber of strings
-        var numStrings = o.cfg.stringIntervals.length;
-        this.fbcStrings(stringgrid, numStrings);
-        //
-        var notes = stringgrid.children[0].children;
-        var octaves = stringgrid.children[1].children;
-        var widths = stringgrid.children[2].children;
-
-
-        for (let row=0; row<o.cfg.stringIntervals.length; row++) {
-            const midinote = o.cfg.stringIntervals[row]; 
-            notes[row].value = o.cfg.stringIntervals[row]; 
-            widths[row].value = o.cfg.stringDisplayWidths[row]; 
-
-            octaves[row].value = o.computeOctave(-1, row); 
-            const sharpmode = 0;
-            const nn = o.computeEnharmonicNoteName(-1, row, sharpmode);
-            var notename = nn[0];
-            if (nn[1] === o.DEF.sharpGlyph) {
-                notename += "#"; 
-            }
-            notes[row].value = notename;
-        }
-    }
-
-    writeRequest(event) {
-        const e = document.getElementById('write-to-fretboard');
-        const o = {cfg: new FretboardConfig()};
-
-        o.cfg.title = this.fretboard.cfg.title; 
-        o.cfg.showOpenStrings = 
-            document.getElementById('show-open-strings').checked;
-
-        o.cfg.markerOffset = 
-            document.getElementById('include-xfret').checked ? -1 : 0;
-
-        // per string stuff
-        const stringgrid = document.getElementById('fbcfg-strings-grid');
-        var notes = stringgrid.children[0].children;
-        var octaves = stringgrid.children[1].children;
-        var widths = stringgrid.children[2].children;
-        o.cfg.stringIntervals = [];
-        o.cfg.stringDisplayWidths = [];
-        for (let row=0; row<notes.length; row++) {
-            var w = parseFloat(widths[row].value);
-            o.cfg.stringDisplayWidths.push(w);
-
-            var s = notes[row].value+octaves[row].value;
-            var i = this.fretboard.computeNoteOctaveStrToMidi(s);
-            o.cfg.stringIntervals.push(i);
-        }
-
-        o.cfg.markers = [];
-        if (document.getElementById('leftmarkers').value === "") {
-            o.cfg.markers = [];
-        } else if (!document.getElementById('leftmarkers').value) {
-            o.cfg.markers = [];
-        } else {
-            var markers =
-                document.getElementById('leftmarkers').value.split(",");
-            for(let i=0; i < markers.length; i++) { 
-                var m = parseInt(markers[i]);
-                if (m!=0 && !m) {
-                    // crap in input...
-                    o.cfg.markers = [];
-                    break;
-                }
-                o.cfg.markers.push(m);
-            }
-        }
-        const json = JSON.stringify(o, null, "  ");
-        this.fretboard.loadJsonCfg(json);
-        return;
-    }
-
-    kheader() {
-        const p = document.getElementsByClassName('kheader')[0]; 
-        const tn = this.mk.textNode("Fretboard configurator", p);
-    }
-
-    kreadwritefretboard() {
-        const p = document.getElementsByClassName('kreadwritefretboard')[0]; 
-
-        /*
-        //read
-        const read = this.mk.elemWithAttrs('button', p, {
-            id: "read-from-fretboard", 
-        });
-        this.mk.elemWithAttrs('img', read, {
-            src: "svg-icons/readfromfretboard.svg", height: 20
-        });
-        read.addEventListener("click", (event) => {
-            this.readRequest();
-        });
         */
+    }
 
-        //write
-        const write = this.mk.elemWithAttrs('button', p, {
-            id: "write-to-fretboard", 
-        });
-        this.mk.elemWithAttrs('img', write, {
-            src: "svg-icons/writetofretboard.svg", height: 20
-        });
-        write.addEventListener("click", (event) => {
-            this.writeRequest(event);
-        });
-
+    clrheader() {
+        const p = document.getElementsByClassName('clrheader')[0]; 
+        const tn = this.mk.textNode("Fretboard colors", p);
     }
 
     kleftmarkers() {
@@ -204,9 +57,6 @@ class FretboardConfigurator {
             this.markersChanged(event);
         });
 
-    }
-
-    includeXFretChanged(event) {
     }
 
     krightmarkers() {
@@ -284,16 +134,16 @@ class FretboardConfigurator {
         const p = document.getElementsByClassName('kstrings')[0]; 
 
         var hgrid = this.mk.elemWithAttrs('div', p, { 
-            class: 'fbcfg-strings-grid',
-            id: 'fbcfg-strings-grid-heading' 
+            class: 'fbcolors-strings-grid',
+            id: 'fbcolors-strings-grid-heading' 
         });
         p.appendChild(hgrid);
         this.mk.elemWithAttrs('div', hgrid,
-            { class: 'fbcfg-strings-grid-col-interval-note' });
+            { class: 'fbcolors-strings-grid-col-interval-note' });
         this.mk.elemWithAttrs('div', hgrid,
-            { class: 'fbcfg-strings-grid-col-interval-octave' });
+            { class: 'fbcolors-strings-grid-col-interval-octave' });
         this.mk.elemWithAttrs('div', hgrid,
-            { class: 'fbcfg-strings-grid-col-displaywidth' });
+            { class: 'fbcolors-strings-grid-col-displaywidth' });
 
         // heading icons note, octave, stringwidth
         var l;
@@ -311,16 +161,16 @@ class FretboardConfigurator {
             });
 
         var stringsgrid = this.mk.elemWithAttrs('div', p, { 
-            class: 'fbcfg-strings-grid',
-            id: 'fbcfg-strings-grid' 
+            class: 'fbcolors-strings-grid',
+            id: 'fbcolors-strings-grid' 
         });
         p.appendChild(stringsgrid);
         this.mk.elemWithAttrs('div', stringsgrid,
-            { class: 'fbcfg-strings-grid-col-interval-note' });
+            { class: 'fbcolors-strings-grid-col-interval-note' });
         this.mk.elemWithAttrs('div', stringsgrid,
-            { class: 'fbcfg-strings-grid-col-interval-octave' });
+            { class: 'fbcolors-strings-grid-col-interval-octave' });
         this.mk.elemWithAttrs('div', stringsgrid,
-            { class: 'fbcfg-strings-grid-col-displaywidth' });
+            { class: 'fbcolors-strings-grid-col-displaywidth' });
 
         return stringsgrid;
     }
@@ -352,7 +202,7 @@ class FretboardConfigurator {
 
     numStringsChanged(event) {
         const stringgrid = 
-          document.getElementById('fbcfg-strings-grid'); 
+          document.getElementById('fbcolors-strings-grid'); 
         this.fbcStrings(stringgrid, event.target.value);
     }
 
@@ -394,7 +244,7 @@ class FretboardConfigurator {
         var noteopts = 
             [ "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B" ];
         var snote = this.mk.elemWithAttrs('select', parent,
-            { class: 'fbcfg-string-note' });
+            { class: 'fbcolors-string-note' });
             snote.innerHTML = "Note";
         for(let i=0; i<noteopts.length; i++) {
             var o = this.mk.elemWithAttrs('option', snote, {
@@ -404,7 +254,7 @@ class FretboardConfigurator {
         parent = stringgrid.childNodes[1];
         var octaveopts = [ 0,1,2,3,4,5,6,7,8,9];
         var soctave = this.mk.elemWithAttrs('select', parent, { 
-            class: 'fbcfg-string-octave' 
+            class: 'fbcolors-string-octave' 
         });
         //soctave.innerHTML = "Octave";
         for(let i=0; i<octaveopts.length; i++) {
@@ -423,7 +273,7 @@ class FretboardConfigurator {
             5.0
         ];
         var swidth = this.mk.elemWithAttrs('select', parent,
-            { class: 'fbcfg-string-width' });
+            { class: 'fbcolors-string-width' });
             swidth.innerHTML = "Width";
         for(let i=0; i<widthopts.length; i++) {
             var o = this.mk.elemWithAttrs('option', swidth, {
@@ -434,25 +284,21 @@ class FretboardConfigurator {
     }
 
     fbcString() {
-        const sg = document.getElementById('fbcfg-strings-grid'); 
+        const sg = document.getElementById('fbcolors-strings-grid'); 
         this.fbcStringInterval(sg);
     }
 
-    fbcGridContainer(targetId) {
-        const p = document.getElementById('fbcfg-main'); 
+    fbColorsGridContainer(targetId) {
+        const p = document.getElementById('fbcolors-main'); 
         var cont = this.mk.elemWithAttrs('div', p,
-            { class: 'fbcfg-grid-container' });
-        const klist = [
-            'kheader', 'kreadwritefretboard', 
-            'kstringheader', 'kopenstrings',
-            'kstringinterval', 'kstringdisplaywidth',
-            'kstrings',
-            'kleftmarkers', 'krightmarkers',
-            'kfree'
+            { class: 'fbcolors-grid-container' });
+        const clrlist = [
+            'clrheader', 
+            'clrtargetsheader',
         ];
-        for (let i = 0; i< klist.length; i++) {
+        for (let i = 0; i< clrlist.length; i++) {
             cont.appendChild(this.mk.elemWithAttrs('div', p, 
-                { class: klist[i] }));
+                { class: clrlist[i] }));
         }
         return p;
     }

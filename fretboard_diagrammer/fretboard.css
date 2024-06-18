@@ -5,17 +5,17 @@ g.note.transparent:hover {
 }
 
     /* text-anchor: middle; */
+    /* stroke: black; */
+    /* fill: black; */
 #fretboard-title>text {
-    stroke: black;
     stroke-width: 0px;
-    fill: black;
     dominant-baseline: middle;
     font-size: 17px;
     font-family: Arial, Helvetica, sans-serif;
 }
 
+    /*fill: white;*/
 g.note {
-    fill: white;
     stroke-width: 1px;
     stroke: black;
 }
@@ -47,9 +47,9 @@ g.note.transparent {
     opacity: 0.3;
 }
 
+    /* fill: white; */
 g.note.visible {
     opacity: 1;
-    fill: white;
 }
 
 g.note.highlight {
@@ -59,19 +59,19 @@ g.note.highlight {
     fill: yellow;
 }
 
+    /*stroke: black; */
 path.string {
-    stroke: black;
     fill: none;
 }
 
+    /* stroke: black; */
 path.frets {
-    stroke: black;
     stroke-width: 1px;
     fill: none;
 }
 
+    /* stroke: black; */
 path.fretboard-nut {
-    stroke: black;
     stroke-width: 7px;
     stroke-linecap: square;
     fill: none;
@@ -105,26 +105,26 @@ div.menu {
     font-family: Arial, Helvetica, sans-serif;
 }
 
+    /* stroke: cadetblue; */
 path.linear-inlay-marker {
-    stroke: cadetblue;
     stroke-linecap: round;
     stroke-linejoin: round;
     stroke-width: 7;
 }
 
+    /* fill: black; */
 text.fret-marker {
     text-anchor: middle;
     font-size: 14px;
     font-style: italic;
-    fill: black;
     font-family: Arial, Helvetica, sans-serif;
     font-weight: lighter;
 }
+    /* fill: darkgray; */
 text.small-fret-marker {
     text-anchor: middle;
     font-size: 13px;
     font-style: italic;
-    fill: darkgray;
     font-family: Arial, Helvetica, sans-serif;
 }
 
@@ -197,7 +197,7 @@ button.sym-button:hover { transform: scale(1.075); }
     justify-content: space-between;
 }
 
-#fbc-main {
+#fbcfg-main {
     margin: auto;
     width: 550px;
     padding: 10px;
