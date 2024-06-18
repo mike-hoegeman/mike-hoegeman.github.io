@@ -205,6 +205,14 @@ button.sym-button:hover { transform: scale(1.075); }
     justify-content: space-between;
 }
 
+#fbcolors-main {
+    margin: auto;
+    width: 550px;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
 
 @supports (width: 100vw) {
     figure.half-full {
