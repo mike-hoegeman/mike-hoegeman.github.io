@@ -76,8 +76,6 @@ function colorToHex(color) {
 }
 
 
-
-
 //
 // holds all items that can configure a FretBoard
 // part of a saved Fretboard session
@@ -1773,6 +1771,7 @@ for (const key in FRETBOARD_CATALOG) {
         fretboardTypes.appendChild(opt);
     }
 }
+
 // init from construction opts
 fretboardTypes.value = fretboard.opts.fretboardCfg;
 fretboardTypes.addEventListener('change', (event) => {

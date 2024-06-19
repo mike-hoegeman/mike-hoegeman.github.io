@@ -16,22 +16,33 @@
 
 .fbcolors-targets-grid {
   display: grid;
-  grid-template-columns: 50px 40px 60px;
+  grid-template-columns: 200px 100px 200px;
   border-radius: 8px;
   gap: 10px;
   padding: 1px;
 }
-.fbcolors-targets-grid-target-name {
+.fbcolors-targets-grid-col-name {
 }
-.fbcolors-targets-grid-target-color {
+.fbcolors-targets-grid-col-color-box {
 }
+.fbcolors-targets-grid-col-color-box>button {
+    width: 20px;
+    height: 20px;
+}
+.fbcolors-targets-grid-col-color-hex {
+}
+
+.fbcolors-targets-grid-col-color-hex>input {
+  font-size: 14px;
+  font-family: monospace, Consolar, DejaVu Sans Mono, Lucida Console, Courier;
+}
+
 
 .fbcolors-grid-container {
   display: grid;
   grid-template-areas:
-    'header   header transparentbackground transparentbackground '
-    'targetsheader   targetsheader  targetsheader targetsheader'
-    'targetname targetname targetcolor  targetcolor'
+    'header   transparentbackground '
+    'targets targets'
     ;
   gap: 10px;
   padding: 10px;
