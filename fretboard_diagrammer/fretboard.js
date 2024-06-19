@@ -61,7 +61,8 @@ class FretboardConfig {
         this.stringSpacing = 40;
         this.markerStyles = ['fret-number', 'linear-inlay'];
 
-        this.colorLight = {
+        this.color = {
+            'background': 'none',
             'fret-marker': LeCorbusierQuickColor['black'],
             'small-fret-marker': LeCorbusierQuickColor['mediumGrey'],
             'nut': LeCorbusierQuickColor['ironGrey'],
@@ -71,18 +72,6 @@ class FretboardConfig {
             'note-default': LeCorbusierQuickColor['ivoryWhite'],
             'title': LeCorbusierQuickColor['black']
         };
-        this.colorDark = {
-            'fret-marker': LeCorbusierQuickColor['black'],
-            'small-fret-marker': LeCorbusierQuickColor['mediumGrey'],
-            'nut': LeCorbusierQuickColor['ironGrey'],
-            'string': LeCorbusierQuickColor['ivoryBlack'],
-            'fret': LeCorbusierQuickColor['ivoryBlack'],
-            'inlay': LeCorbusierQuickColor['luminousCerulean'],
-            'note-default': LeCorbusierQuickColor['ivoryWhite'],
-            'title': LeCorbusierQuickColor['black']
-        }
-
-        this.color = this.colorLight;
     }
 }
 
@@ -166,6 +155,8 @@ class Fretboard {
     // return null for ok. otherwise return an error string 
     cfgCpy(dstCfg, srcCfg) {
         const protoCfg = new FretboardConfig();
+        const protoCfgColor = protoCfg.color;
+
         //------
         // minimal quality check. make sure required attrs are in src
         for (const protoKey in protoCfg) {
@@ -178,6 +169,17 @@ class Fretboard {
                 }
             }
         }
+        for (const protoKeyColor in protoCfgColor) {
+            if (!protoCfgColor.hasOwnProperty(protoKeyColor)) { continue; }
+            //
+            if (protoCfgColor[protoKeyColor] === null) {
+                if (!srcCfg.color.hasOwnProperty(protoKey)) {
+                 return "cfgCpy: src cfg.color  missing required key: " + 
+                     protoKeyColor;
+                }
+            }
+        }
+
         // make sure src property is recognized as a property known by
         // FretboardConfig
         for (const srcKey in srcCfg) {
@@ -187,16 +189,28 @@ class Fretboard {
                         srcKey;
             }
         }
+        for (const srcKeyColor in srcCfg.color) {
+            if (!srcCfg.color.hasOwnProperty(srcKeyColor)) { continue; }
+            if (!protoCfgColor.hasOwnProperty(srcKeyColor)) {
+                return "cfgCpy: src configuration contains unknown key: " + 
+                        srcKeyColor;
+            }
+        }
+
         //------
         // Nominally ok
         // copy the props from srcCfg to dstCfg
         for (const srcKey in srcCfg) {
             if (!srcCfg.hasOwnProperty(srcKey)) { continue; }
             dstCfg[srcKey] = srcCfg[srcKey];
-            /*
-            console.log("(%s) %s <<-- %s", 
-                dstCfg[srcKey], srcKey, srcCfg[srcKey]);
-            */
+            /* console.log("cfg (%s) %s <<-- %s", 
+                dstCfg[srcKey], srcKey, srcCfg[srcKey]); */
+        }
+        for (const srcKeyColor in srcCfg.color) {
+            if (!srcCfg.color.hasOwnProperty(srcKeyColor)) { continue; }
+            dstCfg.color[srcKeyColor] = srcCfg.color[srcKeyColor];
+            /* console.log("cfg.color (%s) %s <<-- %s", 
+                dstCfg.color[srcKeycolor], srcKeyColor, srcCfg.color[srcKeyColor]); */
         }
     }
 
@@ -224,10 +238,8 @@ class Fretboard {
             console.log("%s",
                 "Error loading inital cfg "+opts.fretboardCfg+": "+err);
         }
-        /*
-        console.log("LOADED CFG:\n-------\n%s", 
-            JSON.stringify(this.cfg,null, "    "));
-        */
+        /* console.log("LOADED CFG:\n-------\n%s", 
+            JSON.stringify(this.cfg,null, "    ")); */
         this.cfgDerived = new FretboardConfigDerived(this.cfg);
 
         this.state = {
@@ -421,12 +433,23 @@ class Fretboard {
             reader.onload = (function(fbHandle){
                 return function(e) {
                     var result = e.target.result;
-                    const obj = JSON.parse(result);
-                    fbHandle.cfg = obj.cfg;
+                    const readObj = JSON.parse(result);
+                    const mergeCfg = new FretboardConfig(); 
+
+                    var err = fbHandle.cfgCpy(mergeCfg, readObj.cfg);
+                    if (err != null) {
+                        console.log("%s",
+                            "Error loading new cfg " + "xx" + ": "+err);
+                    } else {
+                        fbHandle.cfg = mergeCfg;
+                        fbHandle.cfgDerived.recalc(fbHandle.cfg);
+                    }
+
+                    fbHandle.cfg = mergeCfg;
                     fbHandle.cfgDerived.recalc(fbHandle.cfg);
                     fbHandle.reset();
                     fbHandle.erase();
-                    fbHandle.data = obj.data;
+                    fbHandle.data = readObj.data;
                     fbHandle.draw();
                     // fill customize panel with new diagram details
                     fbHandle.fretboardConfigurator.readRequest();
@@ -611,7 +634,14 @@ class Fretboard {
         });
     }
 
+    drawBackground() {
+        var fb = document.getElementById('fretboard');
+        var c = this.cfg.color['background']; 
+        fb.style = 'background-color: ' + c + ';';
+    }
+
     draw() {
+        this.drawBackground();
         this.drawTitle();
         this.drawFrets();
         this.drawMarkers();
@@ -1515,6 +1545,7 @@ class Fretboard {
     reset() {
         this.state.intervalRoot = null;
         this.data = {};
+        const c = this.cfg.color['note-default'];
         for (let note of this.svgGrp.notes.children) {
             // reset text
             const text = this.noteText(note);
@@ -1523,7 +1554,7 @@ class Fretboard {
             }
             this.updateNote(note, { 
                 type: "note", 
-                color: this.cfg.color['note-default'],
+                color: c,
                 shape: "circle", 
                 visibility: this.state.visibility 
             });

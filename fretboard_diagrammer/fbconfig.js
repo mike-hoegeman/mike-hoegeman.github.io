@@ -225,23 +225,6 @@ class FretboardConfigurator {
             this.includeXFretChanged(event);
         });
 
-        //----
-
-        label = this.mk.elemWithAttrs('label', p, { 
-            for: "transparent-background", 
-        });
-        label.innerHTML = "Transparent Background";
-        checkbox = this.mk.elemWithAttrs('input', p, {
-            type: "checkbox",
-            id: "transpoarent-background",
-            checked: true,
-        });
-        checkbox.addEventListener("change", (event) => {
-            this.transparentBackgroundChanged(event);
-        });
-
-
-
     }
 
     kstringheader() {

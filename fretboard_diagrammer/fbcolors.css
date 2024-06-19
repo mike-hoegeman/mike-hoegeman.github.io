@@ -5,11 +5,14 @@
 //
 // Fretboard Colors Panel
 //
-.clrheader { grid-area: header; }
-.clrheader>button { grid-area: header; margin: 4px;}
-.clrtargetsheader { grid-area: targetsheader; }
-.clrtargets { grid-area: targets; }
-.clrfree { grid-area: free; }
+.clrheader                      { grid-area: header;} 
+.clrtransparentbackground       { grid-area transparentbackground; }
+.clrtransparentbackground>input { grid-area transparentbackground; 
+                                  margin-top: 0px;
+                                  margin-bottom: 0px; }
+.clrtargetsheader               { grid-area: targetsheader; }
+.clrtargets                     { grid-area: targets; }
+.clrfree                        { grid-area: free; }
 
 .fbcolors-targets-grid {
   display: grid;
@@ -26,7 +29,7 @@
 .fbcolors-grid-container {
   display: grid;
   grid-template-areas:
-    'header   header  header header'
+    'header   header transparentbackground transparentbackground '
     'targetsheader   targetsheader  targetsheader targetsheader'
     'targetname targetname targetcolor  targetcolor'
     ;

@@ -16,6 +16,7 @@ class FretboardColors {
         this.mk = new MakeElements();
         this.gridcontainer = this.fbColorsGridContainer('fbcolors-main');
         this.clrheader();
+        this.clrtransparentbackground();
         /*
         this.kreadwritefretboard();
         this.kstringheader();
@@ -30,7 +31,33 @@ class FretboardColors {
 
     clrheader() {
         const p = document.getElementsByClassName('clrheader')[0]; 
-        const tn = this.mk.textNode("Fretboard colors", p);
+        var label = this.mk.elemWithAttrs('label', p, { });
+        label.innerHTML = "Fretboard Colors";
+    }
+
+    clrtransparentbackground() {
+        const p = document.getElementsByClassName('clrtransparentbackground')[0]; 
+        var label = this.mk.elemWithAttrs('label', p, { 
+            for: "transparent-background", 
+        });
+        label.innerHTML = "Use Transparent Background";
+        var checkbox = this.mk.elemWithAttrs('input', p, {
+            type: "checkbox",
+            id: "transparent-background",
+            checked: true,
+        });
+        checkbox.addEventListener("click", (event) => {
+            this.transparentBackgroundChanged(checkbox);
+        });
+    }
+
+    transparentBackgroundChanged(checkbox) {
+        if (checkbox.checked) {
+            this.fretboard.cfg.color['background'] = 'none'; 
+        } else {
+            this.fretboard.cfg.color['background'] = 'white'; 
+        }
+        this.fretboard.drawBackground();
     }
 
     kleftmarkers() {
@@ -294,6 +321,7 @@ class FretboardColors {
             { class: 'fbcolors-grid-container' });
         const clrlist = [
             'clrheader', 
+            'clrtransparentbackground', 
             'clrtargetsheader',
         ];
         for (let i = 0; i< clrlist.length; i++) {
