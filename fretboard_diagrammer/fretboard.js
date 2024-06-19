@@ -36,6 +36,47 @@ const LeCorbusierPalette = [[
 //
 //-----------------------------------------------------------------------------
 
+// Returns the color as an array of [r, g, b, a] -- all range from 0 - 255
+const __ColorCache = {}; document.createElement('canvas'); 
+function colorToRGBA(color) {
+    // color must be a valid canvas fillStyle. This will cover most anything
+    // you'd want to use.
+    // Examples:
+    // colorToRGBA('red')  # [255, 0, 0, 255]
+    // colorToRGBA('#f00') # [255, 0, 0, 255]
+    if (color in __ColorCache) {
+        return __ColorCache[color];
+    }
+    var cvs = document.createElement('canvas'); 
+    cvs.height = 1;
+    cvs.width = 1;
+    var ctx = cvs.getContext('2d');
+    ctx.fillStyle = color;
+    ctx.fillRect(0, 0, 1, 1);
+    __ColorCache[color] = ctx.getImageData(0, 0, 1, 1).data;
+    return __ColorCache[color];
+}
+
+function byteToHex(num) {
+    // Turns a number (0-255) into a 2-character hex number (00-ff)
+    return ('0'+num.toString(16)).slice(-2);
+}
+
+function colorToHex(color) {
+    // Convert any CSS color to a hex representation
+    // Examples:
+    // colorToHex('red')            # '#ff0000'
+    // colorToHex('rgb(255, 0, 0)') # '#ff0000'
+    var rgba, hex;
+    rgba = colorToRGBA(color);
+    hex = [0,1,2].map(
+        function(idx) { return byteToHex(rgba[idx]); }
+        ).join('');
+    return "#"+hex;
+}
+
+
+
 
 //
 // holds all items that can configure a FretBoard
@@ -1084,6 +1125,7 @@ class Fretboard {
             'data-x': x,
             'data-y': y,
         });
+
         this.svgGrp.notes.appendChild(note);
         note.addEventListener("click", 
             (event) => this.noteClickHandler(event));
@@ -1459,28 +1501,22 @@ class Fretboard {
         }
 
         if ('color' in update) {
-            const c = update.color
+            var c = update.color
             const shape = this.noteShape(elem);
             const text = this.noteText(elem);
+            // convert all colors to color hex values
             if ((c.length > 0) && (c.charAt(0) === '#')) {
-                //delete update.color;
-                // literal hex color instead of classified color 
-                shape.setAttribute('fill', c);
-                // change the text color to contrast with the shape color
-                // use style attr here because css will override fill 
-                // and stroke attr
-                const tc = this.getContrastColor50(c);
-                text.setAttribute('style', 'fill: '+tc);
-                //text.setAttribute('stroke', tc);
-
             } else {
-                // clear any literal value s
-                if (shape.hasAttribute('fill')) {
-                    shape.removeAttribute('fill');
-                }
-                text.style.fill = null;
-                text.style.stroke = null;
+                c = colorToHex(c);
             }
+
+            shape.setAttribute('fill', c);
+            // change the text color to contrast with the shape color
+            // use style attr here because css will override fill 
+            // and stroke attr
+            const tc = this.getContrastColor50(c);
+            text.setAttribute('style', 'fill: '+tc);
+            //text.setAttribute('stroke', tc);
         }
 
 
