@@ -61,7 +61,7 @@ class FretboardColors {
         if (checkbox.checked) {
             this.fretboard.cfg.color['background'] = 'none'; 
         } else {
-            this.fretboard.cfg.color['background'] = 'white'; 
+            this.fretboard.cfg.color['background'] = '#ffffff'; 
         }
         this.fretboard.drawBackground();
     }

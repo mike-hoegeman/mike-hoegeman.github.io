@@ -7,6 +7,7 @@
 // https://observablehq.com/@taekie/le-corbusier-color-pallete
 //
 const LeCorbusierQuickColor = {
+    blueGrey: "#d9e1dd",
     sandyOrange: '#eacfb9',
     skyOceanWaves: '#c6d5cc',
     mediumGrey: '#929494',
@@ -101,6 +102,7 @@ class FretboardConfig {
         this.markerStyles = ['fret-number', 'linear-inlay'];
 
         this.color = {
+            'app-background': LeCorbusierQuickColor['white'],
             'background': 'none',
             'fret-marker': LeCorbusierQuickColor['black'],
             'small-fret-marker': LeCorbusierQuickColor['mediumGrey'],
@@ -673,13 +675,20 @@ class Fretboard {
         });
     }
 
+    drawAppBackground() {
+        var b = document.getElementById('app-body');
+        var c = this.cfg.color['app-background']; 
+        b.style['background-color'] = c;
+    }
     drawBackground() {
         var fb = document.getElementById('fretboard');
         var c = this.cfg.color['background']; 
+        /*fb.style['background-color'] = c; */
         fb.style = 'background-color: ' + c + ';';
     }
 
     draw() {
+        this.drawAppBackground();
         this.drawBackground();
         this.drawTitle();
         this.drawFrets();
