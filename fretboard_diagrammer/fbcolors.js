@@ -1,5 +1,5 @@
 /*
- * ui for specifiying fretboard colors
+ * UI for specifiying fretboard colors
  * in the form of a css/html grid with widget
  * elements
  */
