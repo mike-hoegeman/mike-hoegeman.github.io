@@ -622,10 +622,10 @@ class Fretboard {
     }
 
     setFretWindow(fretWindow) {
-        const start = 
-           fretWindow!=null && 'start' in fretWindow ? fretWindow.start : this.state.startFret;
-        const end = 
-            fretWindow!=null && 'end' in fretWindow ? fretWindow.end : this.state.endFret;
+        const start = fretWindow!=null && 
+               'start' in fretWindow ? fretWindow.start : this.state.startFret;
+        const end = fretWindow!=null && 
+                'end' in fretWindow ? fretWindow.end : this.state.endFret;
         this.erase();
         if (start < 0 || start > 22 || end < 1 || end > 22) {
             this.drawError("Invalid fret value(s)!");
