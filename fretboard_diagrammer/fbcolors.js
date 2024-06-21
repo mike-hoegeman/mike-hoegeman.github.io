@@ -99,10 +99,6 @@ class FretboardColors {
 
     updateTargetFromButton(event, colortarget) {
         const elem = event.target;
-        if (this.fretboard.isIOS) {
-            this.bell();
-            return;
-        }
 
         // get the target element and change the title
         // and background-xxxx style
