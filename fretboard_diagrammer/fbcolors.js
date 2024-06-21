@@ -171,7 +171,7 @@ class FretboardColors {
         }
         //----
         // make color selector
-        if (!this.fretboard.isIOS) {
+        if (true /*!this.fretboard.isIOS*/) {
             FretboardColorsPicker = Spectrum.createMultiple(buttons, {
                 type: 'color',
                 showPaletteOnly: true,
