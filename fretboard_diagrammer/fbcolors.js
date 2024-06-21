@@ -63,7 +63,9 @@ class FretboardColors {
         } else {
             this.fretboard.cfg.color['background'] = '#ffffff'; 
         }
-        this.fretboard.drawBackground();
+        this.fretboard.erase();
+        this.fretboard.draw();
+        this.updateColorWidgets();
     }
 
     clrtargetsRowDivs(pgrid) {
@@ -73,6 +75,26 @@ class FretboardColors {
             { class: 'fbcolors-targets-grid-col-color-box' });
         this.mk.elemWithAttrs('div', pgrid,
             { class: 'fbcolors-targets-grid-col-color-hex' });
+    }
+
+    updateTargetFromInput(event, colortarget) {
+        const elem = event.target;
+        const k = event.key;
+        if (k !== 'Enter') {
+            return;
+        }
+        // ok check the value and then update it if it's ok
+        var cstr = elem.value;
+        cstr = colorToHex(cstr);
+        if (cstr === null || cstr === undefined) {
+            this.bell();
+            return;
+        }
+        this.fretboard.cfg.color[colortarget] = cstr;
+        console.log("CSTR = %s", cstr);
+        this.fretboard.erase();
+        this.fretboard.draw();
+        this.updateColorWidgets();
     }
 
     updateTargetFromButton(event, colortarget) {
@@ -142,6 +164,9 @@ class FretboardColors {
                 type: 'text',
                 min: 7, max: 7, maxlength:7, size: 7, 
                 value: fbc[key]
+            });
+            e.addEventListener('keyup', (event) => {
+                this.updateTargetFromInput(event, keys[i]);
             });
         }
         //----

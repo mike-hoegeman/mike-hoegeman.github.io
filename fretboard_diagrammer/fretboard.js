@@ -39,6 +39,7 @@ const LeCorbusierPalette = [[
 
 // Returns the color as an array of [r, g, b, a] -- all range from 0 - 255
 const __ColorCache = {}; document.createElement('canvas'); 
+const __ColorCvs = document.createElement('canvas'); 
 function colorToRGBA(color) {
     // color must be a valid canvas fillStyle. This will cover most anything
     // you'd want to use.
@@ -48,10 +49,9 @@ function colorToRGBA(color) {
     if (color in __ColorCache) {
         return __ColorCache[color];
     }
-    var cvs = document.createElement('canvas'); 
-    cvs.height = 1;
-    cvs.width = 1;
-    var ctx = cvs.getContext('2d');
+    __ColorCvs.height = 1;
+    __ColorCvs.width = 1;
+    var ctx = __ColorCvs.getContext('2d', { willReadFrequently: true });
     ctx.fillStyle = color;
     ctx.fillRect(0, 0, 1, 1);
     __ColorCache[color] = ctx.getImageData(0, 0, 1, 1).data;
@@ -244,14 +244,10 @@ class Fretboard {
         for (const srcKey in srcCfg) {
             if (!srcCfg.hasOwnProperty(srcKey)) { continue; }
             dstCfg[srcKey] = srcCfg[srcKey];
-            /* console.log("cfg (%s) %s <<-- %s", 
-                dstCfg[srcKey], srcKey, srcCfg[srcKey]); */
         }
         for (const srcKeyColor in srcCfg.color) {
             if (!srcCfg.color.hasOwnProperty(srcKeyColor)) { continue; }
             dstCfg.color[srcKeyColor] = srcCfg.color[srcKeyColor];
-            /* console.log("cfg.color (%s) %s <<-- %s", 
-                dstCfg.color[srcKeycolor], srcKeyColor, srcCfg.color[srcKeyColor]); */
         }
     }
 
