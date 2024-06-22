@@ -7,20 +7,26 @@
 // https://observablehq.com/@taekie/le-corbusier-color-pallete
 //
 const LeCorbusierQuickColor = {
-    blueGrey: "#d9e1dd",
+    vernalGreen: '#7fa25a',
+        green: '#7fa25a',
+    yellowSun: '#f2bb1d',
+        yellow: '#f2bb1d',
+    skyAndSea: '#7aa7cb',
+        blue: '#7aa7cb',
+    orangeApricot: '#dc6c40',
+        red: '#dc6c40',
+
+    emeraldGreen: '#428f70',
+    powerfulOrange: '#c45e3a',
+    blueGrey: '#d9e1dd',
     sandyOrange: '#eacfb9',
     skyOceanWaves: '#c6d5cc',
     mediumGrey: '#929494',
-    emeraldGreen: '#428f70',
     luminousCerulean: '#679dae',
     luminousPink: '#dba3af',
     ivoryBlack: '#3a3b3b',
     ivoryWhite: '#eae4d7',
     ironGrey: '#536061',
-    yellow: '#f2bb1d',
-    blue: '#4d6aa8',
-    green: '#406358',
-    red: '#ac443a',
     white: '#ffffff',
     black: '#000000'
 };
@@ -769,7 +775,7 @@ class Fretboard {
                     break;
                 case "KeyW":
                     this.updateNote(selected,
-                        { color: LeCorbusierQuickColor.white });
+                        { color: LeCorbusierQuickColor.ivoryWhite });
                     break;
                 case "KeyR":
                     this.updateNote(selected, 
