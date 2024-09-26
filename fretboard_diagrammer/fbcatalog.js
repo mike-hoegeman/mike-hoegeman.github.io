@@ -171,7 +171,7 @@ const FRETBOARD_CATALOG = {
     },
 
     tapping_10_str_baritone_melody: {
-        title: "Tapper: 10str full baritone",
+        title: "Tapper: 10str baritone melody",
         showOpenStrings: false, // tapping instruments can't play open strings 
         stringDisplayWidths: [
             0.4, 0.6, 0.8, 1.0, 1.2, //melody
