@@ -170,6 +170,25 @@ const FRETBOARD_CATALOG = {
         markers: [3, 8, 13, 18], // inlays every 5 frets
     },
 
+    tapping_10_str_baritone_melody: {
+        title: "Tapper: 10str full baritone",
+        showOpenStrings: false, // tapping instruments can't play open strings 
+        stringDisplayWidths: [
+            0.4, 0.6, 0.8, 1.0, 1.2, //melody
+            3.4, 3.0, 2.4, 2.0, 1.0 //bass
+        ],
+        // like 12 str classic without low melody string
+        // and high bass string
+        stringIntervals: [
+            // melody
+            _x+2-5, _x+2-10, _x+2-15, _x+2-20, _x+2-25,
+            // bass is same as 10 str classic
+            _x-36, _x-36+7, _x-36+14, _x-36+21, _x-36+28
+        ],
+        markerOffset: -1, //  0 or 'X' fret in diagrams
+        markers: [3, 8, 13, 18], // inlays every 5 frets
+    },
+
     tapping_10_str_full_baritone: {
         title: "Tapper: 10str full baritone",
         showOpenStrings: false, // tapping instruments can't play open strings 
