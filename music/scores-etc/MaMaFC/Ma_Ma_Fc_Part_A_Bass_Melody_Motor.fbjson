@@ -1,6 +1,6 @@
 {
   "cfg": {
-    "title": "Ma-Ma Fc: Part A Bass/Melody Motor: (FA) / (FGC(orF))",
+    "title": "Ma-Ma Fc: Part A Bass/Melody Motor: (FA) / (F^GF^C(orF))",
     "stringDisplayWidths": [
       0.4,
       0.6,
@@ -1255,7 +1255,7 @@
     "visibility": "transparent",
     "startFret": 0,
     "endFret": 16,
-    "enharmonic": 0,
+    "enharmonic": 1,
     "intervalRoot": null,
     "numFrets": 16,
     "fretboardWidth": 1120
