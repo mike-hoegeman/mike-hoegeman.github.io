@@ -1202,8 +1202,11 @@ class Fretboard {
 
 
     // Middle C will return 60
-    computeMidiNote(fret, string) {
-        const interval = this.cfg.stringIntervals[string] + fret + 1;
+    computeMidiNote(fret, string, cfg=null) {
+        if (cfg === null) {
+            cfg = this.cfg;
+        }
+        const interval = cfg.stringIntervals[string] + fret + 1;
         return interval;
     }
 
@@ -1607,12 +1610,75 @@ class Fretboard {
         }
     }
 
+    stringSlice(stringNo, noteData) {
+        var slice = new Object();
+        for (const noteTag in noteData) {
+            if (!noteData.hasOwnProperty(noteTag)) {
+                continue;
+            }
+            const fs = this.dataKeyToFretAndStringNumber(noteTag);
+            if (fs[1] === stringNo) {
+                slice[noteTag] = noteData[noteTag]; 
+            }
+        }
+        return slice;
+    }
+
+    dataKeyToFretAndStringNumber(dataKey) {
+        var v = dataKey.split("-");
+        var f;
+        var s;
+        var fnum = undefined;
+        var snum = undefined;
+        if (v.length === 2) {
+            f = v[0];
+            s = v[1];
+            //fnum
+            if (f.startsWith("o")) {
+                // open string
+                fnum =- -1;
+            } else if (f.startsWith("f")) {
+                fnum = parseInt(f.substring(1), 10);
+            } else {
+                fnum = undefined;
+            }
+
+            if (s.startsWith("s")) {
+                // snum
+                snum = parseInt(s.substring(1), 10);
+            } else {
+                snum = undefined;
+            }
+        }
+        return new Array(fnum, snum);
+    }
+
+    findMidiNoteOnString(midiNote, stringNo, cfg, noteData) {
+        var ss = this.stringSlice(stringNo, noteData);
+        for (var k in ss) {
+            var r = this.dataKeyToFretAndStringNumber(k);
+            var midinote_tmp = this.computeMidiNote(r[0], r[1], cfg);
+            if (midinote_tmp === midiNote) {
+                return [k, ss[k]];
+            }
+        }
+        return null;
+    }
+
+
     changeConfiguration(event) {
         const k = event.target.value;
         // make a "default value" cfg
         // that way old cfgs with missing values get the default
         // values
         var protocfg = new FretboardConfig();
+        // copy the current cfg
+
+        var oldCfg = new FretboardConfig();
+        var oldData = JSON.parse(JSON.stringify(this.data));
+        this.cfgCpy(oldCfg, this.cfg);
+        // delete all unactivated notes
+
         var err = this.cfgCpy(protocfg, FRETBOARD_CATALOG[k]);
         protocfg.title = ""; // remove the title - just for selector display 
         if (err != null) {
@@ -1622,8 +1688,98 @@ class Fretboard {
             this.cfg = protocfg;
             this.cfgDerived.recalc(this.cfg);
         }
+
         this.reset();
         this.erase();
+
+        var stray_notes = false;
+        var stray_notes_txt = "";
+
+        for (const fs_old in oldData) {
+            var r_old;
+            var f_old;
+            var s_old;
+            var midinote_old;
+            var midinote_new;
+            if (!oldData.hasOwnProperty(fs_old)) {
+                continue;
+            }
+            if ((oldData[fs_old].visibility != 'visible') 
+            &&  (oldData[fs_old].visibility != 'selected')) {
+                continue;
+            }
+
+
+            if (oldData[fs_old].visibility === 'selected') {
+                // if selected make it plain old visible since this 
+                // is not live data anymore
+                oldData[fs_old].visibility = 'visible';
+            }
+
+            r_old = this.dataKeyToFretAndStringNumber(fs_old);
+            f_old  = r_old[0];
+            s_old = r_old[1];
+            midinote_old = this.computeMidiNote(f_old, s_old, oldCfg);
+            //console.log("old %s --> %d", fs_old, midinote_old);
+
+            midinote_new = this.computeMidiNote(f_old, s_old, this.cfg);
+            //console.log("new %s --> %d", fs_old, midinote_new);
+
+            var kd = null;
+            if (midinote_old === midinote_new) {
+                // note is still in same place in new cfg. leave it alone.
+                console.log("note %d is still in the same place %s", midinote_old, fs_old);
+                kd = [fs_old, oldData[fs_old]];
+            } else {
+                // note is is a different place on the new board
+                // try to find a new place for it in the new board...
+
+                // try on same string fyrst
+                kd = this.findMidiNoteOnString(midinote_old, s_old, this.cfg, this.data);
+                if (kd != null) {
+                    //console.log("found %d at %s", midinote_old, kd[0]);  
+                } 
+                if (kd === null ) {
+                    // check string above
+                    kd = this.findMidiNoteOnString(midinote_old, s_old-1, this.cfg, this.data);
+                    if (kd != null) {
+                        //console.log("found %d at %s", midinote_old, kd[0]);  
+                    } 
+                }
+                if (kd === null ) {
+                    // check string below
+                    kd = this.findMidiNoteOnString(midinote_old, s_old+1, this.cfg, this.data);
+                    if (kd != null) {
+                        //console.log("found %d at %s", midinote_old, kd[0]);  
+                    } 
+                }
+                if (kd != null) {
+                    kd[1] = oldData[fs_old];
+                }
+            }
+
+            if (kd != null) {
+                //console.log("INSERTED %s %s", kd[0], JSON.stringify(kd[1]));  
+                this.data[kd[0]] = kd[1];
+            } else {
+                if (stray_notes === false) {
+                    stray_notes_txt += "";
+                } else {
+                    stray_notes_txt += ",";
+                }
+                stray_notes = true;
+                stray_notes_txt += "string " + s_old + " fret "+ f_old; 
+            }
+
+        }
+
+        if (stray_notes) {
+            window.alert (
+                "locations on the fretboard could not be moved: \n" +
+                stray_notes_txt
+            );
+        }
+
         this.draw();
         // fill customize panel with new diagram details
         this.fretboardConfigurator.readRequest();
