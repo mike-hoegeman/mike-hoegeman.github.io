@@ -1767,10 +1767,10 @@ class Fretboard {
                 if (stray_notes === false) {
                     stray_notes_txt += "";
                 } else {
-                    stray_notes_txt += " ,";
+                    stray_notes_txt += ", ";
                 }
                 stray_notes = true;
-                stray_notes_txt += "string " + s_old + " fret "+ f_old; 
+                stray_notes_txt += "string " + (s_old+1) + " fret "+ (f_old+1); 
             }
 
         }
