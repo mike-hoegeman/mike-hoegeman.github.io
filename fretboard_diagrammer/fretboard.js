@@ -1691,6 +1691,8 @@ class Fretboard {
 
         this.reset();
         this.erase();
+        this.cfg.title = oldCfg.title;
+
 
         var stray_notes = false;
         var stray_notes_txt = "";
