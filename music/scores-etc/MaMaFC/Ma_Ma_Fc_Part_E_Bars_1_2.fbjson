@@ -1,6 +1,6 @@
 {
   "cfg": {
-    "title": "Ma-Ma Fc: Part D: Bars 5-8: (F^^F^^F) / (FGF)",
+    "title": "Ma-Ma Fc: Part E: Bars 1-2: (FEbDCBbAG) / (FGF)",
     "stringDisplayWidths": [
       0.4,
       0.6,
@@ -344,9 +344,9 @@
     },
     "f6-s5": {
       "type": "note",
-      "color": "#7aa7cb",
+      "color": "#eae4d7",
       "shape": "circle",
-      "visibility": "visible"
+      "visibility": "transparent"
     },
     "f7-s0": {
       "type": "note",
@@ -356,15 +356,15 @@
     },
     "f7-s1": {
       "type": "note",
-      "color": "#eae4d7",
+      "color": "#7aa7cb",
       "shape": "circle",
-      "visibility": "transparent"
+      "visibility": "visible"
     },
     "f7-s2": {
       "type": "note",
-      "color": "#eae4d7",
+      "color": "#7aa7cb",
       "shape": "circle",
-      "visibility": "transparent"
+      "visibility": "visible"
     },
     "f7-s3": {
       "type": "note",
@@ -392,15 +392,15 @@
     },
     "f8-s1": {
       "type": "note",
-      "color": "#eae4d7",
-      "shape": "circle",
-      "visibility": "transparent"
+      "color": "#7aa7cb",
+      "shape": "diamond",
+      "visibility": "visible"
     },
     "f8-s2": {
       "type": "note",
-      "color": "#eae4d7",
-      "shape": "circle",
-      "visibility": "transparent"
+      "color": "#7aa7cb",
+      "shape": "diamond",
+      "visibility": "visible"
     },
     "f8-s3": {
       "type": "note",
@@ -465,20 +465,20 @@
     "f10-s1": {
       "type": "note",
       "color": "#eae4d7",
-      "shape": "square",
+      "shape": "triangle",
       "visibility": "visible"
     },
     "f10-s2": {
       "type": "note",
-      "color": "#eae4d7",
-      "shape": "circle",
-      "visibility": "transparent"
+      "color": "#7aa7cb",
+      "shape": "triangle",
+      "visibility": "visible"
     },
     "f10-s3": {
       "type": "note",
-      "color": "#eae4d7",
-      "shape": "circle",
-      "visibility": "transparent"
+      "color": "#7aa7cb",
+      "shape": "triangle",
+      "visibility": "visible"
     },
     "f10-s4": {
       "type": "note",
