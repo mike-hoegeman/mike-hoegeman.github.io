@@ -476,9 +476,9 @@
     },
     "f10-s3": {
       "type": "note",
-      "color": "#eae4d7",
-      "shape": "circle",
-      "visibility": "transparent"
+      "color": "#7aa7cb",
+      "shape": "triangle",
+      "visibility": "visible"
     },
     "f10-s4": {
       "type": "note",
@@ -1250,7 +1250,7 @@
     }
   },
   "state": {
-    "selectedAnnotation": {},
+    "selectedAnnotation": null,
     "selected": null,
     "visibility": "transparent",
     "startFret": 0,
