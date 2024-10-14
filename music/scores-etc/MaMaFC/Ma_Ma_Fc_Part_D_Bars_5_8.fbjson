@@ -404,9 +404,9 @@
     },
     "f8-s3": {
       "type": "note",
-      "color": "#eae4d7",
-      "shape": "circle",
-      "visibility": "transparent"
+      "color": "#7aa7cb",
+      "shape": "diamond",
+      "visibility": "visible"
     },
     "f8-s4": {
       "type": "note",
