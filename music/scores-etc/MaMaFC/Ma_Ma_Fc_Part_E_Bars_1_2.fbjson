@@ -477,7 +477,7 @@
     "f10-s3": {
       "type": "note",
       "color": "#7aa7cb",
-      "shape": "triangle",
+      "shape": "square",
       "visibility": "visible"
     },
     "f10-s4": {
