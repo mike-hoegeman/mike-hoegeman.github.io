@@ -1,6 +1,6 @@
 {
   "cfg": {
-    "title": "Birdsong: Part C: Bars 1: ( C D Eb:G / Ab Eb)",
+    "title": "Birdsong: Part C: Bars 1-2: ( D Eb D, C / B C B, C)",
     "stringDisplayWidths": [
       0.4,
       0.6,
@@ -470,15 +470,15 @@
     },
     "f10-s2": {
       "type": "note",
-      "color": "#eae4d7",
+      "color": "#7aa7cb",
       "shape": "circle",
       "visibility": "visible"
     },
     "f10-s3": {
       "type": "note",
-      "color": "#7aa7cb",
+      "color": "#eae4d7",
       "shape": "circle",
-      "visibility": "visible"
+      "visibility": "transparent"
     },
     "f10-s4": {
       "type": "note",
@@ -542,7 +542,7 @@
     },
     "f12-s2": {
       "type": "note",
-      "color": "#7aa7cb",
+      "color": "#eae4d7",
       "shape": "diamond",
       "visibility": "visible",
       "noteText": "<D>"
@@ -767,7 +767,7 @@
       "type": "note",
       "color": "#eae4d7",
       "shape": "circle",
-      "visibility": "transparent"
+      "visibility": "visible"
     },
     "f2-s10": {
       "type": "note",
@@ -801,9 +801,9 @@
     },
     "f3-s9": {
       "type": "note",
-      "color": "#eae4d7",
-      "shape": "circle",
-      "visibility": "transparent"
+      "color": "#7fa25a",
+      "shape": "diamond",
+      "visibility": "visible"
     },
     "f3-s10": {
       "type": "note",
@@ -905,13 +905,13 @@
       "type": "note",
       "color": "#eae4d7",
       "shape": "circle",
-      "visibility": "visible"
+      "visibility": "transparent"
     },
     "f6-s9": {
       "type": "note",
-      "color": "#7fa25a",
-      "shape": "diamond",
-      "visibility": "visible"
+      "color": "#eae4d7",
+      "shape": "circle",
+      "visibility": "transparent"
     },
     "f6-s10": {
       "type": "note",
@@ -1251,7 +1251,7 @@
     }
   },
   "state": {
-    "selectedAnnotation": {},
+    "selectedAnnotation": null,
     "selected": null,
     "visibility": "transparent",
     "startFret": 0,

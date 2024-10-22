@@ -1,6 +1,6 @@
 {
   "cfg": {
-    "title": "Birdsong: Part D: Bars 1-2: ( D Eb D, C / B C B, C)",
+    "title": "Birdsong: Part B: Bars 4: ( F ^Eb ^Eb:Eb / Ab G )",
     "stringDisplayWidths": [
       0.4,
       0.6,
@@ -392,9 +392,9 @@
     },
     "f8-s1": {
       "type": "note",
-      "color": "#eae4d7",
+      "color": "#7aa7cb",
       "shape": "circle",
-      "visibility": "transparent"
+      "visibility": "visible"
     },
     "f8-s2": {
       "type": "note",
@@ -465,14 +465,14 @@
     "f10-s1": {
       "type": "note",
       "color": "#eae4d7",
-      "shape": "circle",
-      "visibility": "transparent"
+      "shape": "diamond",
+      "visibility": "visible"
     },
     "f10-s2": {
       "type": "note",
-      "color": "#7aa7cb",
+      "color": "#eae4d7",
       "shape": "circle",
-      "visibility": "visible"
+      "visibility": "transparent"
     },
     "f10-s3": {
       "type": "note",
@@ -518,9 +518,9 @@
     },
     "f11-s4": {
       "type": "note",
-      "color": "#eae4d7",
-      "shape": "circle",
-      "visibility": "transparent"
+      "color": "#7aa7cb",
+      "shape": "square",
+      "visibility": "visible"
     },
     "f11-s5": {
       "type": "note",
@@ -543,8 +543,8 @@
     "f12-s2": {
       "type": "note",
       "color": "#eae4d7",
-      "shape": "diamond",
-      "visibility": "visible",
+      "shape": "circle",
+      "visibility": "transparent",
       "noteText": "<D>"
     },
     "f12-s3": {
@@ -579,9 +579,9 @@
     },
     "f13-s2": {
       "type": "note",
-      "color": "#7aa7cb",
-      "shape": "triangle",
-      "visibility": "visible"
+      "color": "#eae4d7",
+      "shape": "circle",
+      "visibility": "transparent"
     },
     "f13-s3": {
       "type": "note",
@@ -767,7 +767,7 @@
       "type": "note",
       "color": "#eae4d7",
       "shape": "circle",
-      "visibility": "visible"
+      "visibility": "transparent"
     },
     "f2-s10": {
       "type": "note",
@@ -801,15 +801,15 @@
     },
     "f3-s9": {
       "type": "note",
-      "color": "#7fa25a",
-      "shape": "diamond",
-      "visibility": "visible"
-    },
-    "f3-s10": {
-      "type": "note",
       "color": "#eae4d7",
       "shape": "circle",
       "visibility": "transparent"
+    },
+    "f3-s10": {
+      "type": "note",
+      "color": "#7fa25a",
+      "shape": "circle",
+      "visibility": "visible"
     },
     "f3-s11": {
       "type": "note",
@@ -904,8 +904,8 @@
     "f6-s8": {
       "type": "note",
       "color": "#eae4d7",
-      "shape": "circle",
-      "visibility": "transparent"
+      "shape": "square",
+      "visibility": "visible"
     },
     "f6-s9": {
       "type": "note",
@@ -1251,7 +1251,7 @@
     }
   },
   "state": {
-    "selectedAnnotation": null,
+    "selectedAnnotation": {},
     "selected": null,
     "visibility": "transparent",
     "startFret": 0,
