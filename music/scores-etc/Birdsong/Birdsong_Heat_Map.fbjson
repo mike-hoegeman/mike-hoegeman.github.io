@@ -910,7 +910,7 @@
     "f6-s9": {
       "type": "note",
       "color": "#7fa25a",
-      "shape": "circle",
+      "shape": "diamond",
       "visibility": "visible"
     },
     "f6-s10": {
@@ -982,7 +982,7 @@
     "f8-s9": {
       "type": "note",
       "color": "#7fa25a",
-      "shape": "circle",
+      "shape": "diamond",
       "visibility": "visible"
     },
     "f8-s10": {
