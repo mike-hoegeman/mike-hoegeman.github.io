@@ -1,6 +1,6 @@
 {
   "cfg": {
-    "title": "Birdsong: Part B: Bars 1-2: ( Eb D D:F, D C C:Eb / Ab F, Ab F )",
+    "title": "Birdsong: Part B: Bars 1-2: ( Eb D D:F, D C C:Eb / Ab F, Ab Eb )",
     "stringDisplayWidths": [
       0.4,
       0.6,
@@ -579,7 +579,7 @@
     },
     "f13-s2": {
       "type": "note",
-      "color": "#eae4d7",
+      "color": "#7aa7cb",
       "shape": "diamond",
       "visibility": "visible"
     },
@@ -903,15 +903,15 @@
     },
     "f6-s8": {
       "type": "note",
-      "color": "#eae4d7",
+      "color": "#7fa25a",
       "shape": "circle",
       "visibility": "visible"
     },
     "f6-s9": {
       "type": "note",
-      "color": "#eae4d7",
-      "shape": "circle",
-      "visibility": "transparent"
+      "color": "#7fa25a",
+      "shape": "diamond",
+      "visibility": "visible"
     },
     "f6-s10": {
       "type": "note",
@@ -1251,7 +1251,7 @@
     }
   },
   "state": {
-    "selectedAnnotation": null,
+    "selectedAnnotation": {},
     "selected": null,
     "visibility": "transparent",
     "startFret": 0,

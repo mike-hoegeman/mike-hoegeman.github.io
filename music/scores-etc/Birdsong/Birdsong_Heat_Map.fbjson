@@ -452,9 +452,9 @@
     },
     "f9-s5": {
       "type": "note",
-      "color": "#eae4d7",
+      "color": "#7aa7cb",
       "shape": "circle",
-      "visibility": "transparent"
+      "visibility": "visible"
     },
     "f10-s0": {
       "type": "note",
@@ -524,9 +524,9 @@
     },
     "f11-s5": {
       "type": "note",
-      "color": "#eae4d7",
-      "shape": "circle",
-      "visibility": "transparent"
+      "color": "#7aa7cb",
+      "shape": "diamond",
+      "visibility": "visible"
     },
     "f12-s0": {
       "type": "note",
@@ -596,9 +596,9 @@
     },
     "f13-s5": {
       "type": "note",
-      "color": "#eae4d7",
-      "shape": "circle",
-      "visibility": "transparent"
+      "color": "#7aa7cb",
+      "shape": "triangle",
+      "visibility": "visible"
     },
     "f14-s0": {
       "type": "note",
@@ -1253,7 +1253,7 @@
   "state": {
     "selectedAnnotation": null,
     "selected": null,
-    "visibility": "transparent",
+    "visibility": "hidden",
     "startFret": 0,
     "endFret": 16,
     "enharmonic": 1,
