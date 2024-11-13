@@ -982,7 +982,7 @@
     "f8-s9": {
       "type": "note",
       "color": "#7fa25a",
-      "shape": "diamond",
+      "shape": "triangle",
       "visibility": "visible"
     },
     "f8-s10": {
@@ -1251,7 +1251,7 @@
     }
   },
   "state": {
-    "selectedAnnotation": {},
+    "selectedAnnotation": null,
     "selected": null,
     "visibility": "transparent",
     "startFret": 0,
