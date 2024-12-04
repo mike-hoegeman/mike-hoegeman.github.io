@@ -1,6 +1,6 @@
 {
   "cfg": {
-    "title": "Sarabande3: Part q: Bars 1: ( Bb^ Gb Db Bb,  /  ,  F Bb^ Bb)",
+    "title": "Sarabande3: Part q: Bars 2-3: (  Gb^ Eb^ Cb Gb Eb,  /  , Bb^ Bb)",
     "stringDisplayWidths": [
       0.4,
       0.6,
@@ -242,9 +242,9 @@
     },
     "f6-s0": {
       "type": "note",
-      "color": "#eae4d7",
+      "color": "#7aa7cb",
       "shape": "circle",
-      "visibility": "transparent"
+      "visibility": "visible"
     },
     "f6-s1": {
       "type": "note",
@@ -260,9 +260,9 @@
     },
     "f6-s3": {
       "type": "note",
-      "color": "#eae4d7",
+      "color": "#7aa7cb",
       "shape": "circle",
-      "visibility": "transparent"
+      "visibility": "visible"
     },
     "f6-s4": {
       "type": "note",
@@ -298,7 +298,8 @@
       "type": "note",
       "color": "#eae4d7",
       "shape": "circle",
-      "visibility": "transparent"
+      "visibility": "transparent",
+      "noteText": "Fb"
     },
     "f7-s4": {
       "type": "note",
@@ -320,9 +321,9 @@
     },
     "f8-s1": {
       "type": "note",
-      "color": "#eae4d7",
-      "shape": "circle",
-      "visibility": "transparent"
+      "color": "#7aa7cb",
+      "shape": "diamond",
+      "visibility": "visible"
     },
     "f8-s2": {
       "type": "note",
@@ -358,19 +359,21 @@
       "type": "note",
       "color": "#eae4d7",
       "shape": "circle",
-      "visibility": "transparent"
+      "visibility": "transparent",
+      "noteText": "Fb"
     },
     "f9-s2": {
       "type": "note",
-      "color": "#eae4d7",
-      "shape": "circle",
-      "visibility": "transparent"
+      "color": "#7aa7cb",
+      "shape": "triangle",
+      "visibility": "visible",
+      "noteText": "Cb"
     },
     "f9-s3": {
       "type": "note",
-      "color": "#eae4d7",
-      "shape": "circle",
-      "visibility": "transparent"
+      "color": "#7aa7cb",
+      "shape": "square",
+      "visibility": "visible"
     },
     "f9-s4": {
       "type": "note",
@@ -386,9 +389,9 @@
     },
     "f10-s0": {
       "type": "note",
-      "color": "#7aa7cb",
+      "color": "#eae4d7",
       "shape": "circle",
-      "visibility": "visible"
+      "visibility": "transparent"
     },
     "f10-s1": {
       "type": "note",
@@ -428,15 +431,15 @@
     },
     "f11-s1": {
       "type": "note",
-      "color": "#7aa7cb",
-      "shape": "diamond",
-      "visibility": "visible"
+      "color": "#eae4d7",
+      "shape": "circle",
+      "visibility": "transparent"
     },
     "f11-s2": {
       "type": "note",
-      "color": "#7aa7cb",
+      "color": "#eae4d7",
       "shape": "circle",
-      "visibility": "visible"
+      "visibility": "transparent"
     },
     "f11-s3": {
       "type": "note",
@@ -512,9 +515,9 @@
     },
     "f13-s3": {
       "type": "note",
-      "color": "#7aa7cb",
-      "shape": "triangle",
-      "visibility": "visible"
+      "color": "#eae4d7",
+      "shape": "circle",
+      "visibility": "transparent"
     },
     "f13-s4": {
       "type": "note",
@@ -1238,9 +1241,9 @@
     },
     "f1-s10": {
       "type": "note",
-      "color": "#7fa25a",
+      "color": "#eae4d7",
       "shape": "circle",
-      "visibility": "visible"
+      "visibility": "transparent"
     },
     "f1-s11": {
       "type": "note",
@@ -1250,14 +1253,14 @@
     }
   },
   "state": {
-    "selectedAnnotation": null,
+    "selectedAnnotation": {},
     "selected": null,
-    "visibility": "hidden",
+    "visibility": "transparent",
     "startFret": 0,
-    "endFret": 15,
+    "endFret": 12,
     "enharmonic": 1,
     "intervalRoot": null,
-    "numFrets": 15,
-    "fretboardWidth": 1050
+    "numFrets": 12,
+    "fretboardWidth": 840
   }
 }

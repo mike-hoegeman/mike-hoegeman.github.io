@@ -1,6 +1,6 @@
 {
   "cfg": {
-    "title": "Sarabande3: Part q: Bars 1: ( Bb^ Gb Db Bb,  /  ,  F Bb^ Bb)",
+    "title": "Sarabande3: Part q: Bars 4-5: ( Cb:Eb:Ab^, Ab:Db, Gb:Eb^, Gb:Eb^ / Ab:Eb:Ab^,  , Eb:Eb^:Bb,   Eb^:Bb )",
     "stringDisplayWidths": [
       0.4,
       0.6,
@@ -320,9 +320,9 @@
     },
     "f8-s1": {
       "type": "note",
-      "color": "#eae4d7",
+      "color": "#7fa25a",
       "shape": "circle",
-      "visibility": "transparent"
+      "visibility": "visible"
     },
     "f8-s2": {
       "type": "note",
@@ -364,7 +364,8 @@
       "type": "note",
       "color": "#eae4d7",
       "shape": "circle",
-      "visibility": "transparent"
+      "visibility": "transparent",
+      "noteText": "Cb"
     },
     "f9-s3": {
       "type": "note",
@@ -386,9 +387,9 @@
     },
     "f10-s0": {
       "type": "note",
-      "color": "#7aa7cb",
+      "color": "#eae4d7",
       "shape": "circle",
-      "visibility": "visible"
+      "visibility": "transparent"
     },
     "f10-s1": {
       "type": "note",
@@ -404,9 +405,9 @@
     },
     "f10-s3": {
       "type": "note",
-      "color": "#eae4d7",
-      "shape": "circle",
-      "visibility": "transparent"
+      "color": "#7fa25a",
+      "shape": "triangle",
+      "visibility": "visible"
     },
     "f10-s4": {
       "type": "note",
@@ -428,21 +429,21 @@
     },
     "f11-s1": {
       "type": "note",
-      "color": "#7aa7cb",
-      "shape": "diamond",
-      "visibility": "visible"
+      "color": "#eae4d7",
+      "shape": "circle",
+      "visibility": "transparent"
     },
     "f11-s2": {
       "type": "note",
-      "color": "#7aa7cb",
-      "shape": "circle",
+      "color": "#f2bb1d",
+      "shape": "diamond",
       "visibility": "visible"
     },
     "f11-s3": {
       "type": "note",
-      "color": "#eae4d7",
+      "color": "#f2bb1d",
       "shape": "circle",
-      "visibility": "transparent"
+      "visibility": "visible"
     },
     "f11-s4": {
       "type": "note",
@@ -500,21 +501,21 @@
     },
     "f13-s1": {
       "type": "note",
-      "color": "#eae4d7",
+      "color": "#000000",
       "shape": "circle",
-      "visibility": "transparent"
+      "visibility": "visible"
     },
     "f13-s2": {
       "type": "note",
-      "color": "#eae4d7",
-      "shape": "circle",
-      "visibility": "transparent"
+      "color": "#000000",
+      "shape": "diamond",
+      "visibility": "visible"
     },
     "f13-s3": {
       "type": "note",
-      "color": "#7aa7cb",
-      "shape": "triangle",
-      "visibility": "visible"
+      "color": "#eae4d7",
+      "shape": "circle",
+      "visibility": "transparent"
     },
     "f13-s4": {
       "type": "note",
@@ -548,9 +549,10 @@
     },
     "f14-s3": {
       "type": "note",
-      "color": "#eae4d7",
-      "shape": "circle",
-      "visibility": "transparent"
+      "color": "#000000",
+      "shape": "triangle",
+      "visibility": "visible",
+      "noteText": "Cb"
     },
     "f14-s4": {
       "type": "note",
@@ -638,15 +640,15 @@
     },
     "f3-s6": {
       "type": "note",
-      "color": "#eae4d7",
-      "shape": "circle",
-      "visibility": "transparent"
-    },
-    "f3-s7": {
-      "type": "note",
       "color": "#7fa25a",
       "shape": "square",
       "visibility": "visible"
+    },
+    "f3-s7": {
+      "type": "note",
+      "color": "#eae4d7",
+      "shape": "circle",
+      "visibility": "transparent"
     },
     "f3-s8": {
       "type": "note",
@@ -698,9 +700,9 @@
     },
     "f4-s10": {
       "type": "note",
-      "color": "#eae4d7",
+      "color": "#000000",
       "shape": "circle",
-      "visibility": "transparent"
+      "visibility": "visible"
     },
     "f4-s11": {
       "type": "note",
@@ -758,15 +760,15 @@
     },
     "f6-s8": {
       "type": "note",
-      "color": "#eae4d7",
-      "shape": "circle",
-      "visibility": "transparent"
+      "color": "#000000",
+      "shape": "triangle",
+      "visibility": "visible"
     },
     "f6-s9": {
       "type": "note",
-      "color": "#eae4d7",
-      "shape": "circle",
-      "visibility": "transparent"
+      "color": "#000000",
+      "shape": "diamond",
+      "visibility": "visible"
     },
     "f6-s10": {
       "type": "note",
@@ -1168,13 +1170,15 @@
       "type": "note",
       "color": "#eae4d7",
       "shape": "circle",
-      "visibility": "transparent"
+      "visibility": "transparent",
+      "noteText": "Fb"
     },
     "f0-s11": {
       "type": "note",
       "color": "#eae4d7",
       "shape": "circle",
-      "visibility": "transparent"
+      "visibility": "transparent",
+      "noteText": "Cb"
     },
     "f1-s0": {
       "type": "note",
@@ -1226,21 +1230,22 @@
     },
     "f1-s8": {
       "type": "note",
-      "color": "#eae4d7",
-      "shape": "circle",
-      "visibility": "transparent"
-    },
-    "f1-s9": {
-      "type": "note",
       "color": "#7fa25a",
       "shape": "diamond",
       "visibility": "visible"
     },
-    "f1-s10": {
+    "f1-s9": {
       "type": "note",
       "color": "#7fa25a",
       "shape": "circle",
-      "visibility": "visible"
+      "visibility": "visible",
+      "noteText": "<Bb>"
+    },
+    "f1-s10": {
+      "type": "note",
+      "color": "#eae4d7",
+      "shape": "circle",
+      "visibility": "transparent"
     },
     "f1-s11": {
       "type": "note",
@@ -1250,9 +1255,9 @@
     }
   },
   "state": {
-    "selectedAnnotation": null,
+    "selectedAnnotation": {},
     "selected": null,
-    "visibility": "hidden",
+    "visibility": "transparent",
     "startFret": 0,
     "endFret": 15,
     "enharmonic": 1,
