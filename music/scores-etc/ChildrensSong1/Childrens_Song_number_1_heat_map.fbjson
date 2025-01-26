@@ -771,7 +771,7 @@
     "f2-s10": {
       "type": "note",
       "color": "#7fa25a",
-      "shape": "triangle",
+      "shape": "square",
       "visibility": "visible"
     },
     "f2-s11": {
@@ -1250,7 +1250,7 @@
     }
   },
   "state": {
-    "selectedAnnotation": {},
+    "selectedAnnotation": null,
     "selected": null,
     "visibility": "transparent",
     "startFret": 0,
