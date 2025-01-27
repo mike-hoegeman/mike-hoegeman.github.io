@@ -350,27 +350,27 @@
     },
     "f7-s0": {
       "type": "note",
-      "color": "#b6c6ce",
+      "color": "#eae4d7",
       "shape": "circle",
-      "visibility": "visible"
+      "visibility": "transparent"
     },
     "f7-s1": {
       "type": "note",
-      "color": "#b6c6ce",
+      "color": "#eae4d7",
       "shape": "circle",
-      "visibility": "visible"
+      "visibility": "transparent"
     },
     "f7-s2": {
       "type": "note",
-      "color": "#b6c6ce",
+      "color": "#eae4d7",
       "shape": "circle",
-      "visibility": "visible"
+      "visibility": "transparent"
     },
     "f7-s3": {
       "type": "note",
-      "color": "#b6c6ce",
+      "color": "#eae4d7",
       "shape": "circle",
-      "visibility": "visible"
+      "visibility": "transparent"
     },
     "f7-s4": {
       "type": "note",
@@ -386,27 +386,27 @@
     },
     "f8-s0": {
       "type": "note",
-      "color": "#f2bb1d",
+      "color": "#abbdc8",
       "shape": "circle",
       "visibility": "visible"
     },
     "f8-s1": {
       "type": "note",
-      "color": "#eae4d7",
+      "color": "#abbdc8",
       "shape": "circle",
-      "visibility": "transparent"
+      "visibility": "visible"
     },
     "f8-s2": {
       "type": "note",
-      "color": "#eae4d7",
+      "color": "#abbdc8",
       "shape": "circle",
-      "visibility": "transparent"
+      "visibility": "visible"
     },
     "f8-s3": {
       "type": "note",
-      "color": "#eae4d7",
+      "color": "#abbdc8",
       "shape": "circle",
-      "visibility": "transparent"
+      "visibility": "visible"
     },
     "f8-s4": {
       "type": "note",
@@ -422,27 +422,27 @@
     },
     "f9-s0": {
       "type": "note",
-      "color": "#7aa7cb",
+      "color": "#f2bb1d",
       "shape": "circle",
       "visibility": "visible"
     },
     "f9-s1": {
       "type": "note",
-      "color": "#7aa7cb",
+      "color": "#eae4d7",
       "shape": "circle",
-      "visibility": "visible"
+      "visibility": "transparent"
     },
     "f9-s2": {
       "type": "note",
-      "color": "#7aa7cb",
+      "color": "#eae4d7",
       "shape": "circle",
-      "visibility": "visible"
+      "visibility": "transparent"
     },
     "f9-s3": {
       "type": "note",
-      "color": "#7aa7cb",
+      "color": "#eae4d7",
       "shape": "circle",
-      "visibility": "visible"
+      "visibility": "transparent"
     },
     "f9-s4": {
       "type": "note",
@@ -458,19 +458,19 @@
     },
     "f10-s0": {
       "type": "note",
-      "color": "#eae4d7",
+      "color": "#7aa7cb",
       "shape": "circle",
-      "visibility": "transparent"
+      "visibility": "visible"
     },
     "f10-s1": {
       "type": "note",
-      "color": "#eae4d7",
+      "color": "#7aa7cb",
       "shape": "circle",
-      "visibility": "transparent"
+      "visibility": "visible"
     },
     "f10-s2": {
       "type": "note",
-      "color": "#f2bb1d",
+      "color": "#7aa7cb",
       "shape": "circle",
       "visibility": "visible"
     },
@@ -494,25 +494,25 @@
     },
     "f11-s0": {
       "type": "note",
-      "color": "#b6c6ce",
+      "color": "#eae4d7",
       "shape": "circle",
-      "visibility": "visible"
+      "visibility": "transparent"
     },
     "f11-s1": {
       "type": "note",
-      "color": "#7aa7cb",
+      "color": "#eae4d7",
       "shape": "circle",
-      "visibility": "visible"
+      "visibility": "transparent"
     },
     "f11-s2": {
       "type": "note",
-      "color": "#7aa7cb",
+      "color": "#f2bb1d",
       "shape": "circle",
       "visibility": "visible"
     },
     "f11-s3": {
       "type": "note",
-      "color": "#f2bb1d",
+      "color": "#7aa7cb",
       "shape": "circle",
       "visibility": "visible"
     },
@@ -530,9 +530,9 @@
     },
     "f12-s0": {
       "type": "note",
-      "color": "#eae4d7",
+      "color": "#abbdc8",
       "shape": "circle",
-      "visibility": "transparent"
+      "visibility": "visible"
     },
     "f12-s1": {
       "type": "note",
@@ -548,7 +548,7 @@
     },
     "f12-s3": {
       "type": "note",
-      "color": "#7aa7cb",
+      "color": "#f2bb1d",
       "shape": "circle",
       "visibility": "visible"
     },
@@ -566,27 +566,27 @@
     },
     "f13-s0": {
       "type": "note",
-      "color": "#b6c6ce",
+      "color": "#eae4d7",
       "shape": "circle",
-      "visibility": "visible"
+      "visibility": "transparent"
     },
     "f13-s1": {
       "type": "note",
-      "color": "#eae4d7",
+      "color": "#7aa7cb",
       "shape": "circle",
-      "visibility": "transparent"
+      "visibility": "visible"
     },
     "f13-s2": {
       "type": "note",
-      "color": "#eae4d7",
+      "color": "#7aa7cb",
       "shape": "circle",
-      "visibility": "transparent"
+      "visibility": "visible"
     },
     "f13-s3": {
       "type": "note",
-      "color": "#eae4d7",
+      "color": "#7aa7cb",
       "shape": "circle",
-      "visibility": "transparent"
+      "visibility": "visible"
     },
     "f13-s4": {
       "type": "note",
@@ -602,27 +602,27 @@
     },
     "f14-s0": {
       "type": "note",
-      "color": "#b6c6ce",
+      "color": "#abbdc8",
       "shape": "circle",
       "visibility": "visible"
     },
     "f14-s1": {
       "type": "note",
-      "color": "#b6c6ce",
+      "color": "#eae4d7",
       "shape": "circle",
-      "visibility": "visible"
+      "visibility": "transparent"
     },
     "f14-s2": {
       "type": "note",
-      "color": "#b6c6ce",
+      "color": "#eae4d7",
       "shape": "circle",
-      "visibility": "visible"
+      "visibility": "transparent"
     },
     "f14-s3": {
       "type": "note",
-      "color": "#b6c6ce",
+      "color": "#eae4d7",
       "shape": "circle",
-      "visibility": "visible"
+      "visibility": "transparent"
     },
     "f14-s4": {
       "type": "note",
@@ -638,27 +638,27 @@
     },
     "f15-s0": {
       "type": "note",
-      "color": "#eae4d7",
+      "color": "#abbdc8",
       "shape": "circle",
-      "visibility": "transparent"
+      "visibility": "visible"
     },
     "f15-s1": {
       "type": "note",
-      "color": "#eae4d7",
+      "color": "#abbdc8",
       "shape": "circle",
-      "visibility": "transparent"
+      "visibility": "visible"
     },
     "f15-s2": {
       "type": "note",
-      "color": "#eae4d7",
+      "color": "#abbdc8",
       "shape": "circle",
-      "visibility": "transparent"
+      "visibility": "visible"
     },
     "f15-s3": {
       "type": "note",
-      "color": "#eae4d7",
+      "color": "#abbdc8",
       "shape": "circle",
-      "visibility": "transparent"
+      "visibility": "visible"
     },
     "f15-s4": {
       "type": "note",
@@ -686,21 +686,21 @@
     },
     "f0-s8": {
       "type": "note",
-      "color": "#7fa25a",
-      "shape": "diamond",
-      "visibility": "visible"
+      "color": "#eae4d7",
+      "shape": "circle",
+      "visibility": "transparent"
     },
     "f0-s9": {
       "type": "note",
-      "color": "#7fa25a",
+      "color": "#eae4d7",
       "shape": "circle",
-      "visibility": "visible"
+      "visibility": "transparent"
     },
     "f0-s10": {
       "type": "note",
-      "color": "#7fa25a",
-      "shape": "diamond",
-      "visibility": "visible"
+      "color": "#eae4d7",
+      "shape": "circle",
+      "visibility": "transparent"
     },
     "f0-s11": {
       "type": "note",
@@ -722,21 +722,21 @@
     },
     "f1-s8": {
       "type": "note",
-      "color": "#eae4d7",
-      "shape": "circle",
-      "visibility": "transparent"
+      "color": "#7fa25a",
+      "shape": "diamond",
+      "visibility": "visible"
     },
     "f1-s9": {
       "type": "note",
-      "color": "#eae4d7",
+      "color": "#7fa25a",
       "shape": "circle",
-      "visibility": "transparent"
+      "visibility": "visible"
     },
     "f1-s10": {
       "type": "note",
-      "color": "#eae4d7",
-      "shape": "circle",
-      "visibility": "transparent"
+      "color": "#7fa25a",
+      "shape": "diamond",
+      "visibility": "visible"
     },
     "f1-s11": {
       "type": "note",
@@ -770,9 +770,9 @@
     },
     "f2-s10": {
       "type": "note",
-      "color": "#7fa25a",
-      "shape": "square",
-      "visibility": "visible"
+      "color": "#eae4d7",
+      "shape": "circle",
+      "visibility": "transparent"
     },
     "f2-s11": {
       "type": "note",
@@ -806,9 +806,9 @@
     },
     "f3-s10": {
       "type": "note",
-      "color": "#eae4d7",
-      "shape": "circle",
-      "visibility": "transparent"
+      "color": "#7fa25a",
+      "shape": "square",
+      "visibility": "visible"
     },
     "f3-s11": {
       "type": "note",
@@ -1255,7 +1255,7 @@
     "visibility": "transparent",
     "startFret": 0,
     "endFret": 16,
-    "enharmonic": 0,
+    "enharmonic": 1,
     "intervalRoot": null,
     "numFrets": 16,
     "fretboardWidth": 1120
