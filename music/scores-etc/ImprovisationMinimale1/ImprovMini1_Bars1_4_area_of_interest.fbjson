@@ -1,6 +1,6 @@
 {
   "cfg": {
-    "title": "ImprovMini1: Bars1-4:  area of interest Emin/GMaj w/ use of dim5 Bb",
+    "title": "ImprovMini1: Bars1-4:  area of interest (Emin/GMaj w/ use of dim5th Bb)",
     "stringDisplayWidths": [
       0.4,
       0.6,
@@ -256,7 +256,8 @@
       "type": "note",
       "color": "#c4d39b",
       "shape": "triangle",
-      "visibility": "visible"
+      "visibility": "visible",
+      "noteText": "(E)"
     },
     "f2-s9": {
       "type": "note",
@@ -344,9 +345,9 @@
     },
     "f3-s11": {
       "type": "note",
-      "color": "#eae4d7",
-      "shape": "circle",
-      "visibility": "transparent"
+      "color": "#7fa25a",
+      "shape": "diamond",
+      "visibility": "visible"
     },
     "f4-s0": {
       "type": "note",
@@ -482,9 +483,10 @@
     },
     "f5-s10": {
       "type": "note",
-      "color": "#eae4d7",
-      "shape": "circle",
-      "visibility": "transparent"
+      "color": "#7fa25a",
+      "shape": "square",
+      "visibility": "visible",
+      "noteText": "A"
     },
     "f5-s11": {
       "type": "note",
@@ -1215,7 +1217,7 @@
     }
   },
   "state": {
-    "selectedAnnotation": {},
+    "selectedAnnotation": null,
     "selected": null,
     "visibility": "transparent",
     "startFret": 0,
