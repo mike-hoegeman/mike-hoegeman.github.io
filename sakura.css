@@ -18,6 +18,7 @@ html {
 
 body {
   font-size: 1.8rem;
+  font-weight: 275;
   line-height: 1.618;
   max-width: 50em;
   /* !! max-width: 38em; */
