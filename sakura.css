@@ -32,13 +32,13 @@ body {
 @media (max-width: 850px) {
   body {
     font-size: 1.53rem;
-    font-weight: 300;
+    font-weight: 275;
   }
 }
 @media (max-width: 382px) {
   body {
     font-size: 1.35rem;
-    font-weight: 300;
+    font-weight: 275;
   }
 }
 h1, h2, h3, h4, h5, h6 {
@@ -87,7 +87,8 @@ small, sub, sup {
 }
 
 hr {
-  border-color: #1d7484;
+  /*border-color: #1d7484;*/
+  border-color: #3e6f42;
 }
 
 a {
@@ -95,7 +96,8 @@ a {
   color: #d46c40;
 }
 a:visited {
-  color: #7fa25a;
+  /*color: #7fa25a;*/
+  color: #3e6f42;
 }
 a:hover {
   /*color: #c45e3a;*/
