@@ -707,7 +707,7 @@ class Fretboard {
         this.setAttributes(this.svg, {
             height:  
                 this.cfgDerived.fretHeight +
-                this.cfg.stringSpacing + // space for marker area 
+                this.cfg.stringSpacing*0.5 + // space for marker area 
                 (2 * this.cfg.offsetY),
         })
 
