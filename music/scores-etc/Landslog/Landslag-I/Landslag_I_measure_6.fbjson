@@ -837,7 +837,7 @@
     "f5-s9": {
       "type": "note",
       "color": "#7fa25a",
-      "shape": "diamond",
+      "shape": "triangle",
       "visibility": "visible"
     },
     "f5-s10": {
@@ -1216,12 +1216,12 @@
   "state": {
     "selectedAnnotation": null,
     "selected": null,
-    "visibility": "hidden",
+    "visibility": "transparent",
     "startFret": 0,
-    "endFret": 15,
+    "endFret": 16,
     "enharmonic": 0,
     "intervalRoot": null,
-    "numFrets": 15,
-    "fretboardWidth": 1050
+    "numFrets": 16,
+    "fretboardWidth": 1120
   }
 }
