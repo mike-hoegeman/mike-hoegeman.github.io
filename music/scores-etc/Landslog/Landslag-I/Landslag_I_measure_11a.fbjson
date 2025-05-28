@@ -393,7 +393,7 @@
     "f9-s1": {
       "type": "note",
       "color": "#7aa7cb",
-      "shape": "circle",
+      "shape": "diamond",
       "visibility": "visible"
     },
     "f9-s2": {
@@ -441,7 +441,7 @@
     "f10-s3": {
       "type": "note",
       "color": "#7aa7cb",
-      "shape": "diamond",
+      "shape": "triangle",
       "visibility": "visible"
     },
     "f10-s4": {
@@ -1215,7 +1215,7 @@
     }
   },
   "state": {
-    "selectedAnnotation": {},
+    "selectedAnnotation": null,
     "selected": null,
     "visibility": "hidden",
     "startFret": 0,

@@ -507,7 +507,7 @@
     "f12-s2": {
       "type": "note",
       "color": "#7aa7cb",
-      "shape": "circle",
+      "shape": "diamond",
       "visibility": "visible"
     },
     "f12-s3": {
@@ -519,7 +519,7 @@
     "f12-s4": {
       "type": "note",
       "color": "#7aa7cb",
-      "shape": "diamond",
+      "shape": "triangle",
       "visibility": "visible"
     },
     "f12-s5": {
@@ -1214,9 +1214,9 @@
     }
   },
   "state": {
-    "selectedAnnotation": {},
+    "selectedAnnotation": null,
     "selected": null,
-    "visibility": "hidden",
+    "visibility": "transparent",
     "startFret": 0,
     "endFret": 15,
     "enharmonic": 0,
