@@ -1,6 +1,6 @@
 {
   "cfg": {
-    "title": "Landslag I: measure 11a",
+    "title": "Landslag I: measure 11a (1st half)",
     "stringDisplayWidths": [
       0.4,
       0.6,
@@ -1215,14 +1215,14 @@
     }
   },
   "state": {
-    "selectedAnnotation": null,
+    "selectedAnnotation": {},
     "selected": null,
-    "visibility": "hidden",
+    "visibility": "transparent",
     "startFret": 0,
-    "endFret": 15,
+    "endFret": 16,
     "enharmonic": 0,
     "intervalRoot": null,
-    "numFrets": 15,
-    "fretboardWidth": 1050
+    "numFrets": 16,
+    "fretboardWidth": 1120
   }
 }
