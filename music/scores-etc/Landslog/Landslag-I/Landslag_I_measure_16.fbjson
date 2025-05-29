@@ -724,7 +724,7 @@
     "f2-s8": {
       "type": "note",
       "color": "#7fa25a",
-      "shape": "triangle",
+      "shape": "diamond",
       "visibility": "visible"
     },
     "f2-s9": {
@@ -1219,10 +1219,10 @@
     "selected": null,
     "visibility": "hidden",
     "startFret": 0,
-    "endFret": 15,
+    "endFret": 16,
     "enharmonic": 0,
     "intervalRoot": null,
-    "numFrets": 15,
-    "fretboardWidth": 1050
+    "numFrets": 16,
+    "fretboardWidth": 1120
   }
 }
