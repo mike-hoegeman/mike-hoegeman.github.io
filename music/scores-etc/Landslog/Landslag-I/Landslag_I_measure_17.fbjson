@@ -1217,12 +1217,12 @@
   "state": {
     "selectedAnnotation": null,
     "selected": null,
-    "visibility": "hidden",
+    "visibility": "transparent",
     "startFret": 0,
-    "endFret": 16,
+    "endFret": 15,
     "enharmonic": 0,
     "intervalRoot": null,
-    "numFrets": 16,
-    "fretboardWidth": 1120
+    "numFrets": 15,
+    "fretboardWidth": 1050
   }
 }

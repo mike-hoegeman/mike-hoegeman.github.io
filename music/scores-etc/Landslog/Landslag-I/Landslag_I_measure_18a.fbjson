@@ -513,14 +513,14 @@
     "f12-s3": {
       "type": "note",
       "color": "#7aa7cb",
-      "shape": "circle",
+      "shape": "triangle",
       "visibility": "visible"
     },
     "f12-s4": {
       "type": "note",
-      "color": "#7aa7cb",
-      "shape": "diamond",
-      "visibility": "visible"
+      "color": "#eae4d7",
+      "shape": "circle",
+      "visibility": "hidden"
     },
     "f12-s5": {
       "type": "note",
@@ -663,9 +663,9 @@
     },
     "f0-s10": {
       "type": "note",
-      "color": "#eae4d7",
-      "shape": "circle",
-      "visibility": "hidden"
+      "color": "#7fa25a",
+      "shape": "diamond",
+      "visibility": "visible"
     },
     "f0-s11": {
       "type": "note",
