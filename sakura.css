@@ -1,4 +1,4 @@
-/* Sakura.css v1.4.1
+/* originally: Sakura.css v1.4.1
  * ================
  * Minimal css theme.
  * Project: https://github.com/oxalorg/sakura/
@@ -10,6 +10,21 @@
 /* mono */
 @import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
+/* */
+.site-tiled-background-section {
+  background-image: url('x.png');
+    /*background-repeat: repeat; */
+    /* background-color: #ffffff; */
+    /* Other styling for your div, e.g., height, padding */
+    padding: 20px 8px;
+}
+.plain-section {
+  background-color: #ffffff;
+  opacity: .9;
+  padding: 8px 8px;
+}
+
+
 /* Body */
 html {
   font-size: 62.5%;
@@ -17,6 +32,9 @@ html {
 }
 
 body {
+
+  /* Other styling for your div, e.g., height, padding */
+
   font-size: 1.8rem;
   font-weight: 275;
   line-height: 1.618;
