@@ -1,0 +1,253 @@
+<html>
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="content-type">
+  <title>Theory on Tap</title>
+  <meta content="width=device-width, initial-scale=1" name="viewport">
+  <link href='theory-on-tap.css' id="theory-on-tap-css" rel='stylesheet' type='text/css'>
+  <style>
+    div.img_frame img { width: 100%; }
+    div.img_holder img { float: left; }
+  </style>
+</head>
+
+<body>
+
+<h1 align=center>Theory On Tap<br>Lesson 1: Intervals</h1>
+<div align=center>
+    <p>
+    by: <strong>Rick Bellinger</strong>, <small><i>Et al.</i></small>
+</div>
+
+<p>
+<img src="./images/dot_clear.gif" hspace=8>
+This lesson will cover the concept of <a href="https://en.wikipedia.org/wiki/Interval_(music)">intervals</a>. It will contain much
+terminology that will probably bore the advanced player while confusing the
+beginning player. The important thing is to associate a sound with each
+term. If it doesn't make sense now, hold on to this page - after a few more
+lessons, it probably will.
+
+<h2>Intervals within one octave</h2>
+
+<p>
+<img src="./images/dot_clear.gif" hspace=8>
+An interval is simply the distance between two notes. If we play one note
+after the other, the notes form a "melodic interval." When we play the
+notes together, they form a "harmonic interval." If the two notes are the
+same, we refer to the interval as a "unison." The smallest interval above a
+unison is a "half step" (which, as we shall see below, is also called a
+minor second).  Any notes played on the same string separated
+by one fret are a half step apart. If they are separated by two frets, they
+are a whole step (or major second) apart.  Notes separated by 12 half steps
+make up an Octave. On any one string an octave is made up of
+two notes exactly twelve frets apart. The scale made by playing the notes
+on every fret between the octave notes is a "chromatic" scale.
+
+<p>
+<img src="./images/dot_clear.gif" hspace=8>
+There are twelve distinct notes on most western instruments. We refer to
+the intervals within one octave as seconds, thirds, fourths, fifths,
+sixths, and sevenths.  Unisons, fourth, fifths, and octaves are called
+"perfect" intervals. Seconds, thirds, sixths and sevenths can be either
+"major" or "minor," with the "major" interval being a half step greater
+than the minor interval. Between the perfect fourth and the perfect fifth
+is an interval called the "tri-tone," which has the same distance as three
+whole steps.
+
+<p>
+<img src="./images/dot_clear.gif" hspace=8>
+Below is a chart of the different intervals within one octave and the
+amount of half and whole steps that make up that interval.
+
+<p>
+<div style="display: flex; justify-content: center;" width="100%"><div>
+<table style="border: 3px solid black; border-collapse: collapse;">
+<caption style="textalign:center">Intervals</caption>
+<tr> <td><b>Name</b></td>                 <td><b>Width</b></td></tr>
+<tr><td><a href="https://en.wikipedia.org/wiki/Unison">
+        unison</a></td>               <td>none</td></tr>
+<tr><td><a href="https://en.wikipedia.org/wiki/Semitone#Minor_second">
+        minor second</a></td>         <td>one half step</td></tr>
+<tr><td><a href="https://en.wikipedia.org/wiki/Major_second">
+        major second</a></td>         <td>one whole step</td></tr>
+<tr><td><a href="https://en.wikipedia.org/wiki/Minor_third">
+        minor third</td>          <td>one whole + one half steps</td></tr>
+<tr><td><a href="https://en.wikipedia.org/wiki/Major_third">
+        major third</a></td>          <td>two whole steps</td></tr>
+<tr><td><a href="https://en.wikipedia.org/wiki/Perfect_fourth"> 
+        perfect fourth</td>       <td>two whole steps + one half step</td></tr>
+<tr><td><a href="https://en.wikipedia.org/wiki/Tritone">
+        tritone</a></td>              <td>three whole steps</td></tr>
+<tr><td><a href="https://en.wikipedia.org/wiki/Perfect_fifth">
+        perfect fifth</a></td>        <td>three whole + one half step</td></tr>
+<tr><td><a href="https://en.wikipedia.org/wiki/Minor_sixth">
+        minor sixth</a></td>          <td>four whole steps</td></tr>
+<tr><td><a href="https://en.wikipedia.org/wiki/Major_sixth">
+        major sixth</a></td>         <td>four whole and one half steps</td></tr>
+<tr><td><a href="https://en.wikipedia.org/wiki/Minor_seventh">
+        minor seventh</a></td>        <td>five whole steps</td></tr>
+<tr><td><a href="https://en.wikipedia.org/wiki/Major_seventh">
+        major seventh</td>        <td>five whole and one half steps</td></tr>
+<tr><td><a href="https://en.wikipedia.org/wiki/Octave">
+        octave</td>               <td>six whole steps</td></tr>
+</table>
+</div></div>
+
+<img src="./images/dot_clear.gif" vspace=10>
+
+<p>
+<h2>Intervals on the melody strings</h2>
+<p>
+<img src="./images/dot_clear.gif" hspace=8>
+The diagram below shows how to play these intervals on the melody
+side of the stick. Note that the diagram shows at least two ways
+to play each interval.  comfortably. 
+
+
+<p>
+<small><i>The basic intervals are those
+with the circle symbols. Extended intervals beyond an octave have
+square symbols.
+</i>
+<br>
+R = Root<br>
+m(i) = minor<br>
+M(a) = major<br>
+P = perfect<br>
+TT = tri-tone<br>
+O(ct) = octave<br>
+</small>
+
+<p>
+<a target='popup' href='images/melody_intervals.svg' >
+    <img src='images/melody_intervals.svg'></img>
+</a>
+
+<p>
+<img src="./images/dot_clear.gif" hspace=8>
+First play the root, and then the other note marked with the interval. The
+interval refers to the distance between the root ant the second note. Play
+the notes first as a melodic interval, both ascending and descending, and
+then (unless the notes are on the same string) as a harmonic interval. The
+point here is to demonstrate the sound of the interval. However, you should
+eventually find good fingerings to play each melodic and harmonic interval
+within one octave.
+<img src="./images/dot_clear.gif" vspace=10>
+
+<p>
+<h2>Intervals on the bass strings</h2>
+
+<p>
+<small>
+R = Root<br>
+m(i) = minor<br>
+M(a) = major<br>
+P = perfect<br>
+TT = tri-tone<br>
+O(ct) = octave<br>
+</small>
+
+<p><a target='popup' href='images/bass_intervals.svg' >
+    <img src='images/bass_intervals.svg'></img>
+    </a>
+<p>
+
+<img src="./images/dot_clear.gif" hspace=8>
+Some intervals are difficult to play on the bass side unless you use two
+hands (although some use the thumb of the left
+hand for more reach to play these intervals.)
+
+<img src="./images/dot_clear.gif" vspace=10>
+<p>
+<h2>Diminished, Augmented, flat and sharp intervals</h2>
+
+<p>
+<img src="./images/dot_clear.gif" hspace=8>
+A <b>diminished interval</b> is a half step lower than <i>a minor or perfect</i>
+interval. Thus, a diminished 7th is the same as a major 6th. A diminished
+fifth is the same as a tri-tone. 
+
+<p>
+<img src="./images/dot_clear.gif" hspace=8>
+An <b>augmented interval</b> is always a half
+step higher than a <i>major or perfect</i> interval. 
+An augmented 5th is the same as a minor 6th, and an augmented 4th
+is the same as a tri-tone. Note that all diminished and augmented
+intervals will be equal to another interval.  The terms augmented
+or diminished are usually used when the interval is different from
+one would expect from the type of chord or the key.
+
+<p>
+<img src="./images/dot_clear.gif" hspace=8>
+Flat ( &#x266d; ) or sharp ( &#x266f; ) intervals are other
+common terms used to denote intervals. A flat interval is either a
+minor or diminished interval; it is used to identify an interval a
+half step lower than one would expect from the chord type or key.
+A &#x266d;7 will usually mean a minor 7th. Sharps are usually augmented
+intervals but sometimes can be major intervals, and are used to
+identify an interval one half step higher than one would expect. A
+&#x266f;6 is often a major 6 interval in a minor chord or key, which
+ordinarily contains a minor 6. A tri-tone is often called a &#x266d;5 or
+a &#x266f;4.  
+
+<p>
+<h2>Intervals greater than one octave.</h2>
+<p>
+<img src="./images/dot_clear.gif" hspace=8>
+The number sequence continues beyond the octave in a similar fashion. A 9th
+is the same as a 2nd but one octave higher. An 11th is the same as a 4th +
+one octave, and a 13th is the same as a 6th + one octave. These terms are
+mostly used for extended seventh chords. The terms 10th, 12th, and 14th are
+not usually used for reasons that will become clear when we discuss chords.
+
+<img src="./images/dot_clear.gif" vspace=10>
+
+<h2>Inversions</h2>
+<p>
+<img src="./images/dot_clear.gif" hspace=8>
+When you descend from the root to an interval of on fourth, the second note
+will be an octave below the fifth. Thus the "inversion" of a perfect fourth
+is a perfect fifth. The rules about inversions are:
+
+<ul>
+<li>
+If you add up the interval numbers of an interval and it's inversion, the total is always 9
+<li>
+The inversion of a major interval will always be a minor interval, and vice versa
+<li>
+The inversion of an augmented interval is always a diminished interval, and vice versa
+<li>
+The inversions of perfect intervals are always perfect
+</ul>
+
+<img src="./images/dot_clear.gif" vspace=10>
+
+<h2>Ear training</h2>
+<p>
+<img src="./images/dot_clear.gif" hspace=8>
+It is important to be able to distinguish different intervals by ear.
+Practice the intervals all over the stick. Play intervals at random, and
+try to identify them. There are various books with cassette tapes for ear
+training (most notably those by David N. Baker). There are also various
+software tutorial programs available.
+
+<p>
+<hr>
+<b>Lessons:</b>
+<a href=Intro.html>Intro</a> | <b>1</b> |
+<a href=tot.2.html>2</a> |
+<a href=tot.3.html>3 - Part I</a> |
+<a href=tot.3a.html>3 - Part II</a> |
+<a href=tot.4.html>4 - Part I</a> |
+<a href=tot.4a.html>4 - Part II</a> |
+<a href=tot.5.html>5</a> |
+<a href=tot.6.html>6</a> |
+<a href=tot.7.html>7</a> |
+<a href=tot.8.html>8</a> |
+<a href=tot.9.html>9</a> |
+<a href=tot.10.html>10</a> |
+<a href=tot.11.html>11</a> |
+<a href=tot.12.html>12</a> |
+
+<br><cite><small>copyright &#169 1995 Rick Bellinger</small></cite>
+</body>
+</html>
