@@ -356,9 +356,9 @@
     },
     "f7-s1": {
       "type": "note",
-      "color": "#eae4d7",
+      "color": "#7aa7cb",
       "shape": "circle",
-      "visibility": "hidden"
+      "visibility": "visible"
     },
     "f7-s2": {
       "type": "note",
@@ -428,9 +428,9 @@
     },
     "f9-s1": {
       "type": "note",
-      "color": "#7aa7cb",
-      "shape": "diamond",
-      "visibility": "visible"
+      "color": "#eae4d7",
+      "shape": "circle",
+      "visibility": "hidden"
     },
     "f9-s2": {
       "type": "note",

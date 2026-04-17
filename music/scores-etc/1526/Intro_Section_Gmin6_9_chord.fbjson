@@ -394,7 +394,7 @@
       "type": "note",
       "color": "#eae4d7",
       "shape": "circle",
-      "visibility": "hidden"
+      "visibility": "visible"
     },
     "f8-s2": {
       "type": "note",
@@ -430,7 +430,7 @@
       "type": "note",
       "color": "#7aa7cb",
       "shape": "diamond",
-      "visibility": "selected"
+      "visibility": "visible"
     },
     "f9-s2": {
       "type": "note",
@@ -1251,8 +1251,8 @@
     }
   },
   "state": {
-    "selectedAnnotation": {},
-    "selected": {},
+    "selectedAnnotation": null,
+    "selected": null,
     "visibility": "hidden",
     "startFret": 2,
     "endFret": 14,
