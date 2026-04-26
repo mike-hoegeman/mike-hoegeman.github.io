@@ -1,6 +1,6 @@
 {
   "cfg": {
-    "title": "1526 Outro: Dm9 Chord",
+    "title": "1526 Outro: Bbadd4 Chord",
     "stringDisplayWidths": [
       0.4,
       0.6,
@@ -428,9 +428,9 @@
     },
     "f9-s1": {
       "type": "note",
-      "color": "#7aa7cb",
+      "color": "#eae4d7",
       "shape": "circle",
-      "visibility": "visible"
+      "visibility": "hidden"
     },
     "f9-s2": {
       "type": "note",
@@ -470,9 +470,9 @@
     },
     "f10-s2": {
       "type": "note",
-      "color": "#7aa7cb",
-      "shape": "diamond",
-      "visibility": "visible"
+      "color": "#eae4d7",
+      "shape": "circle",
+      "visibility": "hidden"
     },
     "f10-s3": {
       "type": "note",
@@ -482,9 +482,9 @@
     },
     "f10-s4": {
       "type": "note",
-      "color": "#7aa7cb",
-      "shape": "triangle",
-      "visibility": "visible"
+      "color": "#eae4d7",
+      "shape": "circle",
+      "visibility": "hidden"
     },
     "f10-s5": {
       "type": "note",
@@ -542,9 +542,9 @@
     },
     "f12-s2": {
       "type": "note",
-      "color": "#eae4d7",
-      "shape": "circle",
-      "visibility": "hidden"
+      "color": "#7aa7cb",
+      "shape": "diamond",
+      "visibility": "visible"
     },
     "f12-s3": {
       "type": "note",
@@ -554,9 +554,9 @@
     },
     "f12-s4": {
       "type": "note",
-      "color": "#eae4d7",
-      "shape": "circle",
-      "visibility": "hidden"
+      "color": "#7aa7cb",
+      "shape": "triangle",
+      "visibility": "visible"
     },
     "f12-s5": {
       "type": "note",
@@ -590,9 +590,9 @@
     },
     "f13-s4": {
       "type": "note",
-      "color": "#eae4d7",
-      "shape": "circle",
-      "visibility": "hidden"
+      "color": "#f2bb1d",
+      "shape": "triangle",
+      "visibility": "visible"
     },
     "f13-s5": {
       "type": "note",
@@ -686,16 +686,16 @@
     },
     "f0-s8": {
       "type": "note",
-      "color": "#7fa25a",
+      "color": "#eae4d7",
       "shape": "circle",
-      "visibility": "visible",
+      "visibility": "hidden",
       "noteText": "D*"
     },
     "f0-s9": {
       "type": "note",
-      "color": "#7fa25a",
-      "shape": "diamond",
-      "visibility": "visible"
+      "color": "#eae4d7",
+      "shape": "circle",
+      "visibility": "hidden"
     },
     "f0-s10": {
       "type": "note",
@@ -729,14 +729,15 @@
     },
     "f1-s9": {
       "type": "note",
-      "color": "#eae4d7",
+      "color": "#7fa25a",
       "shape": "circle",
-      "visibility": "hidden"
+      "visibility": "visible",
+      "noteText": "Bb*"
     },
     "f1-s10": {
       "type": "note",
       "color": "#7fa25a",
-      "shape": "triangle",
+      "shape": "diamond",
       "visibility": "visible"
     },
     "f1-s11": {
@@ -813,9 +814,9 @@
     },
     "f3-s11": {
       "type": "note",
-      "color": "#eae4d7",
-      "shape": "circle",
-      "visibility": "hidden"
+      "color": "#7fa25a",
+      "shape": "square",
+      "visibility": "visible"
     },
     "f4-s6": {
       "type": "note",
@@ -1254,8 +1255,8 @@
     "selectedAnnotation": null,
     "selected": null,
     "visibility": "hidden",
-    "startFret": 0,
-    "endFret": 13,
+    "startFret": 1,
+    "endFret": 14,
     "enharmonic": 1,
     "intervalRoot": null,
     "numFrets": 13,
