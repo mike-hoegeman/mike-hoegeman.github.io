@@ -1,6 +1,6 @@
 {
   "cfg": {
-    "title": "1526 Outro: Asus2sus4 Chord",
+    "title": "1526 Outro: Absus2sus#4 Chord",
     "stringDisplayWidths": [
       0.4,
       0.6,
@@ -512,15 +512,15 @@
     },
     "f11-s3": {
       "type": "note",
-      "color": "#eae4d7",
-      "shape": "circle",
-      "visibility": "hidden"
+      "color": "#7aa7cb",
+      "shape": "triangle",
+      "visibility": "visible"
     },
     "f11-s4": {
       "type": "note",
-      "color": "#eae4d7",
-      "shape": "circle",
-      "visibility": "hidden"
+      "color": "#7aa7cb",
+      "shape": "square",
+      "visibility": "visible"
     },
     "f11-s5": {
       "type": "note",
@@ -548,15 +548,15 @@
     },
     "f12-s3": {
       "type": "note",
-      "color": "#7aa7cb",
-      "shape": "square",
-      "visibility": "visible"
-    },
-    "f12-s4": {
-      "type": "note",
       "color": "#eae4d7",
       "shape": "circle",
       "visibility": "hidden"
+    },
+    "f12-s4": {
+      "type": "note",
+      "color": "#f2bb1d",
+      "shape": "square",
+      "visibility": "visible"
     },
     "f12-s5": {
       "type": "note",
@@ -693,9 +693,9 @@
     },
     "f0-s9": {
       "type": "note",
-      "color": "#7fa25a",
+      "color": "#eae4d7",
       "shape": "circle",
-      "visibility": "visible",
+      "visibility": "hidden",
       "noteText": "A*"
     },
     "f0-s10": {
@@ -815,7 +815,7 @@
     "f3-s11": {
       "type": "note",
       "color": "#7fa25a",
-      "shape": "square",
+      "shape": "circle",
       "visibility": "visible"
     },
     "f4-s6": {
@@ -844,9 +844,10 @@
     },
     "f4-s10": {
       "type": "note",
-      "color": "#eae4d7",
-      "shape": "circle",
-      "visibility": "hidden"
+      "color": "#7fa25a",
+      "shape": "diamond",
+      "visibility": "visible",
+      "noteText": "Ab*"
     },
     "f4-s11": {
       "type": "note",
