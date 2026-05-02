@@ -393,7 +393,7 @@
     "f8-s1": {
       "type": "note",
       "color": "#7aa7cb",
-      "shape": "circle",
+      "shape": "diamond",
       "visibility": "visible"
     },
     "f8-s2": {
@@ -471,13 +471,13 @@
     "f10-s2": {
       "type": "note",
       "color": "#7aa7cb",
-      "shape": "diamond",
+      "shape": "triangle",
       "visibility": "visible"
     },
     "f10-s3": {
       "type": "note",
       "color": "#7aa7cb",
-      "shape": "triangle",
+      "shape": "square",
       "visibility": "visible"
     },
     "f10-s4": {
@@ -1251,9 +1251,9 @@
     }
   },
   "state": {
-    "selectedAnnotation": {},
+    "selectedAnnotation": null,
     "selected": null,
-    "visibility": "hidden",
+    "visibility": "transparent",
     "startFret": 2,
     "endFret": 12,
     "enharmonic": 1,
