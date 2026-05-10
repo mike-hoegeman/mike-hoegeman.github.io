@@ -24,6 +24,11 @@
   padding: 8px 8px;
 }
 
+.framed-image {
+  background-image: url('x.png');
+  padding: 8px 0px 8px 0px; 
+}
+
 
 /* Body */
 html {
