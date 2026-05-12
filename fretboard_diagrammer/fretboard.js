@@ -1383,8 +1383,10 @@ class Fretboard {
         };
 
         if (attrs === null) {
-            /* preserve the existing note text color in the edit div overlay */
-            //dststyles['color'] = "#ffffff"; //srcstyles['color'];
+            const shape = this.noteShape(selected);
+            const c = shape.getAttribute('fill')
+            const tc = this.getContrastColor50(c);
+            dststyles['color'] = tc;
 
             // called for note label edit
             attrs = {
@@ -1444,7 +1446,7 @@ class Fretboard {
         div.setAttribute('id', 'editable-div')
         div.addEventListener('keydown', (event) => {
             event.stopPropagation();
-            if (event.code === 'Enter') {
+            if ((event.code === 'Escape')||(event.code === 'Enter')) {
                 event.target.blur();
             }
         });
@@ -1465,21 +1467,27 @@ class Fretboard {
 
             const cstr = selected.className.baseVal;
             const classlist = cstr.split(/\s+/);
+            var textcolor;
             if (classlist.includes("annotation")) {
                 newText = newText.trim();
                 this.elemText(selected).textContent = newText;
                 this.cfg.title = newText;
+                textcolor = this.cfg.color['title'];
             } else {
                 // don't allow empty labels
                 if (newText.trim()) {
                     this.updateNote(selected, { noteText: newText, });
                 }
+                textcolor = this.noteCalcTextColor(selected)
             }
 
             this.editableText.children[0].textContent = '';
+
+
             this.setAttributes(selectedText, {
                 styles: {
                     display: 'block',
+                    fill: textcolor,
                 }
             });
             this.setAttributes(this.editableText, {
@@ -1488,6 +1496,7 @@ class Fretboard {
                 }
             });
         })
+
         this.editableText.appendChild(div);
         this.svg.appendChild(this.editableText);
     }
@@ -1506,6 +1515,22 @@ class Fretboard {
         this.updateNote(note, {
             visibility: onOff ? 'highlight' : 'visible'
         });
+    }
+
+    noteCalcTextColor(elem) {
+        const shape = this.noteShape(elem);
+        const sc = shape.getAttribute('fill');
+        const tc = this.getContrastColor50(sc);
+        return tc;
+    }
+
+    normalizeColorForNote(c) {
+        // convert all colors to color hex values
+        if ((c.length > 0) && (c.charAt(0) === '#')) {
+        } else {
+            c = colorToHex(c);
+        }
+        return c;
     }
 
     updateNote(elem, update) {
@@ -1528,20 +1553,16 @@ class Fretboard {
         }
 
         if ('color' in update) {
-            var c = update.color
+            const c = this.normalizeColorForNote(update.color);
             const shape = this.noteShape(elem);
-            const text = this.noteText(elem);
-            // convert all colors to color hex values
-            if ((c.length > 0) && (c.charAt(0) === '#')) {
-            } else {
-                c = colorToHex(c);
-            }
-
+            // set shape fill color
             shape.setAttribute('fill', c);
+
             // change the text color to contrast with the shape color
             // use style attr here because css will override fill 
             // and stroke attr
-            const tc = this.getContrastColor50(c);
+            const text = this.noteText(elem);
+            const tc = this.noteCalcTextColor(elem)
             text.setAttribute('style', 'fill: '+tc);
             //text.setAttribute('stroke', tc);
         }
@@ -1551,7 +1572,17 @@ class Fretboard {
         elem.setAttribute('class', classValue);
 
         if ('noteText' in update) {
-            this.noteText(elem).textContent = update.noteText;
+            const elem_note_text = this.noteText(elem)
+            elem_note_text.textContent = update.noteText;
+
+            /* recalc text color */
+            const shape = this.noteShape(elem);
+            const shape_fill_color = shape.getAttribute('fill')
+            const text_color = this.getContrastColor50(shape_fill_color);
+            // use style attr here because css will override fill 
+            // and stroke attr
+            const style_str = 'fill: ' + text_color;
+            elem_note_text.setAttribute('style', style_str);
         }
 
         const noteData = this.data[elem.id];
