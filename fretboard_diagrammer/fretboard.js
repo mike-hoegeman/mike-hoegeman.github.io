@@ -746,6 +746,15 @@ class Fretboard {
             }
 
             switch (event.code) {
+                case 'Escape':
+                    if (this.state.selected) {
+                        this.updateNote(this.state.selected, {
+                            visibility: 'visible',
+                        });
+                        this.state.selected = null;
+                    }
+                    event.target.blur();
+                    break;
                 case 'Backspace':
                 case 'Delete':
                     this.deleteNote()
@@ -1374,6 +1383,10 @@ class Fretboard {
         };
 
         if (attrs === null) {
+            /* preserve the existing note text color in the edit div overlay */
+            //dststyles['color'] = "#ffffff"; //srcstyles['color'];
+
+            // called for note label edit
             attrs = {
                 class: 'visible',
                 x: x - this.DEF.circleRadius,
@@ -1435,6 +1448,8 @@ class Fretboard {
                 event.target.blur();
             }
         });
+
+        /* blur means focus has been lost */
         div.addEventListener('blur', (event) => {
             //if (!this.state.selected) { return; }
             const selected = this.selectedEditable();
