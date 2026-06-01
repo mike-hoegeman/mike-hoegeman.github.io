@@ -542,7 +542,7 @@
     },
     "f12-s2": {
       "type": "note",
-      "color": "white",
+      "color": "#eae4d7",
       "shape": "circle",
       "visibility": "visible"
     },
@@ -728,7 +728,7 @@
     },
     "f1-s9": {
       "type": "note",
-      "color": "#ffffff",
+      "color": "#eae4d7",
       "shape": "circle",
       "visibility": "visible"
     },
@@ -860,7 +860,7 @@
     },
     "f5-s7": {
       "type": "note",
-      "color": "#FFFFFF",
+      "color": "#eae4d7",
       "shape": "circle",
       "visibility": "visible"
     },

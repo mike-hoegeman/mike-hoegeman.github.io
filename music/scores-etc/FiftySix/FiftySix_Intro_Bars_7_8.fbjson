@@ -650,7 +650,7 @@
     },
     "f15-s2": {
       "type": "note",
-      "color": "white",
+      "color": "#eae4d7",
       "shape": "triangle",
       "visibility": "visible"
     },
@@ -866,7 +866,7 @@
     },
     "f5-s8": {
       "type": "note",
-      "color": "#FFFFFF",
+      "color": "#eae4d7",
       "shape": "circle",
       "visibility": "visible"
     },
