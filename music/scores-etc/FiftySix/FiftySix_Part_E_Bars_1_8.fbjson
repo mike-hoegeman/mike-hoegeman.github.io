@@ -33,7 +33,19 @@
     "markerStyles": [
       "fret-number",
       "linear-inlay"
-    ]
+    ],
+    "color": {
+      "app-background": "#ffffff",
+      "background": "none",
+      "fret-marker": "#000000",
+      "small-fret-marker": "#929494",
+      "nut": "#536061",
+      "string": "#3a3b3b",
+      "fret": "#3a3b3b",
+      "inlay": "#c6d5cc",
+      "note-default": "#eae4d7",
+      "title": "#000000"
+    }
   },
   "data": {
     "f0-s0": {
@@ -1052,7 +1064,7 @@
     },
     "f14-s1": {
       "type": "note",
-      "color": "#4d6aa8",
+      "color": "#7aa7cb",
       "shape": "circle",
       "visibility": "visible"
     },
@@ -1124,7 +1136,7 @@
     },
     "f15-s1": {
       "type": "note",
-      "color": "#4d6aa8",
+      "color": "#7aa7cb",
       "shape": "diamond",
       "visibility": "visible"
     },
@@ -1232,7 +1244,7 @@
     },
     "f17-s1": {
       "type": "note",
-      "color": "white",
+      "color": "#eae4d7",
       "shape": "triangle",
       "visibility": "visible"
     },
@@ -1372,7 +1384,7 @@
   "state": {
     "selectedAnnotation": null,
     "selected": null,
-    "visibility": "transparent",
+    "visibility": "hidden",
     "startFret": 11,
     "endFret": 20,
     "enharmonic": 1,
