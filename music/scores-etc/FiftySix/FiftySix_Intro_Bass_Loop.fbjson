@@ -722,7 +722,7 @@
     },
     "f1-s8": {
       "type": "note",
-      "color": "#f2bb1d",
+      "color": "#eae4d7",
       "shape": "diamond",
       "visibility": "visible"
     },
@@ -1252,12 +1252,12 @@
   "state": {
     "selectedAnnotation": null,
     "selected": null,
-    "visibility": "transparent",
+    "visibility": "hidden",
     "startFret": 0,
-    "endFret": 6,
+    "endFret": 9,
     "enharmonic": 1,
     "intervalRoot": null,
-    "numFrets": 6,
-    "fretboardWidth": 420
+    "numFrets": 9,
+    "fretboardWidth": 630
   }
 }

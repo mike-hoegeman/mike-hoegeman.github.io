@@ -45,7 +45,19 @@
     "markerStyles": [
       "fret-number",
       "linear-inlay"
-    ]
+    ],
+    "color": {
+      "app-background": "#ffffff",
+      "background": "none",
+      "fret-marker": "#000000",
+      "small-fret-marker": "#929494",
+      "nut": "#536061",
+      "string": "#3a3b3b",
+      "fret": "#3a3b3b",
+      "inlay": "#c6d5cc",
+      "note-default": "#eae4d7",
+      "title": "#000000"
+    }
   },
   "data": {
     "o-s0": {
@@ -716,7 +728,7 @@
     },
     "f1-s9": {
       "type": "note",
-      "color": "#406358",
+      "color": "#7fa25a",
       "shape": "diamond",
       "visibility": "visible"
     },
@@ -794,7 +806,7 @@
     },
     "f3-s10": {
       "type": "note",
-      "color": "#406358",
+      "color": "#7fa25a",
       "shape": "square",
       "visibility": "visible"
     },
@@ -896,13 +908,13 @@
     },
     "f6-s9": {
       "type": "note",
-      "color": "#ac443a",
+      "color": "#dc6c40",
       "shape": "triangle",
       "visibility": "visible"
     },
     "f6-s10": {
       "type": "note",
-      "color": "#ac443a",
+      "color": "#dc6c40",
       "shape": "diamond",
       "visibility": "visible"
     },
@@ -1238,14 +1250,14 @@
     }
   },
   "state": {
-    "selectedAnnotation": {},
+    "selectedAnnotation": null,
     "selected": null,
     "visibility": "hidden",
     "startFret": 0,
-    "endFret": 16,
+    "endFret": 9,
     "enharmonic": 1,
     "intervalRoot": null,
-    "numFrets": 16,
-    "fretboardWidth": 1120
+    "numFrets": 9,
+    "fretboardWidth": 630
   }
 }
