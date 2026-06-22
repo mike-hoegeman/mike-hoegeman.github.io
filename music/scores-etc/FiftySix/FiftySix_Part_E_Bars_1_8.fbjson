@@ -566,9 +566,9 @@
     },
     "f7-s2": {
       "type": "note",
-      "color": "white",
+      "color": "#7aa7cb",
       "shape": "circle",
-      "visibility": "hidden"
+      "visibility": "visible"
     },
     "f7-s3": {
       "type": "note",
@@ -638,9 +638,9 @@
     },
     "f8-s2": {
       "type": "note",
-      "color": "white",
-      "shape": "circle",
-      "visibility": "hidden"
+      "color": "#7aa7cb",
+      "shape": "diamond",
+      "visibility": "visible"
     },
     "f8-s3": {
       "type": "note",
@@ -782,9 +782,9 @@
     },
     "f10-s2": {
       "type": "note",
-      "color": "white",
-      "shape": "circle",
-      "visibility": "hidden"
+      "color": "#7aa7cb",
+      "shape": "triangle",
+      "visibility": "visible"
     },
     "f10-s3": {
       "type": "note",
@@ -1064,9 +1064,9 @@
     },
     "f14-s1": {
       "type": "note",
-      "color": "#7aa7cb",
+      "color": "#eae4d7",
       "shape": "circle",
-      "visibility": "visible"
+      "visibility": "hidden"
     },
     "f14-s2": {
       "type": "note",
@@ -1136,9 +1136,9 @@
     },
     "f15-s1": {
       "type": "note",
-      "color": "#7aa7cb",
-      "shape": "diamond",
-      "visibility": "visible"
+      "color": "#eae4d7",
+      "shape": "circle",
+      "visibility": "hidden"
     },
     "f15-s2": {
       "type": "note",
@@ -1245,8 +1245,8 @@
     "f17-s1": {
       "type": "note",
       "color": "#eae4d7",
-      "shape": "triangle",
-      "visibility": "visible"
+      "shape": "circle",
+      "visibility": "hidden"
     },
     "f17-s2": {
       "type": "note",
@@ -1385,8 +1385,8 @@
     "selectedAnnotation": null,
     "selected": null,
     "visibility": "hidden",
-    "startFret": 11,
-    "endFret": 20,
+    "startFret": 5,
+    "endFret": 14,
     "enharmonic": 1,
     "intervalRoot": null,
     "numFrets": 9,
