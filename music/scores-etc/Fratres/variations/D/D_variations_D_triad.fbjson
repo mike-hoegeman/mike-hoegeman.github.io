@@ -1,6 +1,6 @@
 {
   "cfg": {
-    "title": "C#",
+    "title": "D variations: D triad",
     "stringDisplayWidths": [
       0.4,
       0.6,
@@ -356,9 +356,9 @@
     },
     "f4-s9": {
       "type": "note",
-      "color": "#f2bb1d",
-      "shape": "diamond",
-      "visibility": "visible",
+      "color": "#eae4d7",
+      "shape": "circle",
+      "visibility": "hidden",
       "noteText": "C#"
     },
     "f5-s0": {
@@ -417,9 +417,9 @@
     },
     "f5-s9": {
       "type": "note",
-      "color": "#eae4d7",
-      "shape": "circle",
-      "visibility": "hidden"
+      "color": "#f2bb1d",
+      "shape": "triangle",
+      "visibility": "visible"
     },
     "f6-s0": {
       "type": "note",
@@ -495,9 +495,9 @@
     },
     "f7-s2": {
       "type": "note",
-      "color": "#7aa7cb",
+      "color": "#eae4d7",
       "shape": "circle",
-      "visibility": "visible"
+      "visibility": "hidden"
     },
     "f7-s3": {
       "type": "note",
@@ -609,9 +609,9 @@
     },
     "f9-s1": {
       "type": "note",
-      "color": "#7aa7cb",
-      "shape": "diamond",
-      "visibility": "visible"
+      "color": "#eae4d7",
+      "shape": "circle",
+      "visibility": "hidden"
     },
     "f9-s2": {
       "type": "note",
@@ -669,15 +669,15 @@
     },
     "f10-s1": {
       "type": "note",
-      "color": "#eae4d7",
-      "shape": "circle",
-      "visibility": "hidden"
+      "color": "#7aa7cb",
+      "shape": "diamond",
+      "visibility": "visible"
     },
     "f10-s2": {
       "type": "note",
-      "color": "#eae4d7",
+      "color": "#7aa7cb",
       "shape": "circle",
-      "visibility": "hidden"
+      "visibility": "visible"
     },
     "f10-s3": {
       "type": "note",
@@ -1215,7 +1215,7 @@
     }
   },
   "state": {
-    "selectedAnnotation": {},
+    "selectedAnnotation": null,
     "selected": null,
     "visibility": "transparent",
     "startFret": 4,
