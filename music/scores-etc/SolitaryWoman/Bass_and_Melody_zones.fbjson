@@ -634,7 +634,8 @@
       "type": "note",
       "color": "#dc6c40",
       "shape": "circle",
-      "visibility": "visible"
+      "visibility": "visible",
+      "noteText": "D4"
     },
     "f4-s6": {
       "type": "note",
@@ -694,7 +695,8 @@
       "type": "note",
       "color": "#dc6c40",
       "shape": "circle",
-      "visibility": "visible"
+      "visibility": "visible",
+      "noteText": "D3"
     },
     "f5-s10": {
       "type": "note",
@@ -754,7 +756,8 @@
       "type": "note",
       "color": "#dc6c40",
       "shape": "circle",
-      "visibility": "visible"
+      "visibility": "visible",
+      "noteText": "D2"
     },
     "f7-s8": {
       "type": "note",
@@ -1327,7 +1330,7 @@
     "visibility": "transparent",
     "startFret": 0,
     "endFret": 16,
-    "enharmonic": 1,
+    "enharmonic": 0,
     "intervalRoot": null,
     "numFrets": 16,
     "fretboardWidth": 1120
