@@ -1330,7 +1330,7 @@
     "visibility": "transparent",
     "startFret": 0,
     "endFret": 16,
-    "enharmonic": 0,
+    "enharmonic": 1,
     "intervalRoot": null,
     "numFrets": 16,
     "fretboardWidth": 1120
